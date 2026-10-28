@@ -1,0 +1,21 @@
+# Secrets: never commit these
+.env
+.env.*
+*.env
+!.env.example
+.near-credentials/
+salts/
+secrets/
+*.pem
+*.key
+
+# Build output
+node_modules/
+target/
+dist/
+__pycache__/
+*.pyc
+
+# System files
+.DS_Store
+*.log
