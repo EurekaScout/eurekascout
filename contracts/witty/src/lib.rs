@@ -23,6 +23,9 @@ const MAX_LABEL_BYTES: usize = 32;
 /// Most calls returned by one `get_calls` view.
 const MAX_PAGE: u32 = 50;
 
+/// Version of this contract's code, shown in `get_config`.
+const CONTRACT_VERSION: &str = "1.0.0";
+
 const EVENT_STANDARD: &str = "eurekascout";
 const EVENT_VERSION: &str = "1.0.0";
 
@@ -67,6 +70,7 @@ pub struct CallView {
 
 #[near(serializers = [json])]
 pub struct ConfigView {
+    pub version: String,
     pub owner: AccountId,
     pub official_start: U64,
     pub reveal_window: U64,
@@ -88,6 +92,11 @@ pub struct Contract {
     owner: AccountId,
     official_start: u64,
     reveal_window: u64,
+    /// The longest reveal window ever used, so `get_record` knows how far back
+    /// a call could still be waiting.
+    max_window: u64,
+    revealed_count: u64,
+    warm_up_count: u64,
     calls: Vector<SealedCall>,
     by_hash: LookupMap<[u8; 32], u32>,
 }
@@ -102,6 +111,9 @@ impl Contract {
             owner,
             official_start: official_start.0,
             reveal_window: reveal_window.0,
+            max_window: reveal_window.0,
+            revealed_count: 0,
+            warm_up_count: 0,
             calls: Vector::new(StorageKey::Calls),
             by_hash: LookupMap::new(StorageKey::ByHash),
         }
@@ -139,6 +151,10 @@ impl Contract {
             call_json: None,
         });
         self.by_hash.insert(hash_bytes, id);
+        let warm_up = now < self.official_start;
+        if warm_up {
+            self.warm_up_count += 1;
+        }
 
         emit(
             "call_sealed",
@@ -149,7 +165,7 @@ impl Contract {
                 "rules_version": rules_version,
                 "sealed_block": env::block_height().to_string(),
                 "reveal_deadline": deadline.to_string(),
-                "warm_up": now < self.official_start,
+                "warm_up": warm_up,
             }),
         );
         U64(id as u64)
@@ -179,12 +195,14 @@ impl Contract {
         call.revealed_at = Some(now);
         call.revealed_block = Some(env::block_height());
         call.call_json = Some(call_json);
+        let hash_hex = to_hex(&call.hash);
+        self.revealed_count += 1;
 
         emit(
             "call_revealed",
             json!({
                 "id": id.0.to_string(),
-                "hash": to_hex(&call.hash),
+                "hash": hash_hex,
                 "revealed_block": env::block_height().to_string(),
             }),
         );
@@ -195,6 +213,7 @@ impl Contract {
         self.assert_owner();
         require!(reveal_window.0 > 0, "reveal_window must be above zero");
         self.reveal_window = reveal_window.0;
+        self.max_window = self.max_window.max(reveal_window.0);
         emit(
             "reveal_window_changed",
             json!({ "reveal_window": reveal_window.0.to_string() }),
@@ -215,6 +234,7 @@ impl Contract {
 
     pub fn get_config(&self) -> ConfigView {
         ConfigView {
+            version: CONTRACT_VERSION.to_string(),
             owner: self.owner.clone(),
             official_start: U64(self.official_start),
             reveal_window: U64(self.reveal_window),
@@ -249,26 +269,30 @@ impl Contract {
             .collect()
     }
 
-    /// Note: this reads every call, so it suits a hackathon-sized record.
+    /// Totals across every call. Only calls sealed within the longest reveal
+    /// window can still be waiting, so this reads just those recent calls.
     pub fn get_record(&self) -> RecordView {
         let now = env::block_timestamp();
-        let (mut revealed, mut expired, mut waiting, mut warm_up) = (0u64, 0u64, 0u64, 0u64);
-        for c in self.calls.iter() {
-            match status_of(c, now) {
-                "revealed" => revealed += 1,
-                "expired" => expired += 1,
-                _ => waiting += 1,
+        let cutoff = now.saturating_sub(self.max_window);
+        let total = self.calls.len() as u64;
+        let mut waiting = 0u64;
+        let mut i = self.calls.len();
+        while i > 0 {
+            i -= 1;
+            let c = self.calls.get(i).unwrap_or_else(|| env::panic_str("missing call"));
+            if c.sealed_at < cutoff {
+                break;
             }
-            if c.sealed_at < self.official_start {
-                warm_up += 1;
+            if status_of(c, now) == "sealed" {
+                waiting += 1;
             }
         }
         RecordView {
-            total: U64(self.calls.len() as u64),
-            revealed: U64(revealed),
-            expired: U64(expired),
+            total: U64(total),
+            revealed: U64(self.revealed_count),
+            expired: U64(total - self.revealed_count - waiting),
             waiting: U64(waiting),
-            warm_up: U64(warm_up),
+            warm_up: U64(self.warm_up_count),
         }
     }
 }
@@ -506,6 +530,37 @@ mod tests {
         assert_eq!(c.get_call_by_hash(hash_of("call 2")).unwrap().id.0, 2);
         assert_eq!(c.get_calls(U64(1), 10).len(), 2);
         assert_eq!(c.get_call_count().0, 3);
+    }
+
+    #[test]
+    fn record_counts_mixed_calls() {
+        let mut c = setup();
+        // call 0: revealed
+        let a = c.seal_call(hash_of("a"), "solana".into(), "witty-1.0".into());
+        c.reveal_call(a, "a".into());
+        // call 1: never revealed, will expire
+        c.seal_call(hash_of("b"), "near".into(), "witty-1.0".into());
+        // window shortened to 6 hours for later calls
+        c.set_reveal_window(U64(6 * HOUR));
+        // call 2: sealed 40 hours later, still waiting at the check
+        set_env(owner(), START + 40 * HOUR, 400);
+        c.seal_call(hash_of("c"), "robinhood".into(), "witty-1.0".into());
+        // call 3: sealed at 41 hours and revealed
+        set_env(owner(), START + 41 * HOUR, 410);
+        let d = c.seal_call(hash_of("d"), "solana".into(), "witty-1.0".into());
+        c.reveal_call(d, "d".into());
+
+        set_env(stranger(), START + 50 * HOUR, 500);
+        let r = c.get_record();
+        assert_eq!(r.total.0, 4);
+        assert_eq!(r.revealed.0, 2);
+        assert_eq!(r.waiting.0, 0); // call 2's 6-hour deadline passed at 46h
+        assert_eq!(r.expired.0, 2); // calls 1 and 2
+
+        set_env(stranger(), START + 44 * HOUR, 440);
+        let r = c.get_record();
+        assert_eq!((r.waiting.0, r.expired.0), (2, 0)); // calls 1 and 2 both still inside their windows at 44h
+        assert_eq!(c.get_config().version, "1.0.0");
     }
 
     #[test]
