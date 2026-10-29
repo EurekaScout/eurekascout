@@ -1,0 +1,15 @@
+{
+  "name": "eurekascout",
+  "private": true,
+  "type": "module",
+  "description": "EurekaScout: the AI scout that shows its receipts",
+  "scripts": {
+    "test:sandbox": "node --test --test-concurrency=1 tests/receipts.sandbox.test.mjs"
+  },
+  "devDependencies": {
+    "near-kit": "^0.20.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
