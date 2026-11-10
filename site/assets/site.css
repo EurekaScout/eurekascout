@@ -1381,7 +1381,7 @@ mark.tblank{background:rgba(227,179,65,.32);color:inherit;border-radius:6px;padd
 .terms-short p:first-of-type{margin-bottom:14px}
 .terms-toc{grid-area:toc;display:block;position:sticky;top:96px;padding:20px 22px;border:1px solid var(--line);border-radius:20px}
 .terms-toc ol{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:7px;font-size:14px;line-height:1.35;color:var(--muted)}
-.terms-toc a{display:inline;padding:0;border-radius:0;font-size:14px;font-weight:500;color:var(--fg);text-decoration:none}.terms-toc a:hover{background:none;color:var(--link);text-decoration:underline}
+.terms-toc a{display:inline;padding:0;border-radius:0;font-size:14px;font-weight:500;white-space:normal;color:var(--fg);text-decoration:none}.terms-toc a:hover{background:none;color:var(--link);text-decoration:underline}
 .terms-body{grid-area:body;max-width:760px}
 .terms-sec{scroll-margin-top:96px;padding-top:6px}
 .terms-sec+.terms-sec{margin-top:34px}
@@ -1401,3 +1401,13 @@ mark.tblank{background:rgba(227,179,65,.32);color:inherit;border-radius:6px;padd
 .mw-tgcopy{display:grid;gap:6px;margin-top:2px}
 .mw-tgcopy .small{margin:0}
 .mw-coderoute{margin:0 0 4px}
+/* Witty NFT calls to action: header, phone menu, home hero */
+header .hdr-own{min-height:44px;padding:0 22px;font-size:15px}
+header .btn{white-space:nowrap}
+@media (min-width:1001px) and (max-width:1200px){header .wrap{gap:10px} header nav a{padding:8px 8px} header .btn-ink,header .hdr-own{padding:0 15px;font-size:14px}}
+@media (max-width:640px){header .hdr-own{display:none}}
+.mnav a.mnav-own{margin-top:6px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mnav a.mnav-own small{font-size:13px;font-weight:600;opacity:.85}
+.hero-own{margin:0;font-size:15px;line-height:1.5;color:var(--muted2)}
+.hero-own a{font-weight:700;color:var(--link);text-decoration:none}
+.hero-own a:hover{text-decoration:underline}
