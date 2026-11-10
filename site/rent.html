@@ -17,8 +17,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=20261110e">
-<script src="assets/terms.js?v=20261110e"></script>
+<link rel="stylesheet" href="assets/site.css?v=20261110f">
+<script src="assets/terms.js?v=20261110f"></script>
 </head>
 <body>
 <header>
@@ -44,8 +44,8 @@
     <a class="trial-banner" id="trial-banner" href="witty.html?pick=trial" hidden><span aria-hidden="true">🎁</span><span>New here? <b>Try Witty free for 7 days.</b> A real Bronze Pass, and Witty pays the fee.</span><span class="go">Start →</span></a>
     <span class="eyebrow">Your Rental Pass</span>
     <div class="seg" role="group" aria-label="Which pass">
-      <button type="button" data-tier="bronze" data-name="Bronze" data-days="7" data-near="1.3" aria-pressed="true"><b><i class="swatch tier-bronze" aria-hidden="true"></i>Bronze Pass</b><span>7 days · 1.3 NEAR</span></button>
-      <button type="button" data-tier="silver" data-name="Silver" data-days="30" data-near="4" aria-pressed="false"><em class="tag-shiny">Best value</em><b><i class="swatch tier-silver" aria-hidden="true"></i>Silver Pass</b><span>30 days · 4 NEAR</span></button>
+      <button type="button" data-tier="bronze" data-name="Bronze" data-days="7" data-near="1.43" aria-pressed="true"><b><i class="swatch tier-bronze" aria-hidden="true"></i>Bronze Pass</b><span>7 days · <span data-price="bronze">1.43</span> NEAR</span></button>
+      <button type="button" data-tier="silver" data-name="Silver" data-days="30" data-near="4.3" aria-pressed="false"><em class="tag-shiny">Best value</em><b><i class="swatch tier-silver" aria-hidden="true"></i>Silver Pass</b><span>30 days · <span data-price="silver">4.3</span> NEAR</span></button>
     </div>
     <div>
       <span class="eyebrow">Pay with</span>
@@ -61,7 +61,7 @@
       <div><dt>Pass</dt><dd id="s-days">Bronze · 7 days</dd></div>
       <div><dt>Paid in</dt><dd id="s-pay">NEAR</dd></div>
       <div><dt>Calls until</dt><dd id="s-exp">–</dd></div>
-      <div class="total"><dt>Total</dt><dd id="s-price">1.3 NEAR</dd></div>
+      <div class="total"><dt>Total</dt><dd id="s-price">1.43 NEAR</dd></div>
     </dl>
     <button class="btn btn-blue" type="button" id="rent-btn">Rent Witty</button>
     <small id="s-note">The rent goes into Witty's own account. The price is set in NEAR on the pass contract when renting opens.</small>
@@ -96,7 +96,7 @@
   <div class="wrap">
     <div class="reveal"><span class="eyebrow">How renting works</span><h2 class="display" style="margin-top:8px">FOUR STEPS. ABOUT A MINUTE.</h2></div>
     <div class="steps-row">
-      <div class="tile reveal"><span class="display">1</span><b>Pick Bronze or Silver</b><small>Bronze: 1.3 NEAR for 7 days. Silver: 4 NEAR for 30 days.</small></div>
+      <div class="tile reveal"><span class="display">1</span><b>Pick Bronze or Silver</b><small>Bronze: <span data-price="bronze">1.43</span> NEAR for 7 days. Silver: <span data-price="silver">4.3</span> NEAR for 30 days.</small></div>
       <div class="tile reveal"><span class="display">2</span><b>Pay with NEAR, or another coin</b><small>Paying with SOL, ETH or USDC? NEAR Intents swaps it into NEAR in your account, then you approve.</small></div>
       <div class="tile reveal"><span class="display">3</span><b>Get your pass</b><small>A Bronze or Silver Pass NFT on NEAR, with its end date on the chain.</small></div>
       <div class="tile reveal"><span class="display">4</span><b>Open the bot</b><small>Witty's Telegram bot checks your pass and starts sending calls.</small></div>
@@ -126,7 +126,7 @@
     <span class="foot-note">Not financial advice. Memecoins rug; size small.</span>
   </div>
 </footer>
-<script src="assets/site.js?v=20261110e"></script>
+<script src="assets/site.js?v=20261110f"></script>
 <script>
 "use strict";
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -135,13 +135,20 @@ const pad = (n) => String(n).padStart(2, "0");
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const fmtDate = (ms) => { const d = new Date(ms); return `${d.getUTCDate()} ${MON[d.getUTCMonth()]} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())} UTC`; };
 const PAY = { NEAR: "NEAR", USDC: "USDC → NEAR", SOL: "SOL → NEAR", ETH: "ETH → NEAR", other: "other coins → NEAR" };
-const sel = { tier: "bronze", name: "Bronze", days: 7, near: "1.3", pay: "NEAR" };
+const sel = { tier: "bronze", name: "Bronze", days: 7, near: "1.43", pay: "NEAR" };
 function bump(node, text) { node.textContent = text; node.classList.remove("pop"); void node.offsetWidth; node.classList.add("pop"); }
 function update() {
   bump($("s-days"), `${sel.name} · ${sel.days} days`); bump($("s-pay"), PAY[sel.pay]); bump($("s-price"), `${sel.near} NEAR`);
   $("s-exp").textContent = fmtDate(Date.now() + sel.days * 86400e3);
   $("rent-btn").textContent = `Get the ${sel.name} Pass`;
 }
+// live prices from the pass contract (site.js): the buttons and the total follow them
+const livePrices = (p) => {
+  document.querySelectorAll(".seg button[data-tier]").forEach((b) => { if (p[b.dataset.tier]) b.dataset.near = p[b.dataset.tier]; });
+  if (p[sel.tier] && p[sel.tier] !== sel.near) { sel.near = p[sel.tier]; $("s-price").textContent = `${sel.near} NEAR`; }
+};
+if (window.EsPrice) livePrices(window.EsPrice);
+addEventListener("es-prices", (e) => livePrices(e.detail));
 document.querySelectorAll(".seg button").forEach((b) => b.addEventListener("click", () => {
   document.querySelectorAll(".seg button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
   sel.tier = b.dataset.tier; sel.name = b.dataset.name; sel.days = Number(b.dataset.days); sel.near = b.dataset.near; update();

@@ -31,6 +31,26 @@ document.addEventListener("click", async (e) => {
   try { await navigator.clipboard.writeText(a.href); note.textContent = `Link copied: ${a.href}. Open it in Telegram or your phone's browser.`; }
   catch { note.textContent = `Open this link in Telegram or your phone's browser: ${a.href}`; }
 });
+// Pass prices are set in NEAR on the pass contract and can change, so pages read them live. Any element with
+// data-price="bronze" or "silver" gets the number; window.EsPrice and the "es-prices" event carry both.
+(async () => {
+  if (!document.querySelector("[data-price],[data-prices]")) return;
+  const args = btoa(JSON.stringify({ scout_id: "witty" }));
+  const show = (y) => String(Math.round(Number(BigInt(y) / 10n ** 21n) / 10) / 100);   // yoctoNEAR -> "1.43", "4.3"
+  for (const rpc of ["https://free.rpc.fastnear.com", "https://rpc.mainnet.fastnear.com", "https://rpc.mainnet.near.org"]) {
+    try {
+      const r = await fetch(rpc, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: "es", method: "query", params: { request_type: "call_function", finality: "final", account_id: "pass.eurekascout.near", method_name: "get_listing", args_base64: args } }) });
+      const j = await r.json(); if (!j.result?.result) continue;
+      const l = JSON.parse(new TextDecoder().decode(Uint8Array.from(j.result.result)));
+      if (!l?.price_7d || !l?.price_30d) return;
+      const p = { bronze: show(l.price_7d), silver: show(l.price_30d) };
+      window.EsPrice = p;
+      document.querySelectorAll("[data-price]").forEach((n) => { if (p[n.dataset.price]) n.textContent = p[n.dataset.price]; });
+      window.dispatchEvent(new CustomEvent("es-prices", { detail: p }));
+      return;
+    } catch { /* try the next RPC */ }
+  }
+})();
 // install as an app on phones, and an offline page instead of a browser error (real site only)
 if ("serviceWorker" in navigator && location.protocol === "https:") addEventListener("load", () => { navigator.serviceWorker.register("/sw.js").catch(() => {}); });
 // dark / light mode: follows the device unless the visitor picks one (remembered on this device only)
