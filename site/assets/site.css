@@ -1334,6 +1334,70 @@ html[data-theme="dark"] .trial-banner{color:#fff}html[data-theme="dark"] .trial-
 }
 /* pass tiers: still for anyone who asks for less motion */
 @media (prefers-reduced-motion:reduce){.sheen,.tag-shiny::after,.plans.ready .plan-hl,.metal.tier-silver,.tier-silver .metal,.flip.swap,.flip.tier-silver .pface.front.metal,.minipass.on.tier-silver{animation:none!important}.plans.ready .plan-hl{transition:opacity .7s ease}}
+/* Terms of Use: the first-visit pop-up (assets/terms.js), Witty unrolls a scroll */
+html.tp-lock,html.tp-lock body{overflow:hidden}
+.tp{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(11,11,15,.5);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);outline:none;--wh:clamp(92px,17vh,168px);overscroll-behavior:contain}
+html[data-theme="dark"] .tp{background:rgba(0,0,0,.64)}
+.tp-stage{position:relative;width:min(540px,100%);display:flex;flex-direction:column}
+.tp-witty{display:block;align-self:flex-end;height:var(--wh);width:auto;margin:0 7% -18px 0;position:relative;z-index:1;pointer-events:none;-webkit-user-select:none;user-select:none}
+.tp-scroll{position:relative;z-index:2;filter:drop-shadow(0 22px 36px rgba(0,0,0,.32))}
+.tp-roll{position:relative;height:22px;margin:0 -10px;border-radius:999px;background:linear-gradient(180deg,var(--blue-soft) 0%,var(--blue) 45%,var(--blue2) 100%);box-shadow:inset 0 -3px 0 rgba(0,0,0,.16),inset 0 2px 0 rgba(255,255,255,.28)}
+.tp-roll::before,.tp-roll::after{content:"";position:absolute;top:50%;width:14px;height:30px;margin-top:-15px;border-radius:7px;background:linear-gradient(180deg,var(--teal),var(--teal-d));box-shadow:inset 0 -3px 0 rgba(0,0,0,.14)}
+.tp-roll::before{left:-8px}.tp-roll::after{right:-8px}
+.tp-paper{overflow:hidden;margin:0 3px;background:var(--surface);box-shadow:inset 0 12px 10px -10px rgba(0,0,0,.22),inset 0 -12px 10px -10px rgba(0,0,0,.22)}
+.tp-in{display:flex;flex-direction:column;gap:14px;padding:22px 24px 18px;max-height:calc(100vh - 32px - var(--wh) + 18px - 44px);max-height:calc(100dvh - 32px - var(--wh) + 18px - 44px)}
+.tp-h{margin:0;font-size:clamp(28px,4.4vw,38px);color:var(--fg)}
+.tp-pts{list-style:none;margin:0;padding:0 6px 0 0;display:grid;gap:11px;align-content:start;overflow:auto;min-height:0;flex:1 1 auto;counter-reset:tp;font-size:14.5px;line-height:1.5;color:var(--muted2);overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.tp-pts li{position:relative;padding-left:36px;counter-increment:tp}
+.tp-pts li::before{content:counter(tp);position:absolute;left:0;top:0;width:25px;height:25px;border-radius:999px;background:var(--mist);color:var(--fg);font-weight:700;font-size:13px;display:grid;place-items:center}
+.tp-pts b{color:var(--fg)}
+.tp-pts:focus-visible{outline:2px solid var(--blue);outline-offset:4px;border-radius:8px}
+.tp-foot{display:grid;gap:12px;padding-top:14px;border-top:1px dashed var(--line)}
+.tp-check{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.4;font-weight:600;color:var(--fg);cursor:pointer}
+.tp-check input{flex:none;width:22px;height:22px;margin:0;accent-color:var(--blue);cursor:pointer}
+.tp-check a{white-space:nowrap}
+.tp-go{width:100%;min-height:50px}
+.tp-full{justify-self:center;font-size:13px;font-weight:600}
+.tp.is-in .tp-pts{overflow:hidden}
+.tp-pts.more{-webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(180deg,#000 calc(100% - 40px),transparent)}
+.tp.is-on .tp-witty{animation:tpBob 3s ease-in-out infinite}
+@keyframes tpBob{50%{transform:translateY(-3px)}}
+@media (max-width:600px){
+  .tp{--wh:clamp(78px,13vh,112px)}
+  .tp-h{font-size:clamp(24px,7.4vw,34px)}
+  .tp-roll{margin:0 -6px;height:20px}.tp-roll::before{left:-5px}.tp-roll::after{right:-5px}
+  .tp-in{padding:16px 16px 14px;gap:12px;max-height:calc(100vh - 32px - var(--wh) + 18px - 40px);max-height:calc(100dvh - 32px - var(--wh) + 18px - 40px)}
+  .tp-pts{font-size:14px;gap:9px}.tp-pts li{padding-left:32px}.tp-pts li::before{width:23px;height:23px;font-size:12px}
+  .tp-check{font-size:14.5px}
+}
+@media (prefers-reduced-motion:reduce){.tp.is-on .tp-witty{animation:none}}
+/* Terms of Use page */
+mark.tblank{background:rgba(227,179,65,.32);color:inherit;border-radius:6px;padding:0 4px;font-weight:600}
+.terms{display:grid;grid-template-columns:minmax(0,1fr) 260px;grid-template-areas:"short toc" "body toc";column-gap:56px;row-gap:40px;align-items:start;padding-top:32px;padding-bottom:88px}
+.terms-short{grid-area:short;padding:28px 30px;border-radius:24px;background:var(--mist)}
+.terms-short h2{margin:0 0 14px;font-size:clamp(26px,3vw,34px)}
+.terms-short ol{margin:0 0 14px;padding-left:22px;display:grid;gap:10px;font-size:16px;line-height:1.55;color:var(--muted2)}
+.terms-short b{color:var(--fg)}
+.terms-short p{margin:0;font-size:15px;line-height:1.55;color:var(--muted2)}
+.terms-short p:first-of-type{margin-bottom:14px}
+.terms-toc{grid-area:toc;display:block;position:sticky;top:96px;padding:20px 22px;border:1px solid var(--line);border-radius:20px}
+.terms-toc ol{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:7px;font-size:14px;line-height:1.35;color:var(--muted)}
+.terms-toc a{display:inline;padding:0;border-radius:0;font-size:14px;font-weight:500;color:var(--fg);text-decoration:none}.terms-toc a:hover{background:none;color:var(--link);text-decoration:underline}
+.terms-body{grid-area:body;max-width:760px}
+.terms-sec{scroll-margin-top:96px;padding-top:6px}
+.terms-sec+.terms-sec{margin-top:34px}
+.terms-sec h2{margin:0 0 12px;font-size:22px;line-height:1.3;font-weight:700;color:var(--fg)}
+.terms-sec p,.terms-sec li{font-size:16px;line-height:1.65;color:var(--muted2)}
+.terms-sec p{margin:0 0 12px}
+.terms-sec ul{margin:0 0 12px;padding-left:22px;display:grid;gap:7px}
+.terms-sec b{color:var(--fg)}
+@media (max-width:900px){
+  .terms{grid-template-columns:minmax(0,1fr);grid-template-areas:"short" "toc" "body";row-gap:28px}
+  .terms-toc{position:static;display:block}
+  .terms-short{padding:22px 20px}
+}
+.foot-copy a{color:inherit;text-decoration:underline;text-underline-offset:3px}.foot-copy a:hover{color:var(--link)}
+.foot-copy a[aria-current]{font-weight:600}
 /* My Witty: the link to copy inside a wallet app's browser (Telegram can't open there) */
 .mw-tgcopy{display:grid;gap:6px;margin-top:2px}
 .mw-tgcopy .small{margin:0}
