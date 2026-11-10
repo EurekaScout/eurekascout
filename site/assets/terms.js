@@ -53,7 +53,6 @@
               <div class="tp-foot">
                 <label class="tp-check"><input type="checkbox" id="tp-ok"><span>I'm 18 or older and I accept the <a href="${termsUrl}" target="_blank" rel="noopener">Terms of Use</a></span></label>
                 <button class="btn btn-blue tp-go" type="button" id="tp-go" disabled>I agree</button>
-                <a class="tp-full" href="${termsUrl}" target="_blank" rel="noopener">Read the full terms</a>
               </div>
             </div>
           </div>

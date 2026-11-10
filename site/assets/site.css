@@ -1357,7 +1357,6 @@ html[data-theme="dark"] .tp{background:rgba(0,0,0,.64)}
 .tp-check input{flex:none;width:22px;height:22px;margin:0;accent-color:var(--blue);cursor:pointer}
 .tp-check a{white-space:nowrap}
 .tp-go{width:100%;min-height:50px}
-.tp-full{justify-self:center;font-size:13px;font-weight:600}
 .tp.is-in .tp-pts{overflow:hidden}
 .tp-pts.more{-webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(180deg,#000 calc(100% - 40px),transparent)}
 .tp.is-on .tp-witty{animation:tpBob 3s ease-in-out infinite}
