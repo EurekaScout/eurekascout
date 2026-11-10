@@ -168,7 +168,10 @@ test("an unrevealed call expires once block time passes its deadline", async () 
   // Jump past the 10-minute window, with 20% to spare.
   const blocksNeeded = Math.ceil((Number(WINDOW_SECONDS) * 1000 * 1.2) / msPerBlock);
   assert.ok(blocksNeeded < 200_000, `would need ${blocksNeeded} blocks; window too long for this test`);
-  await sandbox.fastForward(blocksNeeded);
+  // Jump in steps of 100 blocks: one big jump can take a busy local node minutes to answer.
+  for (let left = blocksNeeded; left > 0; left -= 100) {
+    await sandbox.fastForward(Math.min(100, left));
+  }
   await waitForFinality();
 
   const expired = await near.view(contract, "get_call", { id: sealed.id }, LATEST);

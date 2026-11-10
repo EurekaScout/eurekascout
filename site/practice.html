@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practice · EurekaScout</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="img/witty-face-32.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#FFFFFF">
+<script>try{var t=localStorage.getItem("es-theme");if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t;if(t==="dark")document.querySelector('meta[name="theme-color"]').content="#0D0E12"}catch(e){}</script>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EurekaScout">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=20261110a">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="EurekaScout home">
+      <img src="img/witty-face.webp" width="46" height="46" alt="">
+      <span class="display">EUREKA<span style="color:var(--blue)">SCOUT</span></span>
+    </a>
+    <nav aria-label="Main"><a href="index.html">Home</a><a href="how.html">How it works</a><a href="record.html">Record</a><a href="nfts.html">NFTs</a><a href="rent.html">Rent</a><a href="team.html">Team</a><a href="witty.html">My Witty</a></nav>
+    <div style="display:flex;gap:10px;align-items:center"><button class="theme-btn" type="button" aria-label="Switch to dark mode"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button><a class="btn btn-ink" href="rent.html">Rent Witty</a><button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span></button></div>
+  </div>
+</header>
+<div class="mnav" id="mnav" hidden><a href="index.html">Home</a><a href="how.html">How it works</a><a href="record.html">Record</a><a href="nfts.html">NFTs</a><a href="rent.html">Rent</a><a href="team.html">Team</a><a href="witty.html">My Witty</a><button class="theme-row" type="button"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><span>Dark mode</span></button></div>
+<main>
+<section class="wrap mw-top mw">
+  <h1 class="display reveal">PRACTICE. <span style="color:var(--blue)">$1,000 OF PLAY MONEY.</span></h1>
+  <p class="lead reveal">Trade Witty's live calls with virtual dollars, on the same prices Witty is scored on. Buy, add to a trade, sell any part of it, or let autopilot trade for you. No wallet, no risk.</p>
+</section>
+
+<section class="wrap mw pr pr-autosec">
+  <div class="mw-panel pr-auto" id="pr-auto-p" hidden>
+    <div class="pr-autorow">
+      <div class="pr-autoh">
+        <span class="eyebrow">Autopilot</span>
+        <button class="pr-switch" type="button" role="switch" aria-checked="false" id="pr-auto-on" aria-label="Autopilot"><span class="pr-track"><i></i></span><b id="pr-auto-state">Off</b></button>
+      </div>
+      <label class="pr-autousd" for="pr-auto-usd">$ per call <input id="pr-auto-usd" type="number" inputmode="decimal" min="10" max="1000" step="1" value="50"></label>
+      <div class="pr-autocats" id="pr-auto-cats" role="group" aria-label="Kinds of call autopilot trades"></div>
+    </div>
+    <p class="small pr-autoline">Witty enters each new call of these kinds and manages it. You can still buy more or sell any part.</p>
+    <p class="mw-msg" id="pr-auto-msg" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
+<section class="wrap mw-grid mw pr">
+  <div class="mw-col">
+    <div class="mw-panel pr-gate" id="pr-gate" hidden>
+      <span class="eyebrow">Holders only</span>
+      <h2 class="display" id="pr-gate-t">OPEN PRACTICE FROM TELEGRAM.</h2>
+      <p id="pr-gate-p">Practice uses Witty's live calls, so it's for pass and Witty NFT holders. Send <b>/practice</b> to @scout_witty_bot and tap the button it sends you. Every new Solana call also comes with a 🎮 Practice button.</p>
+      <div class="mw-acts"><a class="btn btn-blue" href="https://t.me/scout_witty_bot" target="_blank" rel="noopener">Open @scout_witty_bot</a><a class="btn pr-ghost" href="witty.html">Get a pass</a></div>
+    </div>
+
+    <div class="pr-notes" id="pr-notes" role="status" hidden><ul id="pr-notes-l"></ul><button type="button" id="pr-notes-x" aria-label="Dismiss these notes">✕</button></div>
+
+    <div class="mw-panel" id="pr-calls-p" hidden>
+      <div class="pr-head"><span class="eyebrow">Live calls</span><span class="pr-live"><i class="mw-dot"></i><span id="pr-updated">Live</span></span></div>
+      <div class="pr-calls" id="pr-calls"></div>
+      <div class="pr-empty" id="pr-none" hidden>
+        <b>No call is live right now.</b>
+        <p class="small">When Witty seals a Solana call, the bot sends it to you with a 🎮 Practice button. Each call stays open for its own window, from an hour to three days.</p>
+      </div>
+    </div>
+
+    <div class="mw-panel" id="pr-hist-p" hidden>
+      <span class="eyebrow">Your trades</span>
+      <div class="pr-hist" id="pr-hist"></div>
+    </div>
+  </div>
+
+  <div class="mw-col">
+    <div class="mw-panel pr-me" id="pr-me-p" hidden>
+      <div class="pr-mehead"><span class="eyebrow">Your play money</span><button class="mw-linkbtn" type="button" id="pr-rename">Set a nickname</button></div>
+      <div class="pr-who" id="pr-who"></div>
+      <div class="pr-total"><b id="pr-total">$1,000.00</b><span class="pr-chg" id="pr-pnl">±0.0%</span></div>
+      <div class="pr-split">
+        <div><small>Cash</small><b id="pr-cash">–</b></div>
+        <div><small>In trades</small><b id="pr-in">–</b></div>
+      </div>
+      <form class="pr-nameform" id="pr-nameform" hidden>
+        <input id="pr-name" maxlength="16" autocomplete="off" placeholder="Nickname for the leaderboard" aria-label="Nickname">
+        <button class="btn btn-blue" type="submit">Save</button>
+      </form>
+      <p class="mw-msg" id="pr-msg" role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="mw-panel" id="pr-board-p" hidden>
+      <span class="eyebrow">Leaderboard</span>
+      <ol class="pr-board" id="pr-board"></ol>
+    </div>
+
+    <div class="mw-panel">
+      <span class="eyebrow">The rules</span>
+      <ul class="mw-perks pr-rules">
+        <li><span id="pr-r-start">$1,000</span> to start, the same for everyone.</li>
+        <li id="pr-r-manual" hidden></li>
+        <li>Buy any live call from <span id="pr-r-min">$10</span>. Buy more whenever you like, and sell any part: a quarter, half or all of it.</li>
+        <li>Each call can be practised for its own window, from an hour to three days. It's shown on the call.</li>
+        <li>Every buy and sale fills at the pool's price at the next reading: the same prices Witty's record is scored on.</li>
+        <li>A <span id="pr-r-fee">4%</span> fee comes off every sale.</li>
+        <li>Prices are the on-chain pool readings Witty is scored on: a fresh one every 10 seconds in a call's first hour, then every 30 seconds.</li>
+      </ul>
+      <p class="small">Calls stay inside Practice until they're revealed. Please don't share your link: it's yours.</p>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-near"><a href="https://near.org" target="_blank" rel="noopener"><img src="img/built-on-near.svg" width="122" height="20" alt="Built on NEAR"></a><span>Prove on <a href="https://nearblocks.io/address/receipts.eurekascout.near" target="_blank" rel="noopener">receipts.eurekascout.near</a></span></div>
+    <div class="foot-mid"><span class="socials"><a class="social light" href="https://x.com/eurekascout_" target="_blank" rel="noopener" aria-label="EurekaScout on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a><a class="social light" href="https://github.com/EurekaScout" target="_blank" rel="noopener" aria-label="EurekaScout on GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a></span><span class="foot-copy">&copy; 2026 EurekaScout</span></div>
+    <span class="foot-note">Not financial advice. Memecoins rug; size small.</span>
+  </div>
+</footer>
+<script src="assets/site.js?v=20261110a"></script>
+<script>
+// Practice 2.0: trade Witty's live calls with $1,000 of play money. Holders open it from Telegram (a link with their own
+// token); the server checks their pass or NFT on every request and does all the pricing (witty_practice.mjs 2.0).
+// Your trades are yours: they close when you sell all of it, at the call's time limit, or if the pool empties.
+// Copy rule: summaries only. Never print a call's plan, its trigger levels or the sealer's rules.
+const API = "https://api.eurekascout.com/practice";
+const POLL_MS = 5000;
+const $ = (id) => document.getElementById(id);
+const pad = (n) => String(n).padStart(2, "0");
+const num = (v) => (v == null || v === "" ? NaN : Number(v));
+const ok = (v) => Number.isFinite(num(v));
+const money = (v) => `${v < 0 ? "−" : ""}$${Math.abs(v).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+const dollars = (v) => `$${Math.abs(v).toLocaleString("en-US", { maximumFractionDigits: 2 })}`;
+const signed = (v) => `${v >= 0 ? "+" : "−"}$${Math.abs(v).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+const kusd = (n) => (n >= 1e6 ? `$${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `$${(n / 1e3).toFixed(1)}K` : `$${Math.round(n)}`);
+const fx = (x) => (!ok(x) ? "–" : `${x >= 10 ? x.toFixed(1) : x >= 0.1 ? x.toFixed(2) : x > 0 ? x.toPrecision(2) : "0.00"}x`);
+const sx = (x) => `${x >= 1 ? x.toFixed(1) : x.toFixed(2)}x`;   // a step's price vs the call's entry: "took profit at 1.4x"
+const mins = (ms) => { const m = Math.max(0, Math.round(ms / 60e3)); return m < 60 ? `${m} min` : m < 1440 ? `${Math.floor(m / 60)} h ${pad(m % 60)} min` : `${Math.floor(m / 1440)} d ${Math.floor((m % 1440) / 60)} h`; };
+const leftText = (ms) => { if (!(ms > 0)) return null; const s = Math.floor(ms / 1000), h = Math.floor(s / 3600); return h < 1 ? `${Math.floor(s / 60)}:${pad(s % 60)}` : h < 24 ? `${h} h ${pad(Math.floor((s % 3600) / 60))} min` : `${Math.floor(h / 24)} d ${h % 24} h`; };
+const winText = (m) => { m = num(m); if (!(m > 0)) return null; return m < 60 ? `${m} min` : m % 1440 === 0 && m >= 2880 ? `${m / 1440} days` : m % 60 === 0 ? `${m / 60} hour${m === 60 ? "" : "s"}` : `${Math.round(m / 60)} hours`; };
+const CAT = { gamble: "Gamble", scalping: "Scalping", conviction: "Conviction", smart: "Smart Wallets", smart_wallets: "Smart Wallets", smartwallets: "Smart Wallets" };
+const CATS = ["gamble", "scalping", "conviction", "smart"];
+const catLabel = (k) => (k ? CAT[String(k).toLowerCase()] || String(k).replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase()) : "");
+const feePct = () => { const f = num(last?.rules?.fees); return ok(f) ? +(f < 1 ? f * 100 : f).toFixed(1) : 4; };
+const minBuy = () => (num(last?.rules?.min_buy) > 0 ? num(last.rules.min_buy) : 10);
+const store = {
+  get(k = "es-practice") { try { return localStorage.getItem(k); } catch { return null; } },
+  set(v, k = "es-practice") { try { localStorage.setItem(k, v); } catch { /* this tab only */ } },
+  del(k = "es-practice") { try { localStorage.removeItem(k); } catch { /* ignore */ } },
+};
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function say(text, kind = "") { const e = $("pr-msg"); e.textContent = text; e.className = `mw-msg ${kind}`; }
+
+// Steps in plain words, never codes ("first buy", "took profit", "trailed out"), each with its price vs the call's entry
+const STEP = { buy: (n) => (n > 1 ? "bought more" : "first buy"), tp: () => "took profit", dip: () => "sold some on a dip", trail: () => "trailed out", time: () => "time limit", rugged: () => "rugged" };
+function stepWords(steps) {
+  if (!steps) return [];
+  const list = Array.isArray(steps) ? steps : String(steps).split(/[\s,;|]+/);
+  return list.map((s) => {
+    let code = "", x;
+    if (s && typeof s === "object") { code = String(s.step ?? s.code ?? s.kind ?? s.k ?? s.s ?? ""); x = s.x ?? s.at; }
+    else { const m = String(s).trim().match(/^([a-z_]+\d*)(?:@([\d.]+)x?)?$/i); if (!m) return null; code = m[1]; x = m[2]; }
+    const m2 = code.toLowerCase().match(/^([a-z_]+?)(\d*)$/);
+    const f = m2 && STEP[m2[1]];
+    if (!f) return null;                                  // an unknown code is left out, never printed raw
+    const w = f(Number(m2[2] || 1)), xv = num(x);
+    return xv > 0 ? `${w} at ${sx(xv)}` : w;
+  }).filter(Boolean);
+}
+const stepLine = (steps) => { const w = stepWords(steps); return w.length > 6 ? `… ${w.slice(-6).join(" · ")}` : w.join(" · "); };
+// how a trade ended: the server's words; trades from before 2.0 get today's words, never the old exits
+const OLD_EXIT = { "2x": "took profit", stopped: "stopped out", "1h": "hour up", trail: "trailed out", sold: "you sold" };
+const exitWord = (t) => OLD_EXIT[t?.exit] || t?.exit_word || (t?.exit ? String(t.exit).replace(/_/g, " ") : "closed");
+
+// the token comes in the link from Telegram (#t=...&c=...); keep it for this browser, and take it out of the address bar
+const h = new URLSearchParams(location.hash.slice(1));
+if (h.get("t")) store.set(h.get("t"));
+const focusCall = h.get("c");
+if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+let token = store.get(), last = null, timer = null, busy = false, focused = false, clockOffset = 0;
+let watch = null;   // the order you just placed, so its message turns into the result once it fills
+
+function gate(title, text) {
+  ["pr-calls-p", "pr-hist-p", "pr-me-p", "pr-board-p", "pr-auto-p", "pr-notes"].forEach((id) => ($(id).hidden = true));
+  $("pr-gate").hidden = false;
+  if (title) $("pr-gate-t").textContent = title;
+  if (text) $("pr-gate-p").textContent = text;
+}
+
+async function api(path, body) {
+  const r = await fetch(`${API}/${path}`, body ? { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ t: token, ...body }) }
+    : { signal: AbortSignal.timeout?.(10000) });
+  const j = await r.json().catch(() => ({ ok: false, error: "Witty's server didn't answer properly." }));
+  return { status: r.status, ...j };
+}
+
+// a reading every 5 s while the tab is visible; none while it's hidden
+async function poll() {
+  clearTimeout(timer); timer = null;
+  if (!token) return gate();
+  if (document.hidden) return;
+  let j;
+  try { j = await api(`state?t=${encodeURIComponent(token)}`); } catch { j = null; }
+  if (j?.status === 401) { store.del(); token = null; return gate("YOUR PRACTICE LINK HAS EXPIRED.", "Send /practice to @scout_witty_bot for a fresh link. It only takes a tap."); }
+  if (j?.status === 403) return gate("PRACTICE IS FOR HOLDERS.", j.error || "Get or renew a pass on My Witty, then send /practice to @scout_witty_bot.");
+  if (!j?.ok || !j.me) { $("pr-updated").textContent = "Reconnecting…"; if (!document.hidden) timer = setTimeout(poll, 8000); return; }
+  last = j; if (ok(j.now_ms)) clockOffset = j.now_ms - Date.now();
+  if (!busy) render();
+  if (!document.hidden) timer = setTimeout(poll, POLL_MS);
+}
+document.addEventListener("visibilitychange", () => { if (document.hidden) { clearTimeout(timer); timer = null; } else if (token) poll(); });
+const now = () => Date.now() + clockOffset;
+
+// ---------- the chart: the move since the call, over the call's own window (and your price, if you're in) ----------
+function chart(c, entryX) {
+  const W = 320, H = 92, P = 6, s = Array.isArray(c.series) ? c.series : [];
+  // the axis grows with the call (at least an hour, at most its window), so a 3-day call's first hours aren't a sliver
+  const win = (num(c.window_min) > 0 ? num(c.window_min) : 60) * 60, lastSec = s.length ? num(s.at(-1)[0]) : 0;
+  const span = Math.min(win, Math.max(3600, (ok(lastSec) ? lastSec : 0) * 1.08));
+  const xs = s.map((p) => p[1]).filter(ok).concat(ok(entryX) ? [entryX] : []);
+  const lo = Math.max(0, Math.min(0.8, ...xs) * 0.95), hi = Math.min(Math.max(1.3, ...xs) * 1.05, 12);
+  const X = (sec) => P + (W - 2 * P) * Math.min(1, Math.max(0, sec / span));
+  const Y = (v) => H - P - (H - 2 * P) * ((Math.min(Math.max(v, lo), hi) - lo) / (hi - lo));
+  const ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg");
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("class", "pr-svg"); svg.setAttribute("aria-hidden", "true");
+  const add = (tag, attrs) => { const e = document.createElementNS(ns, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); svg.append(e); return e; };
+  add("line", { x1: P, x2: W - P, y1: Y(1), y2: Y(1), class: "pr-l1" });
+  if (ok(entryX)) { add("line", { x1: P, x2: W - P, y1: Y(entryX), y2: Y(entryX), class: "pr-lme" }); add("text", { x: W - P - 2, y: Y(entryX) - 4, class: "pr-lme-t", "text-anchor": "end" }).textContent = "your price"; }
+  if (s.length) {
+    const d = s.map((p, i) => `${i ? "L" : "M"}${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join("");
+    const up = s.at(-1)[1] >= 1;
+    add("path", { d: `${d}L${X(s.at(-1)[0]).toFixed(1)},${H - P}L${X(s[0][0]).toFixed(1)},${H - P}Z`, class: up ? "pr-area up" : "pr-area down" });
+    add("path", { d, class: up ? "pr-path up" : "pr-path down" });
+    add("circle", { cx: X(s.at(-1)[0]), cy: Y(s.at(-1)[1]), r: 3.5, class: up ? "pr-now up" : "pr-now down" });
+  }
+  return svg;
+}
+
+function wittyLine(c, live) {
+  const steps = stepLine(c.witty_steps);
+  if (c.witty) {
+    const net = ok(c.witty.net) ? `, ${fx(c.witty.net)} after fees` : "";
+    return steps ? `Witty: ${steps}${net}` : `Witty: ${exitWord(c.witty)}${ok(c.witty.x) ? ` at ${fx(c.witty.x)}` : ""}${ok(c.witty.at_s) ? ` after ${mins(c.witty.at_s * 1000)}` : ""}${net}`;
+  }
+  if (live) return steps ? `Witty: ${steps} · still in` : "Witty: still in";
+  return "Witty: no price for this call";
+}
+
+function buyForm(c, label, more) {
+  const f = el("form", "pr-custom"); const inp = el("input"); inp.inputMode = "decimal"; inp.placeholder = more ? "$ more" : "$ other";
+  inp.setAttribute("aria-label", more ? `Amount to add to ${c.token}` : `Amount to buy of ${c.token}`);
+  const go = el("button", "btn btn-blue", label); go.type = "submit";
+  f.append(inp, go);
+  f.onsubmit = (e) => {
+    e.preventDefault();
+    const v = Number(String(inp.value).replace(/[$,\s]/g, ""));
+    if (!(v >= minBuy())) return say(`The smallest buy is ${dollars(minBuy())}.`, "err");
+    if (v > last.me.cash) return say(`You have ${money(last.me.cash)} of play money free.`, "err");
+    act("buy", { call: c.id, usd: v }, go, more ? `Adding ${money(v)} to $${c.token} at the next price reading.` : `Order placed: ${money(v)} of $${c.token}, filling at the next price reading.`, { added: more });
+  };
+  return f;
+}
+
+function orderLine(orders) {
+  if (!Array.isArray(orders) || !orders.length) return "";
+  const parts = orders.map((o) => (ok(o?.buy) ? `buy ${dollars(num(o.buy))}` : ok(o?.sell_pct) ? `sell ${num(o.sell_pct)}%` : null)).filter(Boolean);
+  return parts.length ? `Waiting: ${parts.join(" · ")}` : "";
+}
+
+function posBox(c, pos, live) {
+  const t = now(), fee = feePct();
+  if (pos.pending && !ok(pos.entry_x)) {                 // a first buy that hasn't filled yet
+    const box = el("div", "pr-pos waiting"), txt = el("div");
+    txt.append(el("small", null, `${pos.auto ? "🤖 Autopilot · " : ""}Your ${ok(pos.usd) ? `${money(num(pos.usd))} ` : ""}buy`), el("b", null, "Buying… fills at the next price"), el("small", null, "Orders fill at a fresh reading, never one already on screen."));
+    box.append(txt, el("i", "pr-spin"));
+    return [box];
+  }
+  // fills and values exactly as the server sends them (since witty-practice 2.1 only the fee comes off)
+  const usd = num(pos.usd), back = ok(pos.back) ? num(pos.back) : 0;
+  const pnl = ok(pos.value) ? num(pos.value) + back - usd : null, nowX = ok(pos.now_x) ? num(pos.now_x) : null;
+  const waiting = pos.pending || pos.selling;
+  const box = el("div", `pr-pos${waiting ? " waiting" : ""}`), txt = el("div");
+  const head = el("small");
+  if (pos.auto) head.append(el("span", "pr-bot", "🤖 Autopilot"));
+  head.append(`You're in: ${money(usd)} at ${fx(pos.entry_x)}${back > 0 ? ` · ${money(back)} taken out` : ""}`);
+  const big = [pnl != null ? signed(pnl) : null, nowX != null ? `${fx(nowX)} now` : null].filter(Boolean).join(" · ") || "–";
+  txt.append(head, el("b", (pnl != null ? pnl >= 0 : (nowX ?? 1) >= 1) ? "up" : "down", big));
+  const sub = pos.pending ? "Buying… fills at the next price" : pos.selling ? "Selling…" : pnl != null ? `after the ${fee}% fee, if you sold it all now` : "";
+  if (sub) txt.append(el("small", null, sub));
+  const ord = orderLine(pos.orders); if (ord) txt.append(el("small", null, ord));
+  const steps = stepLine(pos.steps); if (steps) txt.append(el("small", "pr-steps", steps));
+  const ends = num(pos.ends_ms);
+  if (ends > 0) { const lt = el("small", "pr-left", `Time left: ${leftText(ends - t) || "closing"}`); lt.dataset.ends = ends; lt.dataset.fmt = "pos"; txt.append(lt); }
+  box.append(txt); if (waiting) box.append(el("i", "pr-spin"));
+  // sell any part, or buy more
+  const acts = el("div", "pr-posacts");
+  for (const pct of [25, 50, 100]) {
+    const b = el("button", "pr-amt", `Sell ${pct}%`); b.type = "button"; b.disabled = !!pos.selling;
+    b.onclick = () => act("sell", { pid: pos.pid, pct }, b, pct === 100 ? `Selling all of $${c.token} at the next price reading…` : `Selling ${pct}% of $${c.token} at the next price reading…`, { pct, token: c.token });
+    acts.append(b);
+  }
+  if (live && !c.empty && last.me.cash >= minBuy()) acts.append(buyForm(c, "Buy more", true));
+  return [box, acts];
+}
+
+function callCard(c, pos) {
+  const t = now(), live = !!c.open && t < num(c.ends_ms);
+  const a = el("article", `pr-call${live ? "" : " closed"}${pos ? " in" : ""}`); a.id = `call-${c.id}`;
+  const head = el("div", "pr-callhead");
+  const tk = el("i", "tk"); const img = new Image(36, 36); img.src = "img/tokens/sol.svg"; img.alt = ""; tk.append(img);
+  const meta = [`#${c.id}`, catLabel(c.category), winText(c.window_min), ok(c.called_ms) ? `called ${mins(t - c.called_ms)} ago` : null, num(c.liq_usd) > 0 ? `liquidity ${kusd(num(c.liq_usd))}` : null, live && c.rugged ? "rugged" : null].filter(Boolean);
+  const name = el("div", "pr-name"); name.append(el("b", null, `$${c.token}`), el("small", null, meta.join(" · ")));
+  const left = num(c.ends_ms) - t;
+  const timerEl = el("span", `br-timer${live && left < 10 * 60e3 ? " late" : ""}${!live && c.rugged ? " rugged" : ""}`, live ? `${leftText(left)} left` : c.rugged ? "Rugged" : "Closed");
+  if (live) { timerEl.dataset.ends = c.ends_ms; timerEl.dataset.fmt = "pill"; }
+  head.append(tk, name, timerEl);
+  const chartBox = el("div", "pr-chart");
+  chartBox.append(chart(c, pos ? pos.entry_x : null), el("b", `pr-x ${num(c.x) >= 1 ? "up" : "down"}`, fx(num(c.x))));
+  const w = el("div", "pr-witty"); const wi = new Image(22, 22); wi.src = "img/witty-face-32.png"; wi.alt = "";
+  w.append(wi, el("span", null, wittyLine(c, live)));
+  a.append(head, chartBox, w);
+  if (pos) a.append(...posBox(c, pos, live));
+  else if (c.empty && t < num(c.ends_ms)) a.append(el("p", "small pr-note pr-rugnote", "This coin's pool is empty, so there's nothing to buy."));
+  else if (live && last.me.cash >= minBuy()) {
+    const buy = el("div", "pr-buyrow");
+    for (const v of [50, 100, 250]) {
+      const b = el("button", "pr-amt", `$${v}`); b.type = "button"; b.disabled = v > last.me.cash;
+      b.onclick = () => act("buy", { call: c.id, usd: v }, b, `Order placed: $${v} of $${c.token}, filling at the next price reading.`);
+      buy.append(b);
+    }
+    buy.append(buyForm(c, "Buy", false)); a.append(buy);
+  } else if (live) a.append(el("p", "small pr-note", "No play money free for a new trade. Sell part of a trade to free some up."));
+  return a;
+}
+
+async function act(path, body, btn, msg, extra = {}) {
+  busy = true; btn.disabled = true; say("…");
+  let j; try { j = await api(path, body); } catch { j = { ok: false, error: "Couldn't reach Witty's server. Try again." }; }
+  busy = false; btn.disabled = false;
+  say(j.ok ? msg : j.error || "That didn't work. Try again.", j.ok ? "ok" : "err");
+  const pid = body.pid || j.pid || last?.me.open.find((p) => p.call === body.call)?.pid;
+  watch = j.ok && pid ? { path, pid, call: body.call, at: Date.now(), armed: false, ...extra } : null;
+  poll(); if (j.ok) setTimeout(poll, 2500);
+}
+
+function followWatch(me) {
+  if (!watch) return;
+  const held = me.open.find((p) => p.pid === watch.pid), done = me.closed.find((t) => t.pid === watch.pid);
+  const waitingBuy = held && (held.pending || (held.orders || []).some((o) => ok(o?.buy)));
+  const waitingSell = held && (held.selling || (held.orders || []).some((o) => ok(o?.sell_pct)));
+  if ((watch.path === "buy" && waitingBuy) || (watch.path === "sell" && waitingSell)) { watch.armed = true; return; }
+  const settled = watch.armed || Date.now() - watch.at > 15e3;
+  if (done && (watch.path === "sell" || !held)) {
+    say(`Sold $${done.token}: ${ok(done.pnl) ? `${signed(num(done.pnl))} after fees` : "closed"}.`, num(done.pnl) >= 0 ? "ok" : "err"); watch = null;
+  } else if (watch.path === "buy" && held && settled) {
+    say(watch.added ? `Added to $${held.token}: you're in ${money(num(held.usd))} at ${fx(held.entry_x)} of the call.` : `Bought $${held.token} at ${fx(held.entry_x)} of the call.`, "ok"); watch = null;
+  } else if (watch.path === "sell" && held && settled) {
+    say(`Sold ${watch.pct}% of $${held.token}. The rest is still yours.`, "ok"); watch = null;
+  } else if (!held && !done && Date.now() - watch.at > 120e3) watch = null;   // refunded (the notes say so), or a reading from before the order
+}
+
+// ---------- autopilot ----------
+let autoSaving = false, autoShown = null;
+function catKeys() {
+  const r = last?.rules?.categories;
+  const keys = Array.isArray(r) ? r.map((k) => (k && typeof k === "object" ? k.key ?? k.id ?? k.cat : k)).filter(Boolean).map(String) : [];
+  return keys.length ? keys : CATS;
+}
+function sayAuto(text, kind = "") { const e = $("pr-auto-msg"); e.textContent = text; e.className = `mw-msg ${kind}`; }
+function showAuto(a) {
+  autoShown = { on: !!a.on, usd: num(a.usd) > 0 ? num(a.usd) : num(last?.rules?.auto_default_usd) > 0 ? num(last.rules.auto_default_usd) : 50, cats: Array.isArray(a.cats) ? a.cats.map(String) : ["scalping"] };
+  $("pr-auto-on").setAttribute("aria-checked", String(autoShown.on)); $("pr-auto-state").textContent = autoShown.on ? "On" : "Off";
+  if (document.activeElement !== $("pr-auto-usd")) $("pr-auto-usd").value = String(autoShown.usd);
+  const box = $("pr-auto-cats"), keys = catKeys();
+  if (box.dataset.keys !== keys.join()) {
+    box.dataset.keys = keys.join();
+    box.replaceChildren(...keys.map((k) => { const b = el("button", "chip", catLabel(k)); b.type = "button"; b.dataset.cat = k; b.onclick = () => toggleCat(k); return b; }));
+  }
+  for (const b of box.querySelectorAll(".chip")) b.setAttribute("aria-pressed", String(autoShown.cats.includes(b.dataset.cat)));
+  $("pr-auto-p").classList.toggle("on", autoShown.on);
+}
+function renderAuto() {
+  const a = last?.me?.auto;
+  if (!a || typeof a !== "object") { $("pr-auto-p").hidden = true; return; }   // a server without autopilot: no panel
+  $("pr-auto-p").hidden = false;
+  if (!autoSaving) showAuto(a);
+}
+const orList = (keys) => { const l = keys.map(catLabel); return l.length > 1 ? `${l.slice(0, -1).join(", ")} or ${l.at(-1)}` : l[0] || ""; };
+async function saveAuto(change) {
+  if (!autoShown || autoSaving) return;
+  const next = { ...autoShown, ...change };
+  autoSaving = true; showAuto(next);
+  for (const id of ["pr-auto-on", "pr-auto-usd"]) $(id).disabled = true;
+  let j; try { j = await api("auto", { on: next.on, usd: next.usd, cats: next.cats }); } catch { j = { ok: false, error: "Couldn't reach Witty's server. Try again." }; }
+  autoSaving = false;
+  for (const id of ["pr-auto-on", "pr-auto-usd"]) $(id).disabled = false;
+  if (j.ok && j.auto) {
+    last.me.auto = j.auto; showAuto(j.auto);
+    sayAuto(j.auto.on ? `Autopilot is on: ${dollars(num(j.auto.usd))} on each new ${orList(j.auto.cats || [])} call.` : "Autopilot is off.", "ok");
+  } else { sayAuto(j.error || "Couldn't save that. Try again.", "err"); if (last?.me?.auto) showAuto(last.me.auto); }
+}
+function toggleCat(k) {
+  if (!autoShown) return;
+  const has = autoShown.cats.includes(k);
+  if (has && autoShown.cats.length === 1) return sayAuto("Pick at least one kind of call.", "err");
+  saveAuto({ cats: has ? autoShown.cats.filter((x) => x !== k) : catKeys().filter((x) => x === k || autoShown.cats.includes(x)) });
+}
+$("pr-auto-on").addEventListener("click", () => autoShown && saveAuto({ on: !autoShown.on }));
+$("pr-auto-usd").addEventListener("change", () => {
+  const v = Math.round(Number(String($("pr-auto-usd").value).replace(/[$,\s]/g, "")));
+  if (!(v >= 10 && v <= 1000)) { sayAuto("Pick an amount from $10 to $1,000 a call.", "err"); $("pr-auto-usd").value = String(autoShown?.usd ?? 50); return; }
+  if (v !== autoShown?.usd) saveAuto({ usd: v });
+});
+$("pr-auto-usd").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); $("pr-auto-usd").blur(); } });
+
+// ---------- notes from the server (a refunded buy, an autopilot skip): a small strip you can dismiss ----------
+const noteText = (n) => (n && typeof n === "object" ? String(n.text ?? n.msg ?? n.note ?? "") : String(n ?? "")).trim();
+function dismissed() { try { return JSON.parse(store.get("es-practice-notes") || "[]"); } catch { return []; } }
+function renderNotes(me) {
+  const gone = new Set(dismissed());
+  const lines = (Array.isArray(me.notes) ? me.notes : []).map(noteText).filter((x) => x && !gone.has(x)).slice(0, 5);
+  $("pr-notes").hidden = !lines.length;
+  $("pr-notes-l").replaceChildren(...lines.map((x) => el("li", null, x)));
+}
+$("pr-notes-x").addEventListener("click", () => {
+  const lines = [...$("pr-notes-l").children].map((li) => li.textContent);
+  store.set(JSON.stringify([...lines, ...dismissed()].slice(0, 30)), "es-practice-notes");
+  $("pr-notes").hidden = true;
+});
+
+function render() {
+  const { me } = last, calls = Array.isArray(last.calls) ? last.calls : [], board = Array.isArray(last.board) ? last.board : [];
+  me.open = Array.isArray(me.open) ? me.open : []; me.closed = Array.isArray(me.closed) ? me.closed : [];
+  $("pr-gate").hidden = true;
+  ["pr-calls-p", "pr-me-p", "pr-board-p"].forEach((id) => ($(id).hidden = false));
+  renderAuto(); renderNotes(me); followWatch(me);
+  // your money
+  const start = num(me.start) > 0 ? num(me.start) : 1000, total = num(me.total);
+  const pnl = total - start, pct = (total / start - 1) * 100;
+  $("pr-total").textContent = money(total);
+  const chg = $("pr-pnl"); chg.textContent = `${pnl >= 0 ? "+" : "−"}${Math.abs(pct).toFixed(1)}%`; chg.className = `pr-chg ${pnl > 0 ? "up" : pnl < 0 ? "down" : ""}`;
+  $("pr-cash").textContent = money(num(me.cash)); $("pr-in").textContent = ok(me.in_trades) ? money(num(me.in_trades)) : "–";
+  $("pr-who").textContent = me.named ? me.name : `${me.name} · pick a nickname for the leaderboard`;
+  $("pr-rename").textContent = me.named ? "Change nickname" : "Set a nickname";
+  // the rules box: the server's one-line rule, its fee and minimum
+  $("pr-r-start").textContent = dollars(start); $("pr-r-min").textContent = dollars(minBuy()); $("pr-r-fee").textContent = `${feePct()}%`;
+  const manual = typeof last.rules?.manual === "string" ? last.rules.manual.trim() : "";
+  $("pr-r-manual").hidden = !manual; $("pr-r-manual").textContent = manual;
+  // calls (several trades on one call are possible: autopilot's and your own; the newest shows on the card)
+  const box = $("pr-calls"), open = new Map(); for (const p of me.open) if (!open.has(p.call)) open.set(p.call, p);
+  const hadFocus = document.activeElement?.closest?.(".pr-call") && document.activeElement.tagName === "INPUT" ? { call: document.activeElement.closest(".pr-call").id, value: document.activeElement.value } : null;
+  box.replaceChildren(...calls.map((c) => callCard(c, open.get(c.id))));
+  if (hadFocus) { const i = document.querySelector(`#${hadFocus.call} input`); if (i) { i.value = hadFocus.value; i.focus(); } }   // a refresh never eats what you're typing
+  $("pr-none").hidden = calls.some((c) => c.open && now() < num(c.ends_ms));
+  $("pr-updated").textContent = ok(last.now_ms) ? `Live · updated ${new Date(last.now_ms).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })}` : "Live";
+  if (focusCall && !focused && $(`call-${focusCall}`)) { focused = true; $(`call-${focusCall}`).classList.add("focus"); $(`call-${focusCall}`).scrollIntoView({ behavior: "smooth", block: "center" }); }
+  // your trades
+  $("pr-hist-p").hidden = !me.closed.length;
+  $("pr-hist").replaceChildren(...me.closed.map((t) => {
+    const r = el("div", "pr-trade");
+    const l = el("div"), name = el("b", null, `$${t.token}`);
+    if (t.auto) name.append(el("span", "pr-bot", "🤖"));
+    l.append(name, el("small", null, [`#${t.call}`, ok(t.usd) ? `${money(num(t.usd))} at ${fx(num(t.entry_x))}` : null, exitWord(t)].filter(Boolean).join(" · ")));
+    const steps = stepLine(t.steps); if (steps) l.append(el("small", "pr-steps", steps));
+    const m = el("div", "pr-res");
+    m.append(el("b", num(t.pnl) >= 0 ? "up" : "down", ok(t.pnl) ? signed(num(t.pnl)) : "–"), el("small", null, [ok(t.net) ? `${fx(num(t.net))} after fees` : null, t.witty && ok(t.witty.net) ? `Witty ${fx(num(t.witty.net))}` : null].filter(Boolean).join(" · ")));
+    r.append(l, m); return r;
+  }));
+  // the board
+  $("pr-board").replaceChildren(...board.map((b) => {
+    const li = el("li", b.me ? "me" : ""); li.append(el("span", "pr-rank", String(b.rank)), el("span", "pr-bname", b.me ? `${b.name} (you)` : b.name),
+      el("span", `pr-bret ${b.ret > 0 ? "up" : b.ret < 0 ? "down" : ""}`, `${b.ret >= 0 ? "+" : "−"}${Math.abs(b.ret * 100).toFixed(1)}%`), el("b", "pr-btotal", money(b.total)));
+    return li;
+  }));
+}
+// countdowns tick every second between readings
+setInterval(() => {
+  for (const e of document.querySelectorAll("[data-ends]")) {
+    const left = Number(e.dataset.ends) - now(), lt = leftText(left);
+    if (e.dataset.fmt === "pos") { e.textContent = `Time left: ${lt || "closing"}`; continue; }
+    if (!lt) { e.textContent = "Closed"; continue; }
+    e.textContent = `${lt} left`; e.classList.toggle("late", left < 10 * 60e3);
+  }
+}, 1000);
+
+// nickname
+$("pr-rename").addEventListener("click", () => { const f = $("pr-nameform"); f.hidden = !f.hidden; if (!f.hidden) { $("pr-name").value = last?.me.named ? last.me.name : ""; $("pr-name").focus(); } });
+$("pr-nameform").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const j = await api("name", { name: $("pr-name").value }).catch(() => ({ ok: false, error: "Couldn't reach Witty's server." }));
+  say(j.ok ? `You're "${j.name}" on the leaderboard.` : j.error, j.ok ? "ok" : "err");
+  if (j.ok) $("pr-nameform").hidden = true;
+  poll();
+});
+
+document.querySelectorAll(".reveal").forEach((e) => e.classList.add("in"));
+poll();
+</script>
+</body>
+</html>

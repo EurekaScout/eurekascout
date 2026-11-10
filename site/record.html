@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Record · EurekaScout</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="img/witty-face-32.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#FFFFFF">
+<script>try{var t=localStorage.getItem("es-theme");if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t;if(t==="dark")document.querySelector('meta[name="theme-color"]').content="#0D0E12"}catch(e){}</script>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EurekaScout">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=20261110a">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="EurekaScout home">
+      <img src="img/witty-face.webp" width="46" height="46" alt="">
+      <span class="display">EUREKA<span style="color:var(--blue)">SCOUT</span></span>
+    </a>
+    <nav aria-label="Main"><a href="index.html">Home</a><a href="how.html">How it works</a><a href="record.html" aria-current="page">Record</a><a href="nfts.html">NFTs</a><a href="rent.html">Rent</a><a href="team.html">Team</a><a href="witty.html">My Witty</a></nav>
+    <div style="display:flex;gap:10px;align-items:center"><button class="theme-btn" type="button" aria-label="Switch to dark mode"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button><a class="btn btn-ink" href="rent.html">Rent Witty</a><button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span></button></div>
+  </div>
+</header>
+<div class="mnav" id="mnav" hidden><a href="index.html">Home</a><a href="how.html">How it works</a><a href="record.html" aria-current="page">Record</a><a href="nfts.html">NFTs</a><a href="rent.html">Rent</a><a href="team.html">Team</a><a href="witty.html">My Witty</a><button class="theme-row" type="button"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><span>Dark mode</span></button></div>
+<main>
+<section class="wrap rec-top">
+  <div class="status-row reveal"><span class="live-pill" id="status"><span class="dot"></span>Loading from NEAR…</span></div>
+  <h1 class="display reveal">EVERY CALL. WINS AND <span style="color:var(--blue)">LOSSES.</span></h1>
+  <p class="lead reveal" style="margin-top:16px;max-width:660px">Read live from receipts.eurekascout.near. Each revealed call is re-hashed in your browser and scored from chain prices, after fees. Nothing gets dropped.</p>
+  <div class="kinds-head reveal"><h2 class="display">THE RECORD, BY KIND OF CALL.</h2><p class="small">$1 on every call · after fees · updated after each reveal</p></div>
+  <div class="kindcards" id="kinds"></div>
+  <div class="allstrip reveal" id="allstrip">
+    <span class="eyebrow">All calls</span>
+    <div><b class="display" id="all-per">–</b><small>back per $1</small></div>
+    <div><b id="all-wl">–</b><small>after fees</small></div>
+    <div><b id="all-n">–</b><small id="all-n-sub">calls scored</small></div>
+  </div>
+  <div class="trades reveal" id="wallet">
+    <div class="trades-head">
+      <img src="img/witty-face-96.png" width="56" height="56" alt="">
+      <div><span class="eyebrow">Real money</span><h3>Witty's own wallet</h3></div>
+      <a class="trades-link" id="wallet-link" href="#" target="_blank" rel="noopener" hidden>See the wallet on Solscan<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M7 17 17 7m0 0H9m8 0v8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+    <p class="trades-lead">Witty trades its Scalping calls with real money. Every buy and sale is a Solana transaction, so the real fills sit right next to the scored record.</p>
+    <div class="trades-stats" id="trades-stats" hidden>
+      <div><small>Put in</small><b id="ts-in">–</b></div>
+      <div><small>Got back</small><b id="ts-out">–</b></div>
+      <div><small>Real PnL</small><b id="ts-pnl">–</b></div>
+      <div><small>Trades</small><b id="ts-wl">–</b></div>
+    </div>
+    <p class="small trades-foot" id="trades-foot" hidden>Open a Scalping call below to see its real trade. Every number is after every real cost: fees, slippage and account rent. Losses included.</p>
+  </div>
+  <div class="split" id="split">
+    <div class="tile reveal" data-chain="robinhood"><span class="eyebrow">Robinhood Chain</span><span class="display val">–</span><div class="chainbar" aria-hidden="true"><i></i></div><small>–</small></div>
+    <div class="tile reveal" data-chain="solana"><span class="eyebrow">Solana</span><span class="display val">–</span><div class="chainbar" aria-hidden="true"><i></i></div><small>–</small></div>
+  </div>
+  <div class="equity reveal" id="equity">
+    <div class="equity-head"><div><span class="eyebrow">$1 on every official call</span><h3>Running profit after fees</h3></div><span class="display" id="eq-total">–</span></div>
+    <svg id="eq-svg" role="img" aria-label="Running profit if you put $1 on every official call"></svg>
+    <div class="eq-tip" id="eq-tip"></div>
+  </div>
+</section>
+
+<section class="section" id="calls" style="padding-top:56px">
+  <div class="wrap">
+    <div class="reveal"><h2 class="display">ALL CALLS, NEWEST FIRST.</h2></div>
+    <div class="filters reveal">
+      <div class="chips" role="group" aria-label="Chain">
+        <button class="chip" type="button" data-f="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-f="robinhood" aria-pressed="false">Robinhood</button>
+        <button class="chip" type="button" data-f="solana" aria-pressed="false">Solana</button>
+      </div>
+      <div class="chips kinds" role="group" aria-label="Kind of call">
+        <button class="chip" type="button" data-k="all" aria-pressed="true">All kinds</button>
+        <button class="chip" type="button" data-k="gamble" aria-pressed="false">Gamble</button>
+        <button class="chip" type="button" data-k="scalping" aria-pressed="false">Scalping</button>
+        <button class="chip" type="button" data-k="conviction" aria-pressed="false">Conviction</button>
+        <button class="chip" type="button" data-k="smart" aria-pressed="false">Smart Wallets</button>
+      </div>
+      <label class="toggle"><input type="checkbox" id="show-warm"> Show warm-up calls (before 1 Nov)</label>
+    </div>
+    <div class="calls" id="calls-table"></div>
+    <div class="calls-more-row"><button class="btn calls-more" type="button" id="calls-more" aria-expanded="false" aria-controls="calls-table" hidden>See all calls</button></div>
+    <p class="small" style="margin-top:12px">Shows the newest 10 calls; "See all" opens the full list. Sealed calls show only their fingerprint until they're revealed. Tap a call to open its receipt. Results are after 4% fees. Warm-up calls were sealed before the official start and don't count.</p>
+  </div>
+</section>
+
+<section class="section" id="losses" style="padding-top:40px">
+  <div class="wrap">
+    <div class="reveal"><h2 class="display">WHERE THE LOSSES CAME FROM.</h2></div>
+    <p class="lead reveal" style="margin-top:12px;max-width:680px">Most memecoins rug sooner or later. Rugs stay in the losses, split by kind of call, with how high each coin went before it rugged.</p>
+    <div class="loss-legend reveal" aria-hidden="true"><span><i class="seg rug"></i>Rugged</span><span><i class="seg time"></i>Sold at the time limit, down</span><span><i class="seg other"></i>Other losses</span></div>
+    <div class="lossbars reveal" id="lossbars"></div>
+  </div>
+</section>
+
+<section class="section" id="proven" style="padding-top:40px">
+  <div class="wrap">
+    <div class="reveal"><h2 class="display">HOW IT'S PROVEN.</h2></div>
+    <ol class="proven">
+      <li class="reveal"><span class="display">01</span><b>Witty makes a call</b><p>Every call carries its own plan for getting in and out, decided before anyone sees it.</p></li>
+      <li class="reveal"><span class="display">02</span><b>It's sealed on NEAR</b><p>Only a fingerprint goes public. The call can't be changed, deleted or back-dated.</p></li>
+      <li class="reveal"><span class="display">03</span><b>It's revealed</b><p>46 hours later the call is opened, and anyone can check it against its seal.</p></li>
+      <li class="reveal"><span class="display">04</span><b>It's scored</b><p>On real on-chain prices, after fees. Every call counts, the misses and the rugs too.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="wrap" style="padding-bottom:72px">
+  <div class="cta reveal">
+    <h2 class="display">SEE THE NEXT CALL FIRST.</h2>
+    <p>Rent Witty and get each call the moment it's sealed, 46 hours before it shows up here.</p>
+    <div class="btns"><a class="btn btn-ink" style="min-height:52px;padding:0 28px;font-size:16px" href="rent.html">Rent Witty</a><a class="btn btn-white" href="how.html">How it works</a></div>
+    <img src="img/witty-elite-cut.webp" width="560" height="798" alt="" loading="lazy">
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-near"><a href="https://near.org" target="_blank" rel="noopener"><img src="img/built-on-near.svg" width="122" height="20" alt="Built on NEAR"></a><span>Prove on <a href="https://nearblocks.io/address/receipts.eurekascout.near" target="_blank" rel="noopener">receipts.eurekascout.near</a></span></div>
+    <div class="foot-mid"><span class="socials"><a class="social light" href="https://x.com/eurekascout_" target="_blank" rel="noopener" aria-label="EurekaScout on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a><a class="social light" href="https://github.com/EurekaScout" target="_blank" rel="noopener" aria-label="EurekaScout on GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a></span><span class="foot-copy">&copy; 2026 EurekaScout</span></div>
+    <span class="foot-note">Not financial advice. Memecoins rug; size small.</span>
+  </div>
+</footer>
+<script src="assets/site.js?v=20261110a"></script>
+<script>
+"use strict";
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const CONTRACT = "receipts.eurekascout.near";
+const RPCS = ["https://free.rpc.fastnear.com", "https://rpc.mainnet.fastnear.com", "https://rpc.mainnet.near.org"];
+const REVEAL_MS = 46 * 3600e3, FEE = 0.96;
+// the mockup (opened as a file or on localhost) shows sample data; the real site reads NEAR and scores.json
+const MOCK = new URLSearchParams(location.search).get("live") !== "1" && (location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(location.hostname));
+const $ = (id) => document.getElementById(id);
+let OFFSET = 0;
+const nowMs = () => Date.now() + OFFSET;
+const pad = (n) => String(n).padStart(2, "0");
+const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const fmtTime = (ms) => { const d = new Date(ms); return `${d.getUTCDate()} ${MON[d.getUTCMonth()]} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}`; };
+const fmtX = (x) => `${x.toFixed(2)}x`;
+const fmtUsd = (x) => `$${x.toFixed(2)}`;
+const nsToMs = (ns) => Number(BigInt(ns) / 1000000n);
+function fmtLeft(ms) { if (ms <= 0) return "any moment"; const h = Math.floor(ms / 3600e3), m = Math.floor((ms % 3600e3) / 60e3), s = Math.floor((ms % 60e3) / 1e3); return h ? `${h}h ${pad(m)}m` : `${m}m ${pad(s)}s`; }
+function ago(ms) { const m = Math.round((nowMs() - ms) / 60e3); if (m < 1) return "just now"; if (m < 60) return `${m} min ago`; if (m < 2880) return `${Math.floor(m / 60)} h ago`; const d = Math.floor(m / 1440); return `${d} day${d === 1 ? "" : "s"} ago`; }
+function el(tag, text, cls) { const e = document.createElement(tag); if (text != null) e.textContent = text; if (cls) e.className = cls; return e; }
+// display only: slurs in coin names are masked; the hash is always taken from the untouched JSON
+const MASK = /(fag|nigg|retard|tranny|kike)\w*/gi;
+const clean = (s) => String(s ?? "?").replace(MASK, (w) => w[0] + "*".repeat(Math.max(1, w.length - 2)) + w.at(-1));
+const CHAIN = { solana: "Solana", robinhood: "Robinhood", near: "NEAR" };
+// every call has a kind (scored rows always carry it; a call with none is shown as Gamble)
+const KIND = { gamble: "Gamble", scalping: "Scalping", conviction: "Conviction", smart: "Smart Wallets" };
+const kindOf = (s, call) => {
+  const k = String(s?.category ?? call?.category ?? "").toLowerCase().replace(/[\s-]+/g, "_");
+  if (k.startsWith("smart")) return "smart";
+  if (KIND[k]) return k;
+  return "gamble";
+};
+const ROWS_FIRST = 10;   // the table shows the newest 10; "See all" opens the rest
+const EXIT = { "2x": ["2x", "x2"], trail: ["trailed out", "x2"], targets: ["all targets hit", "x2"], rugged: ["rugged", "rug"], "rugged after profit": ["rugged after profit", "rug"], rugged_after_profit: ["rugged after profit", "rug"],
+  empty: ["pool emptied", "rug"], stopped: ["stopped", "stop"], "1h": ["1 hour", ""], time: ["time limit", ""], expired: ["never revealed", "rug"] };
+const exitLabel = (e) => EXIT[e]?.[0] || String(e || "–").replace(/_/g, " ");   // witty-2.x adds its own words; never a raw code
+async function sha256Hex(text) { const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text)); return [...new Uint8Array(d)].map((b) => b.toString(16).padStart(2, "0")).join(""); }
+async function view(method, args = {}) {
+  // Ask the first RPC; if it hasn't answered within 1.2 s (or fails), ask the next one too. The first good answer wins,
+  // so one slow or rate-limited RPC never makes a check wait.
+  const body = JSON.stringify({ jsonrpc: "2.0", id: "es", method: "query", params: { request_type: "call_function", finality: "final", account_id: CONTRACT, method_name: method, args_base64: btoa(JSON.stringify(args)) } });
+  const ask = (url) => fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body, signal: AbortSignal.timeout?.(8000) })
+    .then((r) => r.json()).then((j) => { if (j.error || !j.result?.result) throw new Error("bad answer"); return JSON.parse(new TextDecoder().decode(Uint8Array.from(j.result.result))); });
+  return new Promise((resolve, reject) => {
+    let started = 0, failed = 0, done = false;
+    const next = () => {
+      if (done || started >= RPCS.length) return;
+      const url = RPCS[started++], timer = setTimeout(next, 1200);
+      ask(url).then((v) => { clearTimeout(timer); if (!done) { done = true; resolve(v); } },
+        (e) => { clearTimeout(timer); if (++failed === RPCS.length && !done) { done = true; reject(e); } else next(); });
+    };
+    next();
+  });
+}
+// the same summary the public scorer writes (witty_score.mjs summarize)
+function summarize(rows) {
+  const s = rows.filter((r) => r.scored);
+  if (!s.length) return { calls: 0 };
+  const nets = s.map((r) => r.net).sort((a, b) => a - b), mid = Math.floor(nets.length / 2);
+  const pct = (f) => Math.round((100 * s.filter(f).length) / s.length);
+  return { calls: s.length, per_dollar: +(nets.reduce((a, b) => a + b, 0) / s.length).toFixed(3), median: +(nets.length % 2 ? nets[mid] : (nets[mid - 1] + nets[mid]) / 2).toFixed(3),
+    win_pct: pct((r) => r.net > 1), hit_2x_pct: pct((r) => r.exit === "2x"), trail_pct: pct((r) => /^trail/.test(r.exit)), rugged_pct: pct((r) => r.exit === "rugged"), stopped_pct: pct((r) => r.exit === "stopped") };
+}
+
+// ---------------- data ----------------
+async function sampleData() {
+  const SIM = Date.UTC(2026, 10, 10, 18, 0);
+  OFFSET = Math.max(0, SIM - Date.now());
+  const now = nowMs(), H = 3600e3;
+  const S = [ // hours before "now", chain, coin, type, exit, gross, exit minute, peak, warm-up
+    [252, "solana", "BLORP", "graduation", "2x", 2, 14, 2.6, true], [244, "robinhood", "GRUG", "leader", "rugged", 0.08, 22, 1.3, true],
+    [229, "solana", "ZAPP", "graduation", "2x", 2, 23, 3.4], [215, "robinhood", "TOADY", "leader", "1h", 1.21, 60, 1.6],
+    [201, "solana", "MOONCAT", "graduation", "rugged", 0.11, 9, 1.4], [187, "robinhood", "SNIFF", "leader", "2x", 2, 31, 2.2],
+    [171, "solana", "KRUMB", "graduation", "trail", 1.25, 41, 1.52], [157, "robinhood", "PLONK", "leader", "rugged", 0.04, 6, 1.1],
+    [141, "solana", "WOBBL", "graduation", "2x", 2, 18, 5.1], [126, "robinhood", "GLIMP", "leader", "1h", 1.05, 60, 1.7],
+    [111, "solana", "FIZZO", "graduation", "stopped", 0.68, 12, 1.2], [96, "robinhood", "DRONK", "leader", "2x", 2, 44, 2.3],
+    [81, "solana", "NUBBY", "graduation", "1h", 0.86, 60, 1.3], [66, "robinhood", "QUOKKO", "leader", "2x", 2, 27, 2.9],
+    [51, "solana", "ZORBO", "graduation", "rugged", 0.15, 17, 1.6],
+    [40, "robinhood", "S1", "leader"], [27, "solana", "S2", "graduation"], [13, "robinhood", "S3", "leader"], [2.2, "solana", "S4", "graduation"],
+  ];
+  const SAMPLE_KIND = { ZAPP: "scalping", WOBBL: "scalping", NUBBY: "scalping", KRUMB: "smart", DRONK: "conviction", S2: "scalping", S3: "conviction", S4: "gamble" };   // the rest: older calls -> Gamble
+  const calls = [], rows = [];
+  for (let i = 0; i < S.length; i++) {
+    const [h, chain, token, type, exit, gross, minute, peak, warm] = S[i];
+    const id = String(i + 3), at = now - h * H, entry = chain === "solana" ? 0.0000412 * (1 + i / 7) : 0.00000913 * (1 + i / 9);
+    const json = JSON.stringify({ category: SAMPLE_KIND[token] || "gamble", called_at: new Date(at).toISOString(), chain, contract_address: "sample-not-a-real-coin", entry_price: +entry.toPrecision(4), exit_plan: "sample plan (never shown on the page)", rules_version: "witty-2.1", salt: (i * 2654435761 >>> 0).toString(16).padStart(8, "0") + "c9a1e7", token });
+    const sealed = h < 46, c = { id, chain, status: sealed ? "sealed" : "revealed", sealed_at: String(BigInt(Math.round(at)) * 1000000n), sealed_block: 222500000 + i * 8640, hash: await sha256Hex(json), warm_up: !!warm };
+    if (sealed && SAMPLE_KIND[token]) c.category = SAMPLE_KIND[token];      // (when the chain says a sealed call's kind)
+    if (!sealed) { c.call_json = json; const net = +(gross * FEE).toFixed(4);
+      rows.push({ id, hash: c.hash, warm_up: !!warm, status: "revealed", token, chain, category: SAMPLE_KIND[token] || "gamble", called_at: new Date(at).toISOString(), rules_version: "witty-1.9", stop_loss: "0.7x",
+        scored: true, exit, gross, net, exit_minute: minute, peak: peak, peak_x: peak, entry_price: +entry.toPrecision(4), source: chain === "solana" ? "PumpSwap pool vaults, 360 readings in the hour" : "Uniswap v4 swaps on Robinhood Chain" }); }
+    calls.push(c);
+  }
+  const official = rows.filter((r) => !r.warm_up);
+  const scores = { made_at: new Date(now - 25 * 60e3).toISOString(), official: summarize(official), warm_up: summarize(rows.filter((r) => r.warm_up)),
+    by_chain: { solana: summarize(official.filter((r) => r.chain === "solana")), robinhood: summarize(official.filter((r) => r.chain === "robinhood")) },
+    calls: rows };
+  // sample trades: Witty's own money on the Scalping calls, a little under the score (slippage and fees)
+  const tr = rows.filter((r) => r.category === "scalping" && !r.warm_up).map((r, i) => {
+    const x = +(r.net * (0.93 - (i % 3) * 0.02)).toFixed(4), inSol = 0.0215;
+    return { id: r.id, token: r.token, exit: r.exit, result_x: x, in_sol: inSol, pnl_sol: +((x - 1) * inSol).toFixed(4), sol_usd: 93, in_usd: 2, pnl_usd: +((x - 1) * 2).toFixed(2) };
+  });
+  const inSol = tr.reduce((s, t) => s + t.in_sol, 0), pnl = tr.reduce((s, t) => s + t.pnl_sol, 0);
+  const trades = { summary: { trades: tr.length, wins: tr.filter((t) => t.pnl_sol > 0).length, in_sol: inSol, pnl_sol: +pnl.toFixed(4),
+    pnl_usd: +tr.reduce((s, t) => s + t.pnl_usd, 0).toFixed(2), per_dollar: +((inSol + pnl) / inSol).toFixed(4), not_traded: 0 }, trades: tr, not_traded: [],
+    wallet_url: "https://solscan.io/account/SAMPLE-not-a-real-wallet" };
+  return { calls, scores, trades, sample: true };
+}
+const DATA_API = "https://api.eurekascout.com/data/";
+async function liveData() {
+  const n = Number(await view("get_call_count")), calls = [];
+  for (let f = 0; f < n; f += 50) calls.push(...await view("get_calls", { from_index: String(f), limit: 50 }));
+  // the numbers: the bot serves the scorer's latest (refreshed every 2 hours, plan fields taken out); the site's own copy
+  // is the fallback. Both are asked at once and the newer one wins, so a slow or stale source never holds the page back.
+  const getJson = (u) => fetch(u, { cache: "no-store", signal: AbortSignal.timeout?.(6000) }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+  const [apiScores, siteScores] = await Promise.all([getJson(`${DATA_API}scores.json`), getJson("scores.json")]);
+  const scores = [apiScores, siteScores].filter((x) => x && Array.isArray(x.calls)).sort((a, b) => String(b.made_at || "").localeCompare(String(a.made_at || "")))[0] || null;
+  let trades = await getJson(`${DATA_API}trades.json`);
+  for (const f of ["trades.public.json", "trades.json"]) { if (trades) break; trades = await getJson(f); }   // Witty's real fills
+  return { calls, scores, trades, sample: false };
+}
+
+// ---------------- count-ups and in-view ----------------
+function countUp(node, to, fmt, ms = 1300) {
+  if (reduce) { node.textContent = fmt(to); return; }
+  const t0 = performance.now();
+  const step = (now) => { const k = Math.min(1, (now - t0) / ms), e = 1 - (1 - k) ** 3; node.textContent = fmt(to * e); if (k < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+function whenSeen(node, fn) {
+  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); fn(); } }, { threshold: 0.25 });
+  io.observe(node);
+}
+
+// ---------------- the record, by kind of call ----------------
+const KIND_COPY = {
+  gamble: ["Brand-new coins, caught at the very start. Big swings both ways.", null],
+  scalping: ["Quick in-and-out trades on coins that are already moving. Witty puts its own money on every one.", "Witty trades these"],
+  conviction: ["The team's own picks, held for days, not minutes.", "The team holds these"],
+  smart: ["Coins bought by wallets with a winning history, called the moment they buy.", null],
+};
+const isRug = (e) => /rugged/.test(String(e || ""));            // "rugged after profit" counts too
+const isTime = (e) => /^1h$|time|hour|limit/i.test(String(e || ""));
+const peakOf = (r) => r.peak ?? r.peak_x ?? null;
+const pctSigned = (pd) => { const p = Math.round((pd - 1) * 100); return `${p > 0 ? "+" : p < 0 ? "−" : ""}${Math.abs(p)}%`; };
+/** Each kind's record, from the scored official calls (or by_category when the calls aren't listed). */
+function kindStats(sc) {
+  const scored = (sc?.calls || []).filter((r) => r.scored && !r.warm_up);
+  const out = {};
+  for (const k of Object.keys(KIND)) {
+    const rs = scored.filter((r) => kindOf(r, null) === k), sum = rs.length ? summarize(rs) : (sc?.by_category?.[k] || { calls: 0 });
+    const wins = rs.length ? rs.filter((r) => r.net > 1).length : Math.round(((Number(sum.win_pct) || 0) / 100) * (Number(sum.calls) || 0));
+    const rugs = rs.filter((r) => isRug(r.exit)), peaks = rugs.map(peakOf).filter((x) => x > 0);
+    out[k] = { ...sum, calls: Number(sum.calls) || 0, wins, losses: (Number(sum.calls) || 0) - wins, rugs: rs.length ? rugs.length : Math.round(((Number(sum.rugged_pct) || 0) / 100) * (Number(sum.calls) || 0)),
+      rugPeak: peaks.length ? peaks.reduce((a, b) => a + b, 0) / peaks.length : null, rows: rs };
+  }
+  return out;
+}
+function renderRecord(sc) {
+  const o = sc?.official, ks = kindStats(sc);
+  // calls not scored yet, per kind: sealed (when the chain says the kind) and, for Conviction, revealed but still open
+  // sealed: only when the chain says the kind; revealed but not scored yet: waiting for the next score update (Conviction: still held)
+  const sealedBy = {}, waitBy = {};
+  for (const r of rows) {
+    if (r.warm_up || !r.kind) continue;
+    if (r.status === "sealed") sealedBy[r.kind] = (sealedBy[r.kind] || 0) + 1;
+    else if (awaitingScore(r)) waitBy[r.kind] = (waitBy[r.kind] || 0) + 1;
+  }
+  const sealedNow = rows.filter((r) => r.status === "sealed").length;
+  $("kinds").replaceChildren(...Object.keys(KIND).map((k) => {
+    const st = ks[k], [desc, badge] = KIND_COPY[k], has = st.calls > 0 && Number.isFinite(st.per_dollar);
+    const card = el("article", null, `kcard${has ? "" : " empty"}`); card.dataset.kind = k;   // no scroll-in class: site.js only watches what is there at load
+    const top = el("div", null, "kc-top"), body = el("div", null, "kc-body");      // a band in the kind's colour, then the numbers
+    top.append(el("h3", KIND[k])); if (badge) top.append(el("em", badge, "kbadge"));
+    const sealed = sealedBy[k] || 0, wait = waitBy[k] || 0;
+    if (!has) {                                   // no revealed calls yet (scores.json: calls 0, no numbers): a calm placeholder, never "undefined" or dashes
+      const empty = el("div", null, "kc-empty");
+      const face = el("img"); face.src = "img/witty-face-96.png"; face.alt = ""; face.width = face.height = 52; face.loading = "lazy";
+      empty.append(face, el("b", "No revealed calls yet"));
+      if (sealed) empty.append(el("span", `${sealed} sealed · first results when they reveal`));
+      else if (wait) empty.append(el("span", `${wait} revealed · scored at the next update`));
+      body.append(el("p", desc, "kc-desc"), empty, el("p", "0 calls scored", "kc-n")); card.append(top, body);
+      return card;
+    }
+    const n = el("p", [`${st.calls} call${st.calls === 1 ? "" : "s"} scored`, sealed && `${sealed} sealed now`, wait && (k === "conviction" ? `${wait} open now` : `${wait} waiting for a score`)].filter(Boolean).join(" · "), "kc-n");
+    const money = el("div", null, "kc-money"); money.append(el("b", has ? fmtUsd(st.per_dollar) : "–", `display${has ? (st.per_dollar >= 1 ? " up" : " down") : ""}`), el("small", "back per $1"));
+    const stats = el("div", null, "kc-stats");
+    for (const [label, v, cls, box] of [["PnL", pctSigned(st.per_dollar), st.per_dollar >= 1 ? "up" : "down", ""], ["Wins", String(st.wins), "", "w"], ["Losses", String(st.losses), "", "l"]]) {
+      const d = el("div", null, box); d.append(el("small", label), el("b", v, cls)); stats.append(d);
+    }
+    const winPct = has ? Math.round((100 * st.wins) / st.calls) : 0;
+    const bar = el("div", null, "kc-bar"); bar.setAttribute("role", "img"); bar.setAttribute("aria-label", has ? `${winPct}% of calls won` : "no calls scored yet");
+    bar.append(el("i")); bar._v = winPct;
+    const rate = el("small", has ? `${winPct}% of calls won` : "No calls scored yet", "kc-rate");
+    const rugs = el("p", st.rugs ? `Rugs: ${st.rugs}${st.rugPeak ? ` · they reached ${st.rugPeak.toFixed(1)}x first, on average` : ""}` : "Rugs: none so far", "kc-rugs");
+    body.append(el("p", desc, "kc-desc"), money, stats, bar, rate, rugs, n); card.append(top, body);
+    return card;
+  }));
+  whenSeen($("kinds"), () => { for (const b of document.querySelectorAll(".kc-bar")) b.querySelector("i").style.width = `${b._v}%`; });
+  // all calls, in one line
+  if (o?.calls) {
+    const wins = (sc.calls || []).filter((r) => r.scored && !r.warm_up && r.net > 1).length || Math.round(((o.win_pct || 0) / 100) * o.calls);
+    $("all-per").textContent = fmtUsd(o.per_dollar); $("all-per").className = `display ${o.per_dollar >= 1 ? "up" : "down"}`;
+    $("all-wl").textContent = `${wins}W · ${o.calls - wins}L`;
+    $("all-n").textContent = String(o.calls);
+  } else { $("all-per").textContent = "–"; $("all-wl").textContent = "–"; $("all-n").textContent = "0"; }
+  $("all-n-sub").textContent = `calls scored${sealedNow ? ` · ${sealedNow} sealed now` : ""}`;
+  // by chain
+  $("split").style.gridTemplateColumns = "repeat(2,minmax(0,1fr))";
+  if (!o?.calls) return;
+  for (const t of document.querySelectorAll("[data-chain]")) {
+    const c = sc.by_chain?.[t.dataset.chain];
+    t._c = c;
+    t.querySelector("small").textContent = c?.calls ? `${c.calls} call${c.calls === 1 ? "" : "s"} · ${c.win_pct}% win rate` : "No scored calls yet";
+  }
+  whenSeen($("split"), () => {
+    for (const t of document.querySelectorAll("[data-chain]")) {
+      if (!t._c?.calls) continue;
+      countUp(t.querySelector(".val"), t._c.per_dollar, fmtUsd);
+      t.querySelector(".chainbar i").style.width = `${Math.min(100, (t._c.per_dollar / 2) * 100)}%`;
+    }
+  });
+}
+
+// ---------------- where the losses came from ----------------
+function renderLosses(sc) {
+  const ks = kindStats(sc);
+  $("lossbars").replaceChildren(...Object.keys(KIND).map((k) => {
+    const st = ks[k], listed = st.rows.length > 0, losses = listed ? st.rows.filter((r) => r.net <= 1) : { length: Math.max(0, st.losses || 0) };
+    const n = listed ? { rug: losses.filter((r) => isRug(r.exit)).length, time: losses.filter((r) => !isRug(r.exit) && isTime(r.exit)).length } : { rug: Math.min(st.rugs || 0, losses.length), time: 0 };
+    n.other = losses.length - n.rug - n.time;
+    const row = el("div", null, "lrow");
+    const name = el("div", null, "lname"); name.append(el("b", KIND[k]), el("small", losses.length ? `${losses.length} loss${losses.length === 1 ? "" : "es"} of ${st.calls}` : st.calls ? `no losses in ${st.calls}` : "No revealed calls yet"));
+    const bar = el("div", null, "lbar");
+    if (losses.length) for (const [key, label] of [["rug", "Rugged"], ["time", "Sold at the time limit, down"], ["other", "Other losses"]]) {
+      if (!n[key]) continue;
+      const seg = el("span", null, `seg ${key}`); seg.style.flex = String(n[key]); seg.title = `${label}: ${n[key]}`;
+      seg.append(el("em", String(n[key]))); bar.append(seg);
+    }
+    else bar.append(el("span", "–", "lnone"));
+    bar.setAttribute("role", "img");
+    bar.setAttribute("aria-label", losses.length ? `${KIND[k]}: ${n.rug} rugged, ${n.time} sold at the time limit down, ${n.other} other losses` : st.calls ? `${KIND[k]}: no losses` : `${KIND[k]}: no revealed calls yet`);
+    row.append(name, bar, el("small", !st.calls ? "–" : st.rugs ? `${st.rugs} rug${st.rugs === 1 ? "" : "s"}${st.rugPeak ? ` · went ${st.rugPeak.toFixed(1)}x first` : ""}` : "no rugs", "lnote"));
+    return row;
+  }));
+}
+
+// ---------------- running profit chart ----------------
+let eqRows = [], eqSeen = false;
+function renderEquity() {
+  const svg = $("eq-svg"), box = $("equity"), tip = $("eq-tip");
+  const W = svg.getBoundingClientRect().width || 800, Hh = W < 600 ? 220 : 280, L = 46, R = 14, T = 14, B = 28;
+  svg.setAttribute("viewBox", `0 0 ${W} ${Hh}`); svg.setAttribute("height", Hh);
+  svg.replaceChildren();
+  const NS = "http://www.w3.org/2000/svg", mk = (tag, attrs) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+  if (!eqRows.length) { const t = mk("text", { x: W / 2, y: Hh / 2, "text-anchor": "middle", class: "eq-lbl" }); t.textContent = "The chart starts with the first scored call."; svg.append(t); $("eq-total").textContent = "–"; return; }
+  let cum = 0;
+  const pts = [{ x: 0, y: 0 }, ...eqRows.map((r, i) => ({ x: i + 1, y: (cum += r.net - 1), r }))];
+  const lo = Math.min(0, ...pts.map((p) => p.y)), hi = Math.max(0, ...pts.map((p) => p.y)), span = Math.max(1, hi - lo);
+  const step = span > 6 ? 2 : span > 2.5 ? 1 : 0.5, y0 = Math.floor((lo - 0.15) / step) * step, y1 = Math.ceil((hi + 0.15) / step) * step;
+  const X = (x) => L + (x / (pts.length - 1)) * (W - L - R), Y = (y) => T + (1 - (y - y0) / (y1 - y0)) * (Hh - T - B);
+  for (let v = y0; v <= y1 + 1e-9; v += step) {
+    svg.append(mk("line", { x1: L, x2: W - R, y1: Y(v), y2: Y(v), class: Math.abs(v) < 1e-9 ? "eq-zero" : "eq-grid" }));
+    const t = mk("text", { x: L - 8, y: Y(v) + 4, "text-anchor": "end", class: "eq-lbl" });
+    t.textContent = Math.abs(v) < 1e-9 ? "$0" : `${v > 0 ? "+" : "−"}$${Math.abs(v).toFixed(step < 1 ? 1 : 0)}`; svg.append(t);
+  }
+  const defs = mk("defs", {}), g = mk("linearGradient", { id: "eqfill", x1: 0, x2: 0, y1: 0, y2: 1 });
+  g.append(mk("stop", { offset: "0%", "stop-color": "#36E2CC", "stop-opacity": ".35" }), mk("stop", { offset: "100%", "stop-color": "#36E2CC", "stop-opacity": "0" }));
+  defs.append(g); svg.append(defs);
+  const d = pts.map((p, i) => `${i ? "L" : "M"}${X(p.x).toFixed(1)} ${Y(p.y).toFixed(1)}`).join(" ");
+  svg.append(mk("path", { d: `${d} L${X(pts.length - 1).toFixed(1)} ${Y(0).toFixed(1)} L${X(0)} ${Y(0).toFixed(1)} Z`, fill: "url(#eqfill)", class: "eq-area" }));
+  svg.append(mk("path", { d, pathLength: 1, class: "eq-line" }));
+  pts.slice(1).forEach((p, i) => {
+    const dot = mk("circle", { cx: X(p.x), cy: Y(p.y), r: 5, class: `eq-dot ${p.r.net > 1 ? "win" : "loss"}` });
+    dot.style.transitionDelay = `${600 + i * 70}ms`; svg.append(dot);
+    const hit = mk("circle", { cx: X(p.x), cy: Y(p.y), r: 15, class: "eq-hit", tabindex: 0 });
+    const show = () => { tip.textContent = `#${p.r.id} ${clean(p.r.token)} · ${exitLabel(p.r.exit)} · ${fmtX(p.r.net)} → running ${p.y >= 0 ? "+" : "−"}${fmtUsd(Math.abs(p.y))}`;
+      const sb = svg.getBoundingClientRect(), bb = box.getBoundingClientRect(); tip.style.left = `${sb.left - bb.left + (X(p.x) / W) * sb.width}px`; tip.style.top = `${sb.top - bb.top + (Y(p.y) / Hh) * sb.height}px`; tip.classList.add("on"); };
+    hit.addEventListener("pointerenter", show); hit.addEventListener("focus", show); hit.addEventListener("click", show);
+    hit.addEventListener("pointerleave", () => tip.classList.remove("on")); hit.addEventListener("blur", () => tip.classList.remove("on"));
+    svg.append(hit);
+  });
+  const total = pts.at(-1).y;
+  if (eqSeen) box.classList.add("in-view");
+  $("eq-total").textContent = `${total >= 0 ? "+" : "−"}${fmtUsd(Math.abs(total))} on $${eqRows.length} staked`;
+  $("eq-total").style.color = total >= 0 ? "#0E8F7E" : "#D64545";
+}
+let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(renderEquity, 150); });
+
+// sealed calls in the table: their "Reveals in" text ticks once a minute
+function tickSealed() { for (const e of document.querySelectorAll("[data-reveals]")) e.textContent = revealsIn(Number(e.dataset.reveals) - nowMs()); }
+setInterval(tickSealed, 30000);
+
+// ---------------- the calls table ----------------
+const state = { chain: "all", kind: "all", warm: false, more: false, open: new Set(), seen: false, shown: new Set() };
+let rows = [];
+const checks = new Map();
+function rcCell(r) {
+  const cell = el("span", null, "c-rc");
+  if (r.status === "sealed") { const s = el("span", null, "rc seal"); s.append("receipt on NEAR"); cell.append(s); return cell; }
+  const ok = checks.get(r.id), visible = state.shown.has(r.id);
+  if (r.status === "expired") { cell.append(el("span", "no reveal: a loss", "rc bad")); return cell; }
+  if (ok == null || !visible) { const w = el("span", null, "rc wait"); w.append(el("span", null, "spin"), "checking"); cell.append(w); return cell; }
+  const s = el("span", null, `rc ${ok ? "ok" : "bad"}`); s.append(el("span", ok ? "✓" : "✗", "tick"), ok ? "matches seal" : "does NOT match"); cell.append(s); return cell;
+}
+const lockIcon = () => { const NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS, "svg"); svg.setAttribute("viewBox", "0 0 24 24"); svg.setAttribute("aria-hidden", "true"); svg.setAttribute("class", "lock");
+  svg.innerHTML = '<rect x="5" y="11" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>'; return svg; };
+const revealsIn = (ms) => { if (ms <= 0) return "Reveals any moment"; const h = Math.floor(ms / 3600e3); return h >= 1 ? `Reveals in ${h} h` : `Reveals in ${Math.max(1, Math.ceil(ms / 60e3))} min`; };
+function renderTable(animate) {
+  const box = $("calls-table");
+  box.replaceChildren();
+  const head = el("div", null, "crow head");
+  for (const h of ["#", "Called (UTC)", "Chain", "Coin", "Type", "Exit", "Result", "Peak", "Receipt"]) head.append(el("span", h));
+  box.append(head);
+  const shown = rows.filter((r) => (state.warm || !r.warm_up) && (state.chain === "all" || r.chain === state.chain) && (state.kind === "all" || r.kind === state.kind));
+  const more = $("calls-more");
+  more.hidden = shown.length <= ROWS_FIRST;
+  more.setAttribute("aria-expanded", String(state.more));
+  more.textContent = state.more ? "Show fewer" : `See all ${shown.length} calls`;
+  if (!shown.length) {
+    box.append(el("div", !rows.length ? "No revealed calls yet: each call reveals 46 hours after it's sealed." : state.kind !== "all" ? `No ${KIND[state.kind]} calls revealed yet${state.chain === "all" ? "" : ` on ${CHAIN[state.chain]}`}.` : "No calls match this filter.", "calls-empty"));
+    return;
+  }
+  (state.more ? shown : shown.slice(0, ROWS_FIRST)).forEach((r, i) => {
+    const s = r.s, btn = el("button", null, `crow${animate ? " enter" : ""}`);
+    btn.type = "button"; btn.setAttribute("aria-expanded", String(state.open.has(r.id)));
+    if (animate) btn.style.setProperty("--d", `${Math.min(i, 14) * 45}ms`);
+    if (r.status === "sealed") {                   // only its fingerprint is public until the reveal
+      const coin = el("span", null, "c-coin sealed"); coin.append(lockIcon(), "Sealed");
+      const left = el("span", revealsIn(r.sealedMs + REVEAL_MS - nowMs()), "c-exit c-left"); left.dataset.reveals = String(r.sealedMs + REVEAL_MS);
+      btn.append(el("span", `#${r.id}`, "c-id"), el("span", fmtTime(r.sealedMs), "c-time"), el("span", CHAIN[r.chain] || r.chain || "–", "c-chain"), coin,
+        el("span", r.kind ? KIND[r.kind] : "–", "c-type"), left, el("span", "–", "c-res res flat"), el("span", "–", "c-peak none"), rcCell(r), el("span", `${CHAIN[r.chain] || r.chain} · ${r.kind ? `${KIND[r.kind]} · ` : ""}sealed ${fmtTime(r.sealedMs)}`, "c-meta"));
+      const det = el("div", null, `detail${state.open.has(r.id) ? " open" : ""}`);
+      btn.addEventListener("click", () => { const open = !state.open.has(r.id); open ? state.open.add(r.id) : state.open.delete(r.id); btn.setAttribute("aria-expanded", String(open)); det.classList.toggle("open", open); if (open && !det.firstChild) fillDetail(det, r); });
+      if (state.open.has(r.id)) fillDetail(det, r);
+      btn._r = r; box.append(btn, det);
+      return;
+    }
+    const coin = el("span", clean(r.token), "c-coin");
+    if (r.warm_up) coin.append(el("span", "warm-up", "tagx warm"));
+    const [exitText, exitCls] = s?.scored ? (EXIT[s.exit] || [exitLabel(s.exit), isRug(s.exit) ? "rug" : ""]) : r.status === "expired" ? EXIT.expired : ["–", ""];
+    const exit = el("span", null, "c-exit"); if (exitText !== "–") exit.append(el("span", exitText, `tagx ${exitCls}`)); else exit.textContent = "–";
+    const res = s?.scored ? el("span", fmtX(s.net), `c-res res ${s.net > 1 ? "win" : s.net < 1 ? "loss" : "flat"}`) : el("span", awaitingScore(r) ? "scoring soon" : s ? "not scored" : "scores daily", "c-res res flat");
+    btn.append(el("span", `#${r.id}`, "c-id"), el("span", fmtTime(r.calledMs), "c-time"), el("span", CHAIN[r.chain] || r.chain || "–", "c-chain"), coin,
+      el("span", r.kind ? KIND[r.kind] : "–", `c-type kind-${r.kind}`), exit, res, peakCell(r), rcCell(r), el("span", `${CHAIN[r.chain] || r.chain} · ${KIND[r.kind]} · ${fmtTime(r.calledMs)}`, "c-meta"));
+    const det = el("div", null, `detail${state.open.has(r.id) ? " open" : ""}`);
+    btn.addEventListener("click", () => { const open = !state.open.has(r.id); open ? state.open.add(r.id) : state.open.delete(r.id); btn.setAttribute("aria-expanded", String(open)); det.classList.toggle("open", open); if (open && !det.firstChild) fillDetail(det, r); });
+    if (state.open.has(r.id)) fillDetail(det, r);
+    btn._r = r; box.append(btn, det);
+  });
+}
+// the peak: how high the coin went in the call's window, shown beside Witty's result (the result stays the score)
+const PEAK_WINDOW = { gamble: "first hour", scalping: "first 24 hours", conviction: "first 3 days", smart: "first 3 days" };
+const peakWindow = (r) => PEAK_WINDOW[r.kind] || "window";
+const peakX = (s) => { const x = Number(s?.peak_x ?? s?.peak); return s?.scored && s.exit !== "expired" && x > 0 ? x : null; };
+function peakCell(r) {
+  const x = peakX(r.s);
+  if (x === null) return el("span", "–", "c-peak none");
+  const c = el("span", null, "c-peak");
+  c.title = `Highest price in the call's ${peakWindow(r)}. Witty's result is the score.`;
+  c.append(el("span", "peak ", "pk-l"), fmtX(x));
+  return c;
+}
+// revealed on NEAR since the scores were made: the scorer only scores revealed calls, so it hasn't seen this one yet
+const awaitingScore = (r) => r.status === "revealed" && !r.s?.scored && (!r.s || /not revealed/i.test(r.s.why || ""));
+function fillDetail(det, r) {
+  const s = r.s, dl = el("dl"), add = (k, v, cls) => dl.append(el("dt", k), el("dd", v, cls));
+  add("Hash on NEAR", r.hash, "mono");
+  if (r.status === "sealed") {
+    add("Sealed", `${fmtTime(r.sealedMs)} UTC · block ${Number(r.block).toLocaleString("en")}`);
+    add("Reveals", `${fmtTime(r.sealedMs + REVEAL_MS)} UTC. Until then only its fingerprint is public.`);
+    const a = el("a", "See the contract on NearBlocks ↗"); a.href = `https://nearblocks.io/address/${CONTRACT}`; a.target = "_blank"; a.rel = "noopener";
+    dl.append(el("dt", ""), (() => { const dd = el("dd"); dd.append(a); return dd; })());
+    det.append(dl); return;
+  }
+  if (r.mine) add("Hash in your browser", r.mine, `mono${r.mine === r.hash ? " hl" : ""}`);
+  add("Sealed", `${fmtTime(r.sealedMs)} UTC · block ${Number(r.block).toLocaleString("en")}`);
+  if (s?.scored && s.exit !== "expired") {
+    add("Entry price", `${Number(s.entry_price).toPrecision(4)} (the pool's price at the call)`);
+    const m = Number(s.exit_minute), peak = peakX(s);
+    add("Exit", `${exitLabel(s.exit)}${Number.isFinite(m) ? (m < 120 ? ` at minute ${m}` : ` after ${Math.floor(m / 60)} h ${String(m % 60).padStart(2, "0")} min`) : ""}`);
+    add("Result", `${fmtX(s.gross)} before fees → ${fmtX(s.net)} after 4% fees`);
+    if (peak !== null) add("Peak", `${fmtX(peak)}: the coin's highest price in the call's ${peakWindow(r)}. Witty's result above is what counts.`);
+    add("Prices from", s.source || "–");
+    if (s.note) add("Note", s.note);
+    const t = tradesById.get(r.id), nt = notTradedById.get(r.id);
+    if (t) add("Witty's own trade", tradeLine(t), t.pnl_sol > 0 ? "up" : "down");
+    else if (nt) add("Witty's own trade", `Not traded: ${nt.why}`);
+  } else if (awaitingScore(r)) add("Not scored yet", "Revealed after the last score update. It's scored at the next one, from the same chain prices.");
+  else if (s && !s.scored) add("Not scored", s.why || "–");
+  add("Rules", r.rules || "–");
+  const a = el("a", "See the contract on NearBlocks ↗"); a.href = `https://nearblocks.io/address/${CONTRACT}`; a.target = "_blank"; a.rel = "noopener";
+  dl.append(el("dt", ""), (() => { const dd = el("dd"); dd.append(a); return dd; })());
+  det.append(dl);
+}
+function revealChecks() {
+  // tick the receipt checks one by one as the table comes into view (the hashes are already computed)
+  const btns = [...$("calls-table").querySelectorAll("button.crow")];
+  btns.forEach((b, i) => setTimeout(() => {
+    const r = b._r; if (state.shown.has(r.id)) return;
+    state.shown.add(r.id); const old = b.querySelector(".c-rc"); if (old) old.replaceWith(rcCell(r));
+  }, reduce ? 0 : 500 + i * 110));
+  rows.forEach((r) => setTimeout(() => state.shown.add(r.id), reduce ? 0 : 500 + btns.length * 110));
+}
+// filters: a chain, a kind, warm-up calls; any change goes back to the newest 10
+document.querySelectorAll(".chip[data-f]").forEach((c) => c.addEventListener("click", () => {
+  state.chain = c.dataset.f; state.more = false; document.querySelectorAll(".chip[data-f]").forEach((x) => x.setAttribute("aria-pressed", String(x === c))); renderTable(false);
+}));
+document.querySelectorAll(".chip[data-k]").forEach((c) => c.addEventListener("click", () => {
+  state.kind = c.dataset.k; state.more = false; document.querySelectorAll(".chip[data-k]").forEach((x) => x.setAttribute("aria-pressed", String(x === c))); renderTable(false);
+}));
+$("show-warm").addEventListener("change", (e) => { state.warm = e.target.checked; state.more = false; renderTable(false); });
+$("calls-more").addEventListener("click", () => {
+  state.more = !state.more;
+  if (state.more) rows.forEach((x) => state.shown.add(x.id));        // the rest show their receipt check straight away
+  renderTable(false);
+  if (!state.more) { const b = $("calls-more"), r = b.getBoundingClientRect(); if (r.top < 0 || r.bottom > innerHeight) b.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" }); }
+});
+
+// ---------------- Witty's own trades ----------------
+// trades.json holds only trades on revealed calls (witty_trades.mjs): never a sealed call, never the wallet
+let tradesById = new Map(), notTradedById = new Map();
+function renderTrades(tj) {
+  tradesById = new Map((tj?.trades || []).map((t) => [String(t.id), t]));
+  notTradedById = new Map((tj?.not_traded || []).map((t) => [String(t.id), t]));
+  const s = tj?.summary;
+  const link = $("wallet-link"), url = String(tj?.wallet_url || "");
+  link.hidden = !/^https:\/\/solscan\.io\//.test(url); if (!link.hidden) link.href = url;   // only when the public file gives it
+  if (!s?.trades) return;
+  const sol = (x) => `${x.toFixed(x >= 10 ? 1 : 2)} SOL`;
+  const set = (id, text, cls = "") => { const b = $(id); b.textContent = text; b.className = cls; };
+  const inSol = s.in_sol || 0, pnl = s.pnl_sol || 0;
+  set("ts-in", sol(inSol));
+  set("ts-out", sol(inSol + pnl));
+  set("ts-pnl", `${pnl >= 0 ? "+" : "−"}${sol(Math.abs(pnl))}`, pnl >= 0 ? "up" : "down");
+  set("ts-wl", `${s.wins}W · ${s.trades - s.wins}L`);
+  $("trades-stats").hidden = false; $("trades-foot").hidden = false;
+}
+function tradeLine(t) {
+  const usd = t.pnl_usd != null ? ` (${t.pnl_usd >= 0 ? "+" : "−"}${fmtUsd(Math.abs(t.pnl_usd))})` : "";
+  const how = { "2x": "sold at 2x", trail: "trailed out", targets: "all targets hit", time: "sold at the time limit", rugged: "rugged", stopped: "stopped out", "1h": "sold at 1 hour", empty: "pool emptied" }[t.exit] || (t.exit ? String(t.exit).replace(/_/g, " ") : "sold");
+  return `${t.in_usd != null ? fmtUsd(t.in_usd) : `${t.in_sol} SOL`} in · ${how} → ${fmtX(t.result_x)} real, after every cost${usd}`;
+}
+
+// ---------------- load ----------------
+async function load(first) {
+  let data;
+  try { data = MOCK ? await sampleData() : await liveData(); }
+  catch { $("status").replaceChildren(el("span", null, "dot"), "NEAR is slow to answer, retrying…"); setTimeout(() => load(first), 8000); return; }
+  const sc = data.scores, byId = new Map((sc?.calls || []).map((r) => [String(r.id), r]));
+  const pill = $("status");
+  pill.classList.toggle("sample", data.sample);
+  pill.replaceChildren(el("span", null, "dot"), data.sample ? "Sample data, as of 10 Nov: this mockup isn't reading NEAR" : `Live from NEAR${sc?.made_at ? ` · scores updated ${ago(Date.parse(sc.made_at))}` : ""}`);
+  rows = [];
+  for (const c of data.calls.filter((c) => c.status === "sealed")) {      // sealed: only the fingerprint, and the kind if the chain says it
+    rows.push({ id: String(c.id), hash: c.hash, status: "sealed", warm_up: !!c.warm_up, chain: c.chain, kind: c.category ? kindOf({ category: c.category }, null) : null,
+      sealedMs: nsToMs(c.sealed_at), calledMs: nsToMs(c.sealed_at), block: c.sealed_block, s: null });
+  }
+  for (const c of data.calls.filter((c) => c.status !== "sealed")) {
+    let call = {}; try { call = JSON.parse(c.call_json || "{}"); } catch { /* shown as unknown */ }
+    const s = byId.get(String(c.id));
+    const r = { id: String(c.id), hash: c.hash, status: c.status, warm_up: !!c.warm_up, chain: c.chain, token: s?.token ?? call.token, kind: kindOf(s, call),
+      calledMs: Date.parse(s?.called_at ?? call.called_at) || nsToMs(c.sealed_at), sealedMs: nsToMs(c.sealed_at), block: c.sealed_block, rules: call.rules_version, stop: call.stop_loss, s };
+    if (c.call_json) { if (!checks.has(r.id)) checks.set(r.id, (r.mine = await sha256Hex(c.call_json)) === c.hash); else r.mine = await sha256Hex(c.call_json); }
+    rows.push(r);
+  }
+  rows.sort((a, b) => Number(b.id) - Number(a.id));
+  eqRows = (sc?.calls || []).filter((r) => r.scored && !r.warm_up).sort((a, b) => Number(a.id) - Number(b.id));
+  renderTrades(data.trades);
+  if (first) {
+    renderRecord(sc); renderLosses(sc); renderEquity(); whenSeen($("equity"), () => { eqSeen = true; $("equity").classList.add("in-view"); });
+    renderTable(true);
+    whenSeen($("calls-table"), () => { $("calls-table").classList.add("in-view"); revealChecks(); });
+  } else { renderRecord(sc); renderLosses(sc); renderEquity(); renderTable(false); }
+}
+load(true);
+if (!MOCK) setInterval(() => load(false), 120000);
+</script>
+
+</body>
+</html>

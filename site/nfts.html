@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NFTs · EurekaScout</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="img/witty-face-32.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#FFFFFF">
+<script>try{var t=localStorage.getItem("es-theme");if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t;if(t==="dark")document.querySelector('meta[name="theme-color"]').content="#0D0E12"}catch(e){}</script>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EurekaScout">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=20261110a">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="EurekaScout home">
+      <img src="img/witty-face.webp" width="46" height="46" alt="">
+      <span class="display">EUREKA<span style="color:var(--blue)">SCOUT</span></span>
+    </a>
+    <nav aria-label="Main"><a href="index.html">Home</a><a href="how.html">How it works</a><a href="record.html">Record</a><a href="nfts.html" aria-current="page">NFTs</a><a href="rent.html">Rent</a><a href="team.html">Team</a><a href="witty.html">My Witty</a></nav>
+    <div style="display:flex;gap:10px;align-items:center"><button class="theme-btn" type="button" aria-label="Switch to dark mode"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button><a class="btn btn-ink" href="rent.html">Rent Witty</a><button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span></button></div>
+  </div>
+</header>
+<div class="mnav" id="mnav" hidden><a href="index.html">Home</a><a href="how.html">How it works</a><a href="record.html">Record</a><a href="nfts.html" aria-current="page">NFTs</a><a href="rent.html">Rent</a><a href="team.html">Team</a><a href="witty.html">My Witty</a><button class="theme-row" type="button"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><span>Dark mode</span></button></div>
+<main>
+<section class="wrap nft-hero">
+  <div class="nft-copy">
+    <h1 class="display reveal">AN NFT THAT <span style="color:var(--blue)">EARNS ITS RENT.</span></h1>
+    <p class="lead reveal">Witty is a Scout NFT on NEAR. Renters pay into his own account, his level moves with his record, and a Rental Pass NFT is your key to his calls.</p>
+    <div class="row-btns reveal"><a class="btn btn-blue" href="#pass">Get a Rental Pass</a><a class="btn btn-teal" href="#levels">See his levels</a></div>
+  </div>
+  <div class="card3d reveal">
+    <div class="scard" id="scard">
+      <div class="art"><img src="img/nft-rookie.webp" width="1000" height="1000" alt="Witty, the Scout NFT, at Rookie level"><div class="holo"></div><div class="shine"></div></div>
+      <div class="top"><span class="chip-d">SCOUT NFT · #1</span><span class="chip-d">NEAR</span></div>
+      <div class="foot">
+        <span class="display">WITTY</span><span class="lvl" id="card-lvl">ROOKIE</span>
+        <div class="stats3"><div><span>Calls</span><b id="st-calls">–</b></div><div><span>Hit 2x</span><b id="st-hit">–</b></div><div><span>$1 →</span><b id="st-pd">–</b></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="lv-sec" id="levels" data-l="0">
+  <div class="wrap">
+    <div class="reveal"><h2 class="display">THREE LOOKS. EACH ONE EARNED.</h2></div>
+    <div class="lv-grid">
+      <div class="lv-stage reveal" id="lv-stage" role="button" tabindex="0" aria-label="Open this level at full size">
+        <img src="img/nft-rookie.webp" width="1000" height="1000" draggable="false" alt="Witty at Rookie level" class="on">
+        <img src="img/nft-analyst.webp" width="1000" height="1000" draggable="false" alt="Witty at Analyst level" loading="lazy">
+        <img src="img/nft-elite.webp" width="1000" height="1000" draggable="false" alt="Witty at Elite level" loading="lazy">
+        <span class="lv-zoom">Tap to view full size</span>
+      </div>
+      <div class="lv-info reveal">
+        <div class="lv-tabs" role="tablist" aria-label="Levels"><button class="lv-tab" role="tab" aria-selected="true">Rookie</button><button class="lv-tab" role="tab" aria-selected="false">Analyst</button><button class="lv-tab" role="tab" aria-selected="false">Elite</button></div>
+        <div class="lv-track" aria-hidden="true"><b class="on"></b><i></i><b></b><i></i><b></b></div>
+        <div id="lv-body">
+          <h3 class="display" id="lv-name">ROOKIE</h3>
+          <dl><div><dt>How he gets there</dt><dd id="lv-how"></dd></div><div><dt>What it unlocks</dt><dd id="lv-gets"></dd></div></dl>
+        </div>
+        <span class="lv-status" id="lv-status">Witty now</span>
+        <p class="lv-text">Levels move both ways: a bad streak drops him a level, so the look always matches the record.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="rent-flow">
+  <div class="wrap">
+    <div class="reveal"><h2 class="display">WHERE THE RENT GOES.</h2></div>
+    <p class="lead reveal" style="margin-top:14px;max-width:660px">Rent lands in Witty's own account on NEAR. 70% goes to whoever holds the Scout NFT, and 30% stays in Witty's account for his API costs and platform fees.</p>
+    <div class="flow reveal"><svg class="wide" viewBox="0 0 1000 330" role="img" aria-label="You pay rent; a Rental Pass NFT comes back to you; the rent lands in Witty's own account: 70% goes to whoever holds the Scout NFT and 30% stays with Witty for his API costs and platform fees"><path class="wire" d="M222 175 L398 175"/><path class="wire teal" d="M440 133 C 400 50, 260 50, 186 133"/><path class="wire" d="M602 160 C 690 160, 690 70, 776 70"/><path class="wire" d="M602 190 C 690 190, 690 270, 776 270"/><text class="wl" x="310" y="200" text-anchor="middle">rent: NEAR or another coin</text><text class="wl" x="313" y="44" text-anchor="middle" style="fill:#36E2CC">Rental Pass NFT, back to you</text><text class="wl" x="700" y="58" text-anchor="middle">bills</text><text class="wl" x="700" y="300" text-anchor="middle">earnings</text><rect class="nbox" x="30" y="135" width="192" height="80" rx="18"/><text class="nt" x="126.0" y="172.0" text-anchor="middle">YOU</text><text class="ns" x="126.0" y="194.0" text-anchor="middle">rent for 7 or 30 days</text><rect class="nbox hl" x="400" y="125" width="200" height="100" rx="18"/><text class="nt" x="500.0" y="172.0" text-anchor="middle">WITTY'S ACCOUNT</text><text class="ns" x="500.0" y="194.0" text-anchor="middle">his own NEAR account</text><text class="ns" x="500.0" y="213.0" text-anchor="middle">keeps 30%</text><rect class="nbox" x="778" y="30" width="192" height="80" rx="18"/><text class="nt" x="874.0" y="67.0" text-anchor="middle">HIS BILLS</text><text class="ns" x="874.0" y="89.0" text-anchor="middle">API and data costs</text><rect class="nbox" x="778" y="230" width="192" height="80" rx="18"/><text class="nt" x="874.0" y="267.0" text-anchor="middle">NFT HOLDER</text><text class="ns" x="874.0" y="289.0" text-anchor="middle">70% of the rent</text><circle r="7" fill="#E3B341"><animateMotion dur="2.2s" begin="0s" repeatCount="indefinite" path="M222 175 L398 175"/></circle><circle r="7" fill="#E3B341"><animateMotion dur="2.2s" begin="0.75s" repeatCount="indefinite" path="M222 175 L398 175"/></circle><circle r="7" fill="#E3B341"><animateMotion dur="2.2s" begin="1.5s" repeatCount="indefinite" path="M222 175 L398 175"/></circle><rect x="-11" y="-7" width="22" height="14" rx="3" fill="#36E2CC"><animateMotion dur="3.2s" begin="0.4s" repeatCount="indefinite" rotate="0" path="M440 133 C 400 50, 260 50, 186 133"/></rect><circle r="6" fill="#C9CDD4"><animateMotion dur="2.6s" begin="0.2s" repeatCount="indefinite" path="M602 160 C 690 160, 690 70, 776 70"/></circle><circle r="6" fill="#C9CDD4"><animateMotion dur="2.6s" begin="1.5s" repeatCount="indefinite" path="M602 160 C 690 160, 690 70, 776 70"/></circle><circle r="6" fill="#E3B341"><animateMotion dur="2.6s" begin="0.9s" repeatCount="indefinite" path="M602 190 C 690 190, 690 270, 776 270"/></circle><circle r="6" fill="#E3B341"><animateMotion dur="2.6s" begin="2.2s" repeatCount="indefinite" path="M602 190 C 690 190, 690 270, 776 270"/></circle></svg><svg class="tall" viewBox="0 0 360 640" role="img" aria-label="You pay rent; a Rental Pass NFT comes back to you; the rent lands in Witty's own account: 70% goes to whoever holds the Scout NFT and 30% stays with Witty for his API costs and platform fees"><path class="wire" d="M140 108 L140 268"/><path class="wire teal" d="M220 268 C 268 220, 268 150, 220 108"/><path class="wire" d="M140 352 C 140 440, 92 450, 92 520"/><path class="wire" d="M220 352 C 220 440, 268 450, 268 520"/><text class="wl" x="128" y="192" text-anchor="end">rent</text><text class="wl" x="272" y="192" style="fill:#36E2CC">pass</text><rect class="nbox" x="60" y="28" width="240" height="80" rx="18"/><text class="nt" x="180.0" y="65.0" text-anchor="middle">YOU</text><text class="ns" x="180.0" y="87.0" text-anchor="middle">rent for 7 or 30 days</text><rect class="nbox hl" x="50" y="268" width="260" height="84" rx="18"/><text class="nt" x="180.0" y="307.0" text-anchor="middle">WITTY'S ACCOUNT</text><text class="ns" x="180.0" y="325.0" text-anchor="middle">his own NEAR account</text><text class="ns" x="180.0" y="343.0" text-anchor="middle">keeps 30%</text><rect class="nbox" x="8" y="520" width="168" height="80" rx="18"/><text class="nt" x="92.0" y="557.0" text-anchor="middle">HIS BILLS</text><text class="ns" x="92.0" y="579.0" text-anchor="middle">API and data</text><rect class="nbox" x="184" y="520" width="168" height="80" rx="18"/><text class="nt" x="268.0" y="557.0" text-anchor="middle">NFT HOLDER</text><text class="ns" x="268.0" y="579.0" text-anchor="middle">70% of the rent</text><circle r="7" fill="#E3B341"><animateMotion dur="2s" begin="0s" repeatCount="indefinite" path="M140 108 L140 268"/></circle><circle r="7" fill="#E3B341"><animateMotion dur="2s" begin="0.7s" repeatCount="indefinite" path="M140 108 L140 268"/></circle><circle r="7" fill="#E3B341"><animateMotion dur="2s" begin="1.4s" repeatCount="indefinite" path="M140 108 L140 268"/></circle><rect x="-11" y="-7" width="22" height="14" rx="3" fill="#36E2CC"><animateMotion dur="2.8s" begin="0.4s" repeatCount="indefinite" rotate="0" path="M220 268 C 268 220, 268 150, 220 108"/></rect><circle r="6" fill="#C9CDD4"><animateMotion dur="2.4s" begin="0.2s" repeatCount="indefinite" path="M140 352 C 140 440, 92 450, 92 520"/></circle><circle r="6" fill="#C9CDD4"><animateMotion dur="2.4s" begin="1.4s" repeatCount="indefinite" path="M140 352 C 140 440, 92 450, 92 520"/></circle><circle r="7" fill="#E3B341"><animateMotion dur="2.4s" begin="0.8s" repeatCount="indefinite" path="M220 352 C 220 440, 268 450, 268 520"/></circle><circle r="7" fill="#E3B341"><animateMotion dur="2.4s" begin="2s" repeatCount="indefinite" path="M220 352 C 220 440, 268 450, 268 520"/></circle></svg></div>
+    <div class="ledger" id="ledger">
+      <div class="tile reveal c-teal"><span class="eyebrow">Rent earned</span><div class="amt"><span class="display val" data-to="0" data-fmt="near">–</span><span class="unit">NEAR</span></div><small>Paid in by renters</small></div>
+      <div class="tile reveal c-blue"><span class="eyebrow">Bills paid</span><div class="amt"><span class="display val" data-to="0" data-fmt="near">–</span><span class="unit">NEAR</span></div><small>His running costs, paid by Witty<span id="bills-today" hidden><br><b></b></span></small></div>
+      <div class="tile reveal c-maroon"><span class="eyebrow">To the holder</span><div class="amt"><span class="display val" data-to="0" data-fmt="near">–</span><span class="unit">NEAR</span></div><small>Collected by the NFT's owner</small></div>
+      <div class="tile reveal c-black"><span class="eyebrow">Passes sold</span><span class="display val" data-to="0" data-fmt="int">–</span><small>Every one on the chain</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pass" style="padding-top:24px">
+  <div class="wrap">
+    <div class="reveal"><h2 class="display">YOUR KEY TO HIS CALLS.</h2></div>
+    <div class="pass-grid">
+      <div class="reveal">
+        <button class="flip tier-bronze" id="flip" type="button" aria-pressed="false" aria-label="Bronze Pass, 7 days. Tap to flip and see what it unlocks.">
+          <span class="flip-in">
+            <span class="pface front metal">
+              <i class="sheen" aria-hidden="true"></i>
+              <span class="r1"><span id="ptitle">WITTY · BRONZE PASS</span></span>
+              <span class="mid"><span class="tname"><span class="display" id="ptier">BRONZE</span><small id="pdays">7 days of calls</small></span><span class="pring"><svg viewBox="0 0 92 92" aria-hidden="true"><circle class="t" cx="46" cy="46" r="38"/><circle class="b" id="pring" cx="46" cy="46" r="38"/></svg><span id="pleft">–</span></span></span>
+              <span class="r3"><span><small>Holder</small>you.near</span><span style="text-align:right"><small>Expires</small><b id="pexp">–</b></span></span>
+            </span>
+            <span class="pface back">
+              <span class="r1"><span>WHAT IT UNLOCKS</span><span>↺</span></span>
+              <ul><li>Each call on Telegram the moment it's sealed</li><li>A one-tap Buy button on every call</li><li>Sell alerts when Witty's own trade exits</li><li>Ends by itself when the time runs out</li></ul>
+            </span>
+          </span>
+        </button>
+        <p class="flip-hint">Tap to flip.</p>
+      </div>
+      <div>
+        <div class="plans" role="group" aria-label="Pick a pass">
+          <button class="plan reveal" type="button" data-tier="bronze" aria-pressed="true" aria-controls="flip"><span class="eyebrow"><i class="swatch tier-bronze" aria-hidden="true"></i>Bronze Pass</span><span class="amt"><span class="display">1.3</span><span class="unit">NEAR</span></span><small>7 days<span class="wide-only"> · NEAR or another coin</span></small></button>
+          <button class="plan reveal" type="button" data-tier="silver" aria-pressed="false" aria-controls="flip"><span class="tag-shiny">Best value</span><span class="eyebrow"><i class="swatch tier-silver" aria-hidden="true"></i>Silver Pass</span><span class="amt"><span class="display">4</span><span class="unit">NEAR</span></span><small>30 days<span class="wide-only"> · NEAR or another coin</span></small></button>
+        </div>
+        <ul class="ticks reveal">
+          <li>Calls 46 hours before they go public on the Record page</li>
+          <li>Pay with SOL, ETH, USDC and more: NEAR Intents swaps it into NEAR in your account</li>
+          <li>The rent goes straight into Witty's own account</li>
+          <li>The Telegram bot checks your pass before every call</li>
+        </ul>
+        <div class="std reveal"><span>NEP-171 NFT</span><span>Expiry on the chain (NEP-177)</span><span>NEAR Intents</span></div>
+        <p class="small reveal" style="margin-top:14px">Prices are set in NEAR on the pass contract when passes go live.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" style="padding-bottom:72px">
+  <div class="cta reveal">
+    <h2 class="display">RENT WITTY FOR A WEEK.</h2>
+    <p>Every call the moment it's sealed, and his whole record to check it against.</p>
+    <div class="btns"><a class="btn btn-ink" style="min-height:52px;padding:0 28px;font-size:16px" href="rent.html">Rent Witty</a><a class="btn btn-white" href="record.html">See the record</a></div>
+    <img src="img/witty-rookie-cut.webp" width="560" height="804" alt="" loading="lazy">
+  </div>
+</section>
+</main>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Full-size NFT"><button type="button" aria-label="Close">×</button><img alt=""></div>
+<footer>
+  <div class="wrap">
+    <div class="foot-near"><a href="https://near.org" target="_blank" rel="noopener"><img src="img/built-on-near.svg" width="122" height="20" alt="Built on NEAR"></a><span>Prove on <a href="https://nearblocks.io/address/receipts.eurekascout.near" target="_blank" rel="noopener">receipts.eurekascout.near</a></span></div>
+    <div class="foot-mid"><span class="socials"><a class="social light" href="https://x.com/eurekascout_" target="_blank" rel="noopener" aria-label="EurekaScout on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a><a class="social light" href="https://github.com/EurekaScout" target="_blank" rel="noopener" aria-label="EurekaScout on GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a></span><span class="foot-copy">&copy; 2026 EurekaScout</span></div>
+    <span class="foot-note">Not financial advice. Memecoins rug; size small.</span>
+  </div>
+</footer>
+<script src="assets/site.js?v=20261110a"></script>
+<script>
+"use strict";
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = (id) => document.getElementById(id);
+const pad = (n) => String(n).padStart(2, "0");
+const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MOCK = new URLSearchParams(location.search).get("live") !== "1" && (location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(location.hostname));
+function countUp(node, to, fmt, ms = 1300) {
+  if (reduce) { node.textContent = fmt(to); return; }
+  const t0 = performance.now();
+  const step = (now) => { const k = Math.min(1, (now - t0) / ms), e = 1 - (1 - k) ** 3; node.textContent = fmt(to * e); if (k < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+function whenSeen(node, fn) { const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); fn(); } }, { threshold: 0.25 }); io.observe(node); }
+
+// ---------------- the Scout NFT card: tilt and holo light ----------------
+(() => {
+  const c = $("scard");
+  if (reduce) return;
+  const move = (x, y) => { c.style.transform = `rotateY(${(x - .5) * 18}deg) rotateX(${(.5 - y) * 18}deg)`; c.style.setProperty("--hx", `${x * 100}%`); c.style.setProperty("--hy", `${y * 100}%`); c.style.setProperty("--ha", `${x * 360}deg`); };
+  c.addEventListener("pointermove", (e) => { const r = c.getBoundingClientRect(); move((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height); });
+  c.addEventListener("pointerleave", () => { c.style.transform = ""; });
+  // on phones there is no hover: a slow light sweep shows the foil instead
+  if (!matchMedia("(hover: hover)").matches) { c.classList.add("lit"); let t = 0; setInterval(() => { t += 0.02; c.style.setProperty("--hx", `${50 + Math.sin(t) * 40}%`); c.style.setProperty("--hy", `${30 + Math.cos(t * .7) * 30}%`); c.style.setProperty("--ha", `${(t * 60) % 360}deg`); }, 40); }
+})();
+
+// ---------------- levels at full size ----------------
+const LEVELS = [
+  { name: "ROOKIE", bg: "#30BAAA", fg: "#0B0B0F", how: "Every Scout NFT starts here, the day it's minted.", gets: "Memecoin calls on Solana and Robinhood Chain, at the base rent.", status: "Witty now" },
+  { name: "ANALYST", bg: "#769BEA", fg: "#0B0B0F", how: "Enough scored calls that beat the benchmark.", gets: "A higher rent cap.", status: "Earned by record" },
+  { name: "ELITE", bg: "#411616", fg: "#FFFFFF", how: "A long record that keeps beating the benchmark.", gets: "New markets (DeFi and tokenized stocks) and the top rent.", status: "Earned by record" },
+];
+(() => {
+  const sec = $("levels"), imgs = [...$("lv-stage").querySelectorAll("img")], tabs = [...document.querySelectorAll(".lv-tab")], dots = [...document.querySelectorAll(".lv-track b")];
+  let cur = 0;
+  function show(i) {
+    cur = (i + LEVELS.length) % LEVELS.length;
+    const L = LEVELS[cur];
+    sec.style.setProperty("--lv", L.bg); sec.style.setProperty("--lvt", L.fg); sec.dataset.l = cur;
+    imgs.forEach((im, k) => im.classList.toggle("on", k === cur));
+    tabs.forEach((t, k) => t.setAttribute("aria-selected", String(k === cur)));
+    dots.forEach((d, k) => d.classList.toggle("on", k <= cur));
+    $("lv-name").textContent = L.name; $("lv-how").textContent = L.how; $("lv-gets").textContent = L.gets; $("lv-status").textContent = L.status;
+    const body = $("lv-body"); body.classList.remove("lv-fade"); void body.offsetWidth; body.classList.add("lv-fade");
+  }
+  tabs.forEach((t, k) => t.addEventListener("click", () => show(k)));
+  sec.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") show(cur + 1); if (e.key === "ArrowLeft") show(cur - 1); });
+  // swipe on the picture to change level; a tap opens it full size
+  const stage = $("lv-stage"); let x0 = null, moved = false;
+  stage.addEventListener("pointerdown", (e) => { x0 = e.clientX; moved = false; stage.setPointerCapture?.(e.pointerId); });
+  stage.addEventListener("pointercancel", () => { x0 = null; });
+  stage.addEventListener("dragstart", (e) => e.preventDefault());
+  stage.addEventListener("pointermove", (e) => { if (x0 != null && Math.abs(e.clientX - x0) > 12) moved = true; });
+  stage.addEventListener("pointerup", (e) => { if (x0 == null) return; const dx = e.clientX - x0; x0 = null; if (moved && Math.abs(dx) > 40) show(cur + (dx < 0 ? 1 : -1)); else if (!moved) openBox(imgs[cur]); });
+  stage.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openBox(imgs[cur]); } });
+  const box = $("lightbox"), big = box.querySelector("img");
+  let last = null;
+  function openBox(im) { last = document.activeElement; big.src = im.currentSrc || im.src; big.alt = im.alt; box.classList.add("open"); box.querySelector("button").focus(); }
+  function closeBox() { box.classList.remove("open"); last?.focus?.(); }
+  box.addEventListener("click", closeBox);
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && box.classList.contains("open")) closeBox(); });
+  show(0);
+})();
+
+// ---------------- the rental passes: Bronze (7 days) and Silver (30 days) ----------------
+(() => {
+  const TIERS = { bronze: { name: "Bronze", days: 7 }, silver: { name: "Silver", days: 30 } };
+  const f = $("flip"), plans = [...document.querySelectorAll(".plan[data-tier]")], C = 238.8;
+  const start = Date.now() - 3 * 3600e3; // the example pass was bought 3 hours ago
+  let tier = TIERS.bronze;
+  f.addEventListener("click", () => { const on = !f.classList.contains("flipped"); f.classList.toggle("flipped", on); f.setAttribute("aria-pressed", String(on)); });
+  const tick = () => {
+    const total = tier.days * 86400e3, left = Math.max(0, start + total - Date.now());
+    const days = Math.floor(left / 86400e3), hrs = Math.floor((left % 86400e3) / 3600e3), mins = Math.floor((left % 3600e3) / 60e3);
+    $("pleft").textContent = days ? `${days}d ${hrs}h` : `${hrs}h ${pad(mins)}m`;
+    $("pring").style.strokeDashoffset = C * (1 - left / total);
+  };
+  function show(key, animate) {
+    tier = TIERS[key];
+    f.classList.remove("tier-bronze", "tier-silver", "flipped"); f.classList.add(`tier-${key}`); f.setAttribute("aria-pressed", "false");
+    f.setAttribute("aria-label", `${tier.name} Pass, ${tier.days} days. Tap to flip and see what it unlocks.`);
+    $("ptitle").textContent = `WITTY · ${tier.name.toUpperCase()} PASS`;
+    $("ptier").textContent = tier.name.toUpperCase();
+    $("pdays").textContent = `${tier.days} days of calls`;
+    const d = new Date(start + tier.days * 86400e3);
+    $("pexp").textContent = `${d.getUTCDate()} ${MON[d.getUTCMonth()]} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())} UTC`;
+    plans.forEach((p) => p.setAttribute("aria-pressed", String(p.dataset.tier === key)));
+    tick();
+    if (animate && !reduce) { f.classList.remove("swap"); void f.offsetWidth; f.classList.add("swap"); }
+  }
+  // the blue highlight: one frame that slides over to the tag you pick
+  const box = f.closest(".pass-grid").querySelector(".plans"), hl = document.createElement("span");
+  hl.className = "plan-hl"; hl.setAttribute("aria-hidden", "true"); box.append(hl); box.classList.add("js");
+  const place = () => { box.dataset.pick = String(plans.findIndex((x) => x.getAttribute("aria-pressed") === "true")); };
+  if (!CSS.supports("selector(:has(*))")) box.classList.add("shown");
+  plans.forEach((p) => p.addEventListener("click", () => {
+    show(p.dataset.tier, true); place();
+    // on a phone the card can be above the screen: bring it into view
+    const r = f.getBoundingClientRect();
+    if (r.top < 70) f.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+  }));
+  f.addEventListener("animationend", (e) => { if (e.animationName === "tierswap") f.classList.remove("swap"); });
+  show("bronze", false); place();
+  requestAnimationFrame(() => requestAnimationFrame(() => box.classList.add("ready")));
+  setInterval(tick, 30000);
+})();
+
+// ---------------- numbers ----------------
+// The ledger reads Witty's own account on NEAR: the scouts contract keeps rent in, bills paid (and bills per UTC day)
+// and what holders collected; the pass contract counts passes sold. Nothing here is made up: until NEAR answers the
+// tiles show "–", and before pass sales open a total that is still 0 says "soon".
+const SCOUTS = "scouts.eurekascout.near", PASS = "pass.eurekascout.near", SCOUT_ID = "witty";
+const RPCS = ["https://free.rpc.fastnear.com", "https://rpc.mainnet.fastnear.com", "https://rpc.mainnet.near.org"];
+function view(account, method, args = {}) {
+  // Ask the first RPC; if it hasn't answered within 1.2 s (or fails), ask the next one too. The first good answer wins.
+  const body = JSON.stringify({ jsonrpc: "2.0", id: "es", method: "query", params: { request_type: "call_function", finality: "final", account_id: account, method_name: method, args_base64: btoa(JSON.stringify(args)) } });
+  const ask = (url) => fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body, signal: AbortSignal.timeout?.(8000) })
+    .then((r) => r.json()).then((j) => { if (j.error || !j.result?.result) throw new Error("bad answer"); return JSON.parse(new TextDecoder().decode(Uint8Array.from(j.result.result))); });
+  return new Promise((resolve, reject) => {
+    let started = 0, failed = 0, done = false;
+    const next = () => {
+      if (done || started >= RPCS.length) return;
+      const url = RPCS[started++], timer = setTimeout(next, 1200);
+      ask(url).then((v) => { clearTimeout(timer); if (!done) { done = true; resolve(v); } },
+        (e) => { clearTimeout(timer); if (++failed === RPCS.length && !done) { done = true; reject(e); } else next(); });
+    };
+    next();
+  });
+}
+/** yoctoNEAR (a string) -> NEAR, to 6 decimals */
+const near = (y) => Number(BigInt(y || 0) / 10n ** 18n) / 1e6;
+const fmtNear = (x) => (x === 0 ? "0" : x < 1 ? x.toFixed(3) : x.toFixed(x < 10 ? 2 : 1));
+async function readLedger() {
+  const [scout, bills, listing] = await Promise.all([
+    view(SCOUTS, "get_scout", { scout_id: SCOUT_ID }), view(SCOUTS, "get_bills", { scout_id: SCOUT_ID }).catch(() => null),
+    view(PASS, "get_listing", { scout_id: SCOUT_ID }).catch(() => null),
+  ]);
+  if (!scout) throw new Error("no scout");
+  const todayNs = BigInt(Math.floor(Date.now() / 86400e3) * 86400e3) * 1000000n;
+  const today = Array.isArray(bills) ? bills.filter((b) => BigInt(b.day) === todayNs).reduce((t, b) => t + near(b.amount), 0) : null;
+  return {
+    values: [near(scout.rent_total), near(scout.bills_paid), near(scout.holders_paid), listing ? Number(listing.paid_passes) + Number(listing.renewals) : null],
+    today, open: !!listing?.sales_open,
+  };
+}
+async function load() {
+  let rec = null, ledger = null;
+  if (MOCK) {
+    rec = { calls: 13, hit_2x_pct: 38, per_dollar: 1.06 };
+    ledger = { values: [41.6, 6.2, 35.4, 23], today: 0.012, open: true };
+  } else {
+    try { const r = await fetch("scores.json", { cache: "no-store" }); if (r.ok) rec = (await r.json()).official; } catch { /* stats are optional */ }
+    for (let i = 0; i < 3 && !ledger; i++) {
+      try { ledger = await readLedger(); } catch { await new Promise((r) => setTimeout(r, 4000 * (i + 1))); }
+    }
+  }
+  if (rec?.calls) {
+    whenSeen($("scard"), () => {
+      countUp($("st-calls"), rec.calls, (x) => String(Math.round(x)));
+      countUp($("st-hit"), rec.hit_2x_pct, (x) => `${Math.round(x)}%`);
+      countUp($("st-pd"), rec.per_dollar, (x) => `$${x.toFixed(2)}`);
+    });
+  }
+  const vals = [...document.querySelectorAll("#ledger .val")];
+  if (!ledger) return;   // NEAR didn't answer: the tiles keep "–"
+  if (ledger.today !== null) {
+    const t = $("bills-today");
+    t.querySelector("b").textContent = ledger.today > 0 ? `${fmtNear(ledger.today)} NEAR today` : "Nothing yet today";
+    t.hidden = false;
+  }
+  whenSeen($("ledger"), () => vals.forEach((v, i) => {
+    const x = ledger.values[i];
+    if (x === null || (x === 0 && !ledger.open && i !== 1)) { v.textContent = x === null ? "–" : "soon"; return; }
+    countUp(v, x, v.dataset.fmt === "int" ? (n) => String(Math.round(n)) : fmtNear, 1500);
+  }));
+}
+if (reduce) document.querySelectorAll("animateMotion").forEach((a) => a.parentNode.remove());
+load();
+</script>
+
+</body>
+</html>

@@ -19,3 +19,9 @@ __pycache__/
 # System files
 .DS_Store
 *.log
+
+# Not public: Witty's own server code stays private
+sealer/
+
+# Downloaded price files and scores from verify/
+verify/data/

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#FFFFFF">
+<script>try{var t=localStorage.getItem("es-theme");if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t;if(t==="dark")document.querySelector('meta[name="theme-color"]').content="#0D0E12"}catch(e){}</script>
+<title>Page not found · EurekaScout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Luckiest+Guy&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0B0B0F;--teal:#36E2CC;--blue:#4169E1;--muted:#4A4E57}
+*{box-sizing:border-box}
+html,body{background:#fff}
+body{margin:0;min-height:100vh;min-height:100svh;display:grid;place-items:center;padding:24px 16px;color:var(--ink);font-family:Inter,system-ui,-apple-system,sans-serif;overflow-x:hidden}
+main{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 56px;max-width:900px}
+.copy{max-width:360px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+h1{margin:0;font:400 44px/1 'Luckiest Guy',Impact,sans-serif;letter-spacing:.5px}
+h1 span{color:var(--blue)}
+p{margin:0;font-size:16px;line-height:1.55;color:var(--muted);text-wrap:pretty}
+nav{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+a{display:inline-flex;align-items:center;min-height:52px;padding:0 28px;border-radius:999px;background:var(--ink);color:#fff;font:600 16px Inter,system-ui,sans-serif;text-decoration:none}
+a.alt{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+a:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+
+/* Witty, confused: he sways, scratches his head, blinks, and question marks pop up */
+.stage{position:relative;height:min(44vh,340px);height:min(44svh,340px);aspect-ratio:1020/1511;margin-top:28px}
+.witty{position:absolute;inset:0;transform-origin:50% 96%;animation:sway 3.6s ease-in-out infinite}
+.witty img{display:block;width:100%;height:100%;-webkit-user-drag:none;user-select:none}
+.lid{position:absolute;border-radius:50%;overflow:hidden}
+.lid i{position:absolute;inset:-6%;background:linear-gradient(#211918,#3a2d2b);transform:translateY(-104%);animation:blink 7s infinite}
+.lid i::after{content:"";position:absolute;left:18%;right:18%;top:22%;height:48%;border-bottom:2px solid rgba(160,140,134,.95);border-radius:50%}
+.lid.l{left:30.59%;top:32.96%;width:15.29%;height:9.13%}
+.lid.r{left:55.10%;top:29.25%;width:14.71%;height:8.87%}
+.scratch{position:absolute;left:86%;top:24%;width:16%;overflow:visible;animation:scratch 1.8s infinite}
+.q{position:absolute;font:400 44px/1 'Luckiest Guy',Impact,sans-serif;color:var(--blue);-webkit-text-stroke:2px #fff;paint-order:stroke;opacity:0;animation:q 2.7s ease-out infinite}
+.q.a{left:66%;top:-6%}
+.q.b{left:84%;top:-12%;font-size:34px;color:var(--teal);-webkit-text-stroke:2px var(--ink);animation-delay:.9s}
+.q.c{left:52%;top:-14%;font-size:28px;animation-delay:1.8s}
+@keyframes sway{0%,100%{transform:rotate(-2.2deg)}50%{transform:rotate(2.4deg) translateY(-3px)}}
+@keyframes blink{0%,18%,23%,68%,73%,76%,81%,100%{transform:translateY(-104%)}20%,21%,70%,71%,78%,79%{transform:translateY(0)}}
+@keyframes scratch{0%,62%,100%{opacity:0;transform:translate(0,0)}8%,24%,40%{opacity:1;transform:translate(0,0)}16%,32%,48%{opacity:.55;transform:translate(3px,-3px)}56%{opacity:0}}
+@keyframes q{0%{opacity:0;transform:translateY(12px) scale(.5) rotate(-14deg)}18%{opacity:1;transform:translateY(0) scale(1.08) rotate(6deg)}30%{transform:translateY(-2px) scale(1) rotate(-4deg)}80%{opacity:1;transform:translateY(-16px) rotate(8deg)}100%{opacity:0;transform:translateY(-24px) rotate(10deg)}}
+@media (min-width:760px){.stage{height:440px;margin-top:0}main{flex-wrap:nowrap}.copy{align-items:flex-start;text-align:left}nav{justify-content:flex-start}h1{font-size:56px}}
+@media (prefers-reduced-motion:reduce){.witty,.lid i,.scratch,.q{animation:none}.q.a{opacity:1}}
+html[data-theme="dark"],html[data-theme="dark"] body{background:#0D0E12;color:#ECEEF2}
+html[data-theme="dark"] p{color:#A6ACB7}
+html[data-theme="dark"] a{background:#ECEEF2;color:#0B0B0F}
+html[data-theme="dark"] a.alt{background:transparent;color:#ECEEF2;box-shadow:inset 0 0 0 2px #ECEEF2}
+html[data-theme="dark"] h1 span{color:#7B96F0}
+html[data-theme="dark"] .scratch path:nth-child(2){stroke:#ECEEF2}
+</style>
+</head>
+<body>
+<main>
+  <div class="stage" aria-hidden="true">
+    <div class="witty">
+      <img src="/img/witty-404.webp" width="513" height="760" alt="" draggable="false">
+      <span class="lid l"><i></i></span><span class="lid r"><i></i></span>
+      <svg class="scratch" viewBox="0 0 60 70" fill="none" stroke-linecap="round"><path d="M10 16 q14 -10 26 -2" stroke="#36E2CC" stroke-width="7"/><path d="M14 36 q16 -8 30 2" stroke="#0B0B0F" stroke-width="6"/><path d="M10 56 q14 -6 24 2" stroke="#36E2CC" stroke-width="7"/></svg>
+    </div>
+    <span class="q a">?</span><span class="q b">?</span><span class="q c">?</span>
+  </div>
+  <div class="copy">
+    <h1>Nothing <span>here</span></h1>
+    <p>Witty searched every pool and found no page at this address. His calls and receipts are this way.</p>
+    <nav><a href="/">Home</a><a class="alt" href="/record.html">The record</a></nav>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rent Witty · EurekaScout</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="img/witty-face-32.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#FFFFFF">
+<script>try{var t=localStorage.getItem("es-theme");if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t;if(t==="dark")document.querySelector('meta[name="theme-color"]').content="#0D0E12"}catch(e){}</script>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EurekaScout">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=20261110a">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="EurekaScout home">
+      <img src="img/witty-face.webp" width="46" height="46" alt="">
+      <span class="display">EUREKA<span style="color:var(--blue)">SCOUT</span></span>
+    </a>
+    <nav aria-label="Main"><a href="index.html">Home</a><a href="how.html">How it works</a><a href="record.html">Record</a><a href="nfts.html">NFTs</a><a href="rent.html" aria-current="page">Rent</a><a href="team.html">Team</a><a href="witty.html">My Witty</a></nav>
+    <div style="display:flex;gap:10px;align-items:center"><button class="theme-btn" type="button" aria-label="Switch to dark mode"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button><a class="btn btn-ink" href="rent.html">Rent Witty</a><button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span></button></div>
+  </div>
+</header>
+<div class="mnav" id="mnav" hidden><a href="index.html">Home</a><a href="how.html">How it works</a><a href="record.html">Record</a><a href="nfts.html">NFTs</a><a href="rent.html" aria-current="page">Rent</a><a href="team.html">Team</a><a href="witty.html">My Witty</a><button class="theme-row" type="button"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><span>Dark mode</span></button></div>
+<main>
+<section class="wrap rent-top">
+  <div class="rent-copy">
+    <div class="status-row reveal"><span class="live-pill sample" id="status"><span class="dot"></span>Renting opens at launch</span></div>
+    <h1 class="display reveal">RENT WITTY. <span style="color:var(--blue)">SEE CALLS FIRST.</span></h1>
+    <p class="lead reveal">A Rental Pass NFT gets you each call on Telegram the moment it's sealed, 46 hours before it goes public.</p>
+    <div class="facts3 reveal"><span>Pay with NEAR or another coin</span><span>Calls on Telegram</span><span>Ends by itself</span></div>
+  </div>
+  <div class="checkout reveal" id="checkout">
+    <a class="trial-banner" id="trial-banner" href="witty.html?pick=trial" hidden><span aria-hidden="true">🎁</span><span>New here? <b>Try Witty free for 7 days.</b> A real Bronze Pass, and Witty pays the fee.</span><span class="go">Start →</span></a>
+    <span class="eyebrow">Your Rental Pass</span>
+    <div class="seg" role="group" aria-label="Which pass">
+      <button type="button" data-tier="bronze" data-name="Bronze" data-days="7" data-near="1.3" aria-pressed="true"><b><i class="swatch tier-bronze" aria-hidden="true"></i>Bronze Pass</b><span>7 days · 1.3 NEAR</span></button>
+      <button type="button" data-tier="silver" data-name="Silver" data-days="30" data-near="4" aria-pressed="false"><em class="tag-shiny">Best value</em><b><i class="swatch tier-silver" aria-hidden="true"></i>Silver Pass</b><span>30 days · 4 NEAR</span></button>
+    </div>
+    <div>
+      <span class="eyebrow">Pay with</span>
+      <div class="paywith" style="margin-top:10px" role="group" aria-label="Pay with">
+        <button class="chip" type="button" data-pay="NEAR" aria-pressed="true">NEAR</button>
+        <button class="chip" type="button" data-pay="USDC" aria-pressed="false">USDC</button>
+        <button class="chip" type="button" data-pay="SOL" aria-pressed="false">SOL</button>
+        <button class="chip" type="button" data-pay="ETH" aria-pressed="false">ETH</button>
+        <button class="chip" type="button" data-pay="other" aria-pressed="false">Other coins</button>
+      </div>
+    </div>
+    <dl class="sum">
+      <div><dt>Pass</dt><dd id="s-days">Bronze · 7 days</dd></div>
+      <div><dt>Paid in</dt><dd id="s-pay">NEAR</dd></div>
+      <div><dt>Calls until</dt><dd id="s-exp">–</dd></div>
+      <div class="total"><dt>Total</dt><dd id="s-price">1.3 NEAR</dd></div>
+    </dl>
+    <button class="btn btn-blue" type="button" id="rent-btn">Rent Witty</button>
+    <small id="s-note">The rent goes into Witty's own account. The price is set in NEAR on the pass contract when renting opens.</small>
+  </div>
+</section>
+
+<section class="section" id="phone" style="padding-top:24px">
+  <div class="wrap">
+    <div class="reveal"><h2 class="display">CALLS LAND ON YOUR PHONE.</h2></div>
+    <div class="tg-grid">
+      <div class="phone reveal" aria-label="A Telegram chat with Witty's bot showing a new call, a sell alert and the receipt">
+        <div class="screen">
+          <div class="tg-bar"><img src="img/witty-face-96.png" width="38" height="38" alt=""><div><b>Witty</b><small>bot</small></div></div>
+          <div class="tg-chat" id="chat"></div>
+        </div>
+      </div>
+      <div>
+        <ul class="ticks reveal" style="margin-top:0">
+          <li>Each call the moment it's sealed: coin, entry and the exit plan</li>
+          <li>A one-tap Buy button on every call: you sign every trade yourself, and Witty only trades his own wallet</li>
+          <li>Sell alerts when Witty takes profit or gets out of his own trades</li>
+          <li>The bot checks your pass before every call, and stops when it ends</li>
+        </ul>
+        <p class="lead reveal" style="margin-top:22px">Every call is still sealed on NEAR and scored in public, so you can check how good the calls you paid for were.</p>
+        <div class="row-btns reveal" style="margin-top:20px"><a class="btn btn-teal" href="record.html">See the record</a><a class="btn btn-ink" style="min-height:52px;padding:0 28px;font-size:16px" href="nfts.html#pass">About the pass</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="how-rent" style="padding-top:24px">
+  <div class="wrap">
+    <div class="reveal"><span class="eyebrow">How renting works</span><h2 class="display" style="margin-top:8px">FOUR STEPS. ABOUT A MINUTE.</h2></div>
+    <div class="steps-row">
+      <div class="tile reveal"><span class="display">1</span><b>Pick Bronze or Silver</b><small>Bronze: 1.3 NEAR for 7 days. Silver: 4 NEAR for 30 days.</small></div>
+      <div class="tile reveal"><span class="display">2</span><b>Pay with NEAR, or another coin</b><small>Paying with SOL, ETH or USDC? NEAR Intents swaps it into NEAR in your account, then you approve.</small></div>
+      <div class="tile reveal"><span class="display">3</span><b>Get your pass</b><small>A Bronze or Silver Pass NFT on NEAR, with its end date on the chain.</small></div>
+      <div class="tile reveal"><span class="display">4</span><b>Open the bot</b><small>Witty's Telegram bot checks your pass and starts sending calls.</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq" style="padding-top:24px">
+  <div class="wrap">
+    <div class="reveal"><span class="eyebrow">Questions</span><h2 class="display" style="margin-top:8px">BEFORE YOU RENT.</h2></div>
+    <div class="faq">
+      <details class="reveal"><summary>What can I pay with?</summary><p>NEAR, or SOL, ETH, USDC, USDT and BTC from Solana, Ethereum, Base, Arbitrum and Bitcoin. You send the coin to a one-time address, NEAR Intents swaps it into NEAR in your own NEAR account, and you approve the pass in your wallet. If the swap fails, the coin goes back to your NEAR Intents account.</p></details>
+      <details class="reveal"><summary>What's the difference between Bronze and Silver?</summary><p>Only how long it lasts: Bronze is 7 days, Silver is 30 and costs less per week. Both get every call the moment it's sealed. Renewing adds days to the pass you already hold.</p></details>
+      <details class="reveal"><summary>What happens when my pass ends?</summary><p>The bot stops sending calls. You can rent again any time, and the record stays free for everyone.</p></details>
+      <details class="reveal"><summary>Is there a free option?</summary><p>Yes. Every call goes public on the Record page 46 hours after it's sealed, scored after fees, with its receipt. Renting only buys you the head start.</p></details>
+      <details class="reveal"><summary>Where does my rent go?</summary><p>Into Witty's own account on NEAR. 70% goes to whoever holds the Scout NFT, and 30% stays in Witty's account for his API costs and platform fees.</p></details>
+      <details class="reveal"><summary>I run a bot. Can it buy calls?</summary><p>Yes: agents can pay per call instead of holding a pass (x402).</p></details>
+      <details class="reveal"><summary>Is this financial advice?</summary><p>No. Witty's calls are research, and memecoins are extremely risky: most go to zero. Never put in more than you can afford to lose.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-near"><a href="https://near.org" target="_blank" rel="noopener"><img src="img/built-on-near.svg" width="122" height="20" alt="Built on NEAR"></a><span>Prove on <a href="https://nearblocks.io/address/receipts.eurekascout.near" target="_blank" rel="noopener">receipts.eurekascout.near</a></span></div>
+    <div class="foot-mid"><span class="socials"><a class="social light" href="https://x.com/eurekascout_" target="_blank" rel="noopener" aria-label="EurekaScout on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a><a class="social light" href="https://github.com/EurekaScout" target="_blank" rel="noopener" aria-label="EurekaScout on GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a></span><span class="foot-copy">&copy; 2026 EurekaScout</span></div>
+    <span class="foot-note">Not financial advice. Memecoins rug; size small.</span>
+  </div>
+</footer>
+<script src="assets/site.js?v=20261110a"></script>
+<script>
+"use strict";
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = (id) => document.getElementById(id);
+const pad = (n) => String(n).padStart(2, "0");
+const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const fmtDate = (ms) => { const d = new Date(ms); return `${d.getUTCDate()} ${MON[d.getUTCMonth()]} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())} UTC`; };
+const PAY = { NEAR: "NEAR", USDC: "USDC → NEAR", SOL: "SOL → NEAR", ETH: "ETH → NEAR", other: "other coins → NEAR" };
+const sel = { tier: "bronze", name: "Bronze", days: 7, near: "1.3", pay: "NEAR" };
+function bump(node, text) { node.textContent = text; node.classList.remove("pop"); void node.offsetWidth; node.classList.add("pop"); }
+function update() {
+  bump($("s-days"), `${sel.name} · ${sel.days} days`); bump($("s-pay"), PAY[sel.pay]); bump($("s-price"), `${sel.near} NEAR`);
+  $("s-exp").textContent = fmtDate(Date.now() + sel.days * 86400e3);
+  $("rent-btn").textContent = `Get the ${sel.name} Pass`;
+}
+document.querySelectorAll(".seg button").forEach((b) => b.addEventListener("click", () => {
+  document.querySelectorAll(".seg button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  sel.tier = b.dataset.tier; sel.name = b.dataset.name; sel.days = Number(b.dataset.days); sel.near = b.dataset.near; update();
+}));
+document.querySelectorAll(".paywith .chip").forEach((b) => b.addEventListener("click", () => {
+  document.querySelectorAll(".paywith .chip").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  sel.pay = b.dataset.pay; update();
+}));
+update();
+
+// ---------------- the button: buying happens on My Witty, with a real wallet ----------------
+// the free trial, while it's on (the server never says until when)
+fetch("https://api.eurekascout.com/trial/status", { signal: AbortSignal.timeout?.(6000) }).then((r) => r.json()).then((j) => { if (j?.ok && j.open) $("trial-banner").hidden = false; }).catch(() => {});
+$("rent-btn").addEventListener("click", () => { location.href = `witty.html?pick=${sel.tier}${sel.pay === "NEAR" ? "" : `&pay=${sel.pay.toLowerCase()}`}`; });
+// is renting open yet? ask the pass contract on NEAR
+(async () => {
+  const args = btoa(JSON.stringify({ scout_id: "witty" }));
+  for (const rpc of ["https://free.rpc.fastnear.com", "https://rpc.mainnet.near.org"]) {
+    try {
+      const r = await fetch(rpc, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: "es", method: "query", params: { request_type: "call_function", finality: "optimistic", account_id: "pass.eurekascout.near", method_name: "get_listing", args_base64: args } }) });
+      const j = await r.json(); if (!j.result?.result) continue;
+      const l = JSON.parse(new TextDecoder().decode(Uint8Array.from(j.result.result)));
+      if (l && l.sales_open !== false) { $("status").classList.remove("sample"); $("status").lastChild.textContent = "Live: renting is open"; }
+      return;
+    } catch { /* try the next RPC */ }
+  }
+})();
+
+// ---------------- the phone: calls arriving on Telegram ----------------
+(() => {
+  const chat = $("chat");
+  const el = (tag, text, cls) => { const e = document.createElement(tag); if (text != null) e.textContent = text; if (cls) e.className = cls; return e; };
+  const t0 = new Date();
+  const at = (min) => { const d = new Date(t0.getTime() + min * 60e3); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+  const MSGS = [
+    { min: 0, title: "🆕 New call #24 · sealed on NEAR", lines: ["$ZAPP · Solana · Scalping", "Entry: $41K market cap", "Plan: 🔒 Witty's full plan for this call, for renters"], kb: ["Buy $2", "Receipt"] },
+    { min: 23, title: "📈 $ZAPP is up 1.6x at minute 23", lines: ["Witty took profit on his own position."], cls: "win" },
+    { min: 2760, title: "🧾 Call #24 revealed", lines: ["Matches its seal. Scored 1.54x after fees.", "Now public on the Record page."] },
+  ];
+  let started = false, timer = null;
+  function bubble(m) {
+    const b = el("div", null, `msg${m.cls ? " " + m.cls : ""}`);
+    b.append(el("b", m.title));
+    for (const l of m.lines) b.append(el("span", l), el("br"));
+    if (m.kb) { const kb = el("div", null, "kb"); for (const k of m.kb) kb.append(el("span", k)); b.append(kb); }
+    b.append(el("span", m.min >= 1440 ? `in 46 h · ${at(m.min)}` : at(m.min), "t"));
+    return b;
+  }
+  function play() {
+    chat.replaceChildren();
+    if (reduce) { MSGS.forEach((m) => chat.append(bubble(m))); return; }
+    let i = 0;
+    const step = () => {
+      if (i >= MSGS.length) { timer = setTimeout(play, 5000); return; }
+      const typing = el("div", null, "typing"); typing.append(el("i"), el("i"), el("i")); chat.append(typing);
+      timer = setTimeout(() => { typing.remove(); chat.append(bubble(MSGS[i++])); timer = setTimeout(step, 1600); }, 1100);
+    };
+    step();
+  }
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && !started) { started = true; play(); }
+    else if (!e.isIntersecting && started) { clearTimeout(timer); started = false; }
+  }, { threshold: 0.3 }).observe(chat);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "witty-verify",
+  "private": true,
+  "type": "module",
+  "description": "Re-score Witty's record: the scorer, its plan engine, the price-file downloader and the Solana price recorder",
+  "scripts": {
+    "rescore": "node fetch_prices.mjs && node witty_score.mjs",
+    "score": "node witty_score.mjs",
+    "selftest": "node witty_plan.mjs --selftest && node witty_score.mjs --selftest && node witty_prices.mjs --selftest"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

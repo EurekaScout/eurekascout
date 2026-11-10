@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EurekaScout · the AI scout that shows its receipts</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="img/witty-face-32.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#FFFFFF">
+<script>try{var t=localStorage.getItem("es-theme");if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t;if(t==="dark")document.querySelector('meta[name="theme-color"]').content="#0D0E12"}catch(e){}</script>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EurekaScout">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=20261110a">
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="EurekaScout home">
+      <img src="img/witty-face.webp" width="46" height="46" alt="">
+      <span class="display">EUREKA<span style="color:var(--blue)">SCOUT</span></span>
+    </a>
+    <nav aria-label="Main"><a href="index.html" aria-current="page">Home</a><a href="how.html">How it works</a><a href="record.html">Record</a><a href="nfts.html">NFTs</a><a href="rent.html">Rent</a><a href="team.html">Team</a><a href="witty.html">My Witty</a></nav>
+    <div style="display:flex;gap:10px;align-items:center"><button class="theme-btn" type="button" aria-label="Switch to dark mode"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button><a class="btn btn-ink" href="rent.html">Rent Witty</a><button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span></button></div>
+  </div>
+</header>
+<div class="mnav" id="mnav" hidden><a href="index.html" aria-current="page">Home</a><a href="how.html">How it works</a><a href="record.html">Record</a><a href="nfts.html">NFTs</a><a href="rent.html">Rent</a><a href="team.html">Team</a><a href="witty.html">My Witty</a><button class="theme-row" type="button"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><span>Dark mode</span></button></div>
+
+<main>
+<section class="wrap hero">
+  <div class="copy-top">
+    <h1 class="display">THE AI SCOUT THAT SHOWS ITS <span style="color:var(--blue)">RECEIPTS.</span></h1>
+  </div>
+  <div class="copy-bottom">
+    <p class="lead">Witty hunts memecoins on Solana and Robinhood Chain. Every call is sealed on NEAR before the price moves, so its record can't be faked, losses included.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px">
+      <a class="btn btn-blue" href="rent.html">Rent Witty</a>
+      <a class="btn btn-teal" href="record.html">See the record</a>
+    </div>
+  </div>
+
+  <div class="stage-cell"><div class="stage" id="stage" aria-label="Witty and his cards">
+    <div class="wgroup" id="wgroup">
+      <div class="halo"></div>
+      <div class="floor"></div>
+      <div class="witty-float" id="wittyFloat"><img class="witty" id="witty" src="img/witty-rookie-cut.webp" width="560" height="804" alt="Witty, the raccoon scout, holding a sealed call receipt"></div>
+    </div>
+    <svg class="orbit-line" id="orbit" aria-hidden="true"></svg>
+    <div id="cards"></div>
+    <div class="panel" id="panel" role="region" aria-live="polite"></div>
+    <svg class="paw" id="paw" viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M17.5 41 C11 38.5 7 42.5 9 47 C11 51 15.5 51.5 17.5 48.5" fill="#26262B" stroke="#0B0B0F" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M20 28 L20 8 C20 4.5 22.8 2.5 25.5 2.5 C28.2 2.5 30.5 4.5 30.5 8 L30.5 28 C31.5 25.5 33.5 24.5 36 25 C38.5 25.5 40 27 40 29.5 C41 27.5 43.5 26.5 46 27.2 C48.5 28 49.5 30 49.5 32.5 C51 31 53.5 31 55 32.5 C56.5 34 57 36 56.5 39 L55 50 C54 56.5 49 61 42 61 L29 61 C21.5 61 16.5 56 16.5 48.5 L16.5 36 C16.5 32 18 29.5 20 28 Z" fill="#26262B" stroke="#0B0B0F" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M30.5 33 C32 31.5 35 31.5 36.5 33 M40 34 C41.5 32.5 44.5 32.5 46 34" fill="none" stroke="#0B0B0F" stroke-width="2" stroke-linecap="round"/>
+      <path d="M22.5 8 C22.5 6.2 23.8 5.2 25.2 5.3" fill="none" stroke="#6A6A72" stroke-width="2" stroke-linecap="round"/>
+      <path d="M20.5 40 C21 36.5 23 34.5 26 34" fill="none" stroke="#6A6A72" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </div></div>
+</section>
+
+<section class="section" id="levels">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">The Scout NFT</span>
+      <h2 class="display" style="margin-top:8px">WITTY LEVELS UP WHEN HIS RECORD DOES.</h2>
+    </div>
+    <div class="levels">
+      <div class="level reveal"><img src="img/witty-rookie.webp" width="720" height="720" alt="Witty at Rookie level" loading="lazy"><div class="glare"></div><div class="cap"><span class="display">ROOKIE</span><span class="badge now">Witty now</span></div></div>
+      <div class="level reveal"><img src="img/witty-analyst.webp" width="720" height="720" alt="Witty at Analyst level" loading="lazy"><div class="glare"></div><div class="cap"><span class="display">ANALYST</span><span class="badge">Earned by record</span></div></div>
+      <div class="level reveal"><img src="img/witty-elite.webp" width="720" height="720" alt="Witty at Elite level" loading="lazy"><div class="glare"></div><div class="cap"><span class="display">ELITE</span><span class="badge">Earned by record</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pages" style="padding-top:24px">
+  <div class="wrap">
+    <div class="pages">
+      <a class="reveal c-teal" href="how.html"><b>How it works</b><span>Seal, reveal, score, check, told as a scroll story with each step animating in.</span></a>
+      <a class="reveal c-blue" href="record.html"><b>Record</b><span>Every call, live from NEAR, re-hashed in your browser. Wins and losses.</span></a>
+      <a class="reveal c-maroon" href="nfts.html"><b>NFTs</b><span>The Scout NFT and its levels at full size, and the Rental Pass.</span></a>
+      <a class="reveal c-black" href="rent.html"><b>Rent</b><span>Pick a Bronze (7 days) or Silver (30 days) pass, pay with NEAR or another coin, get calls on Telegram.</span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-near"><a href="https://near.org" target="_blank" rel="noopener"><img src="img/built-on-near.svg" width="122" height="20" alt="Built on NEAR"></a><span>Prove on <a href="https://nearblocks.io/address/receipts.eurekascout.near" target="_blank" rel="noopener">receipts.eurekascout.near</a></span></div>
+    <div class="foot-mid"><span class="socials"><a class="social light" href="https://x.com/eurekascout_" target="_blank" rel="noopener" aria-label="EurekaScout on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a><a class="social light" href="https://github.com/EurekaScout" target="_blank" rel="noopener" aria-label="EurekaScout on GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a></span><span class="foot-copy">&copy; 2026 EurekaScout</span></div>
+    <span class="foot-note">Not financial advice. Memecoins rug; size small.</span>
+  </div>
+</footer>
+
+<script>
+"use strict";
+// ---------------- live data from NEAR ----------------
+// The mockup (opened as a file or on localhost) starts from sample numbers. The real site shows nothing made up:
+// until NEAR answers, the cards say "loading…", and it keeps retrying.
+const MOCK = new URLSearchParams(location.search).get("live") !== "1" && (location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(location.hostname));
+const CONTRACT = "receipts.eurekascout.near";
+const RPCS = ["https://free.rpc.fastnear.com", "https://rpc.mainnet.fastnear.com", "https://rpc.mainnet.near.org"];
+const REVEAL_MS = 46 * 3600e3;
+const SAMPLE_HASH = "e58c2d78a244ca4dee2f19b0c7a1d3e4f5a6b7c8d9e0f1a2b3c4d5e6f77cbc3b";
+const live = MOCK
+  ? { ok: false, latest: { id: "33", hash: SAMPLE_HASH, sealedMs: Date.now() - 12 * 60e3, block: 222730114 }, sealed: 14, revealed: 7, check: { id: "31", hash: SAMPLE_HASH, mine: SAMPLE_HASH } }
+  : { ok: false, latest: null, sealed: null, revealed: null, check: null };
+async function view(method, args = {}) {
+  // Ask the first RPC; if it hasn't answered within 1.2 s (or fails), ask the next one too. The first good answer wins,
+  // so one slow or rate-limited RPC never makes a check wait.
+  const body = JSON.stringify({ jsonrpc: "2.0", id: "es", method: "query", params: { request_type: "call_function", finality: "final", account_id: CONTRACT, method_name: method, args_base64: btoa(JSON.stringify(args)) } });
+  const ask = (url) => fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body, signal: AbortSignal.timeout?.(8000) })
+    .then((r) => r.json()).then((j) => { if (j.error || !j.result?.result) throw new Error("bad answer"); return JSON.parse(new TextDecoder().decode(Uint8Array.from(j.result.result))); });
+  return new Promise((resolve, reject) => {
+    let started = 0, failed = 0, done = false;
+    const next = () => {
+      if (done || started >= RPCS.length) return;
+      const url = RPCS[started++], timer = setTimeout(next, 1200);
+      ask(url).then((v) => { clearTimeout(timer); if (!done) { done = true; resolve(v); } },
+        (e) => { clearTimeout(timer); if (++failed === RPCS.length && !done) { done = true; reject(e); } else next(); });
+    };
+    next();
+  });
+}
+async function sha256Hex(text) { const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text)); return [...new Uint8Array(d)].map((b) => b.toString(16).padStart(2, "0")).join(""); }
+async function loadLive() {
+  try {
+    const n = Number(await view("get_call_count")), all = [];
+    for (let f = 0; f < n; f += 50) all.push(...await view("get_calls", { from_index: String(f), limit: 50 }));
+    const last = all.at(-1);
+    if (last) live.latest = { id: last.id, hash: last.hash, status: last.status, sealedMs: Number(BigInt(last.sealed_at) / 1000000n), block: Number(last.sealed_block) };
+    live.sealed = all.filter((c) => !c.warm_up).length;
+    live.revealed = all.filter((c) => c.status === "revealed").length;
+    // the "Checked by you" card re-hashes the newest revealed call for real, in this browser
+    const rev = all.filter((c) => c.status === "revealed" && c.call_json).at(-1);
+    if (rev) live.check = { id: rev.id, hash: rev.hash, mine: await sha256Hex(rev.call_json) };
+    live.ok = true;
+  } catch { if (!MOCK) setTimeout(loadLive, 8000); }
+}
+loadLive();
+const fmtLeft = (ms) => { if (ms <= 0) return "any moment"; const h = Math.floor(ms / 3600e3), m = Math.floor(ms % 3600e3 / 60e3), s = Math.floor(ms % 60e3 / 1e3); return `${h}h ${String(m).padStart(2, "0")}m ${String(s).padStart(2, "0")}s`; };
+const ago = (ms) => { const m = Math.max(0, Math.round((Date.now() - ms) / 60e3)); return m < 60 ? `${m} min ago` : `${Math.floor(m / 60)} h ${m % 60} min ago`; };
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+
+// ---------------- the cards ----------------
+const ICON = {
+  lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+  clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 19l5-6 4 3 7-9"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12.5l4.5 4.5L19 7"/></svg>',
+  trophy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 20h8"/></svg>',
+  ticket: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 8a2 2 0 0 0 0 4v4h16v-4a2 2 0 0 1 0-4V4H4z"/></svg>',
+  live: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="#36E2CC"/></svg>',
+};
+const CARDS = [
+  { key: "seal", dark: true, icon: "live", eyebrow: "Live", title: "Latest seal", sub: () => (live.latest ? `#${live.latest.id} · ${ago(live.latest.sealedMs)}` : "loading…") },
+  { key: "sealed", icon: "lock", eyebrow: "Step 1", title: "Sealed first", sub: () => "Fingerprint on NEAR" },
+  { key: "reveal", icon: "clock", eyebrow: "Step 2", title: "Revealed at 46h", sub: () => "Renters get it first" },
+  { key: "score", icon: "chart", eyebrow: "Step 3", title: "Scored on chain", sub: () => "Four kinds · each on its own plan" },
+  { key: "check", icon: "check", eyebrow: "Step 4", title: "Checked by you", sub: () => "Re-hash it yourself" },
+  { key: "record", dark: true, icon: "trophy", eyebrow: "Record", title: "Witty's record", sub: () => (live.sealed != null ? `${live.sealed} calls sealed` : "loading…") },
+  { key: "rent", icon: "ticket", eyebrow: "Rent", title: "Rental Pass", sub: () => "1.3 NEAR a week" },
+];
+
+function panelContent(card, panel) {
+  panel.className = "panel" + (card.dark || ["seal", "record", "sealed", "score"].includes(card.key) ? "" : " light");
+  const head = el("div", "row");
+  head.append(el("span", "eyebrow", card.eyebrow + " · " + card.title));
+  const body = document.createDocumentFragment();
+  const t = (txt) => el("p", null, txt);
+  let tick = null;
+  if (card.key === "seal" && !live.latest) {
+    body.append(el("h3", "display", "ASKING NEAR…"), t("The latest seal shows here as soon as NEAR answers."));
+  } else if (card.key === "seal") {
+    body.append(el("h3", "display", `CALL #${live.latest.id} IS SEALED.`));
+    const hb = el("div", "hashbox"); body.append(hb); scramble(hb, live.latest.hash);
+    const meta = t(""); body.append(meta);
+    tick = () => { meta.textContent = `Sealed ${ago(live.latest.sealedMs)} at block ${live.latest.block.toLocaleString("en")}. Reveals in ${fmtLeft(live.latest.sealedMs + REVEAL_MS - Date.now())}.`; };
+    const st = el("span", "stamp", "SEALED ON NEAR"); body.append(st); setTimeout(() => st.classList.add("on"), 900);
+  } else if (card.key === "sealed") {
+    body.append(el("h3", "display", "SEALED BEFORE IT MOVES."));
+    body.append(el("div", "hashbox", '{"token":"…","entry":"…","salt":"…"}'));
+    const hb = el("div", "hashbox"); body.append(hb); setTimeout(() => scramble(hb, live.latest ? live.latest.hash.slice(0, 40) + "…" : "…"), 300);
+    body.append(t("Witty stores only this fingerprint on NEAR, with the time and block. Nobody can change it, us included."));
+  } else if (card.key === "reveal") {
+    body.append(el("h3", "display", "RENTERS FIRST. EVERYONE AT 46H."));
+    if (live.latest && live.latest.status !== "revealed") {
+    const left = live.latest.sealedMs + REVEAL_MS - Date.now();
+    const pct = Math.max(0, Math.min(1, 1 - left / REVEAL_MS));
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 120 120"); svg.style.width = "110px";
+    svg.innerHTML = `<circle cx="60" cy="60" r="50" fill="none" style="stroke:var(--line)" stroke-width="10"/><circle id="ringp" cx="60" cy="60" r="50" fill="none" stroke="#36E2CC" stroke-width="10" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314" transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1.4s cubic-bezier(.2,.8,.2,1)"/>`;
+    const r = el("div", "row"); r.style.justifyContent = "flex-start"; r.style.gap = "16px"; r.append(svg);
+    const lt = el("div"); lt.append(el("div", "display big", fmtLeft(left).split(" ").slice(0, 2).join(" ")), el("p", null, `until call #${live.latest.id} goes public`));
+    r.append(lt); body.append(r);
+    setTimeout(() => svg.querySelector("#ringp").setAttribute("stroke-dashoffset", String(314 * (1 - pct))), 200);
+    }
+    body.append(t("Renters get each call the moment it's sealed. The public sees it 46 hours later, checked against the seal."));
+  } else if (card.key === "score") {
+    body.append(el("h3", "display", "SCORED FROM THE CHAIN."));
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 320 120"); svg.setAttribute("class", "chart");
+    svg.innerHTML = `<line x1="0" y1="72" x2="320" y2="72" stroke="rgba(255,255,255,.35)" stroke-dasharray="4 4"/><text x="4" y="88" fill="rgba(255,255,255,.6)" font-size="11" font-family="Inter">entry</text>
+      <path id="pp" d="M0 72 L30 66 L55 74 L80 58 L105 62 L130 46 L150 52 L175 38 L200 42 L222 24" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round" stroke-dasharray="400" stroke-dashoffset="400" style="transition:stroke-dashoffset 1.6s ease"/>
+      <circle id="hit" cx="222" cy="24" r="0" fill="#36E2CC" style="transition:r .3s .1s"/>`;
+    body.append(svg);
+    setTimeout(() => { svg.querySelector("#pp").setAttribute("stroke-dashoffset", "0"); setTimeout(() => svg.querySelector("#hit").setAttribute("r", "7"), 1500); }, 200);
+    body.append(t("Each kind of call is scored on its own plan, sealed inside the call before the price moves. Prices come straight from the pools, minus 4% for fees."));
+  } else if (card.key === "check") {
+    body.append(el("h3", "display", "DON'T TRUST US. CHECK."));
+    const c = live.check;
+    if (!c) {
+      body.append(t(live.ok ? "No call has been revealed yet. The first one shows here 46 hours after it's sealed, re-hashed in your browser." : "Asking NEAR for the newest revealed call…"));
+    } else {
+      const a = el("div", "hashbox"), b = el("div", "hashbox"), match = c.mine === c.hash;
+      body.append(el("span", "eyebrow", `Call #${c.id}, sealed on NEAR`), a, el("span", "eyebrow", "Re-hashed in your browser"), b);
+      a.textContent = c.hash.slice(0, 32) + "…";
+      scramble(b, c.mine.slice(0, 32) + "…", () => { const v = el("span", "ok", match ? "✓ matches seal" : "✗ does NOT match"); if (!match) v.style.color = "var(--red)"; b.after(v); });
+    }
+  } else if (card.key === "record") {
+    body.append(el("h3", "display", "EVERY CALL. LOSSES TOO."));
+    const g = el("div", "stats");
+    const s1 = el("div", "stat"), s2 = el("div", "stat");
+    s1.append(el("span", null, "Calls sealed since 1 Nov"), el("span", "display", "0"));
+    s2.append(el("span", null, "Revealed so far"), el("span", "display", "0"));
+    g.append(s1, s2); body.append(g);
+    if (live.sealed != null) { countUp(s1.lastChild, live.sealed); countUp(s2.lastChild, live.revealed); } else { s1.lastChild.textContent = "–"; s2.lastChild.textContent = "–"; }
+    body.append(t("Every revealed call is scored after fees on the Record page, wins and losses."));
+  } else if (card.key === "rent") {
+    body.append(el("h3", "display", "YOUR KEY TO HIS CALLS."));
+    const pass = el("div", "pass metal tier-bronze"), sheen = el("i", "sheen"); sheen.setAttribute("aria-hidden", "true");
+    pass.append(sheen, el("div", "eyebrow", "Witty · Bronze Pass"), el("div", "display big", "1.3 NEAR / 7 DAYS"));
+    body.append(pass, t("Bronze for 7 days or Silver for 30: calls on Telegram the moment they're sealed, a one-tap Buy button, and a sell alert when Witty exits."));
+  }
+  const foot = el("div", "row");
+  const dots = el("div", "dots"); CARDS.forEach((c) => dots.append(el("i", c === card ? "on" : "")));
+  const nav = el("div", "nav");
+  const prev = el("button", null, "‹"), next = el("button", null, "›"), close = el("button", null, "×");
+  prev.setAttribute("aria-label", "Previous card"); next.setAttribute("aria-label", "Next card"); close.setAttribute("aria-label", "Close");
+  prev.onclick = () => userStep(-1); next.onclick = () => userStep(1); close.onclick = () => userClose();
+  nav.append(prev, next, close); foot.append(dots, nav);
+  panel.replaceChildren(head, body, foot);
+  return tick;
+}
+function scramble(node, finalText, done) {
+  const chars = "0123456789abcdef"; let i = 0;
+  const id = setInterval(() => {
+    i += 2;
+    node.textContent = finalText.slice(0, i) + [...finalText.slice(i)].map((c) => (c === "…" ? "…" : chars[Math.random() * 16 | 0])).join("");
+    if (i >= finalText.length) { clearInterval(id); node.textContent = finalText; done && done(); }
+  }, 22);
+}
+function countUp(node, to) { const t0 = performance.now(); const f = (t) => { const p = Math.min(1, (t - t0) / 900); node.textContent = String(Math.round(to * (1 - Math.pow(1 - p, 3)))); if (p < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); }
+
+// ---------------- the orbit ----------------
+const stage = document.getElementById("stage"), cardsBox = document.getElementById("cards"), panel = document.getElementById("panel");
+const paw = document.getElementById("paw"), wittyImg = document.getElementById("witty"), orbitSvg = document.getElementById("orbit");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const N = CARDS.length, STEP = 2 * Math.PI / N;
+const cardEls = CARDS.map((c, i) => {
+  const b = el("button", "card" + (c.dark ? " dark" : ""));
+  b.type = "button";
+  b.innerHTML = `<span class="eyebrow">${ICON[c.icon]}<span></span></span><b></b><small></small>`;
+  b.querySelector(".eyebrow span").textContent = c.eyebrow; b.querySelector("b").textContent = c.title;
+  b.addEventListener("click", (e) => { e.stopPropagation(); if (moved < 6) userOpen(i); });
+  cardsBox.append(b); return b;
+});
+let phi = 0, vel = 0, W = 0, H = 0, geo = {}, shift = 0, shiftTo = 0;
+const wgroup = document.getElementById("wgroup");
+function measure() {
+  W = stage.clientWidth; H = stage.clientHeight;
+  geo = { cx0: W / 2, cx: W / 2, cy: H * 0.56, rx0: W * 0.43, rx: W * 0.43, ry: H * 0.11 };
+  orbitSvg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  orbitSvg.innerHTML = `<ellipse id="ell" cx="${geo.cx}" cy="${geo.cy}" rx="${geo.rx}" ry="${geo.ry}" fill="none" stroke="#36E2CC" stroke-opacity=".55" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round"/>`;
+}
+const SHIFT = () => (W >= 520 ? W * 0.21 : 0);    // how far Witty steps aside to present a card
+function applyShift(dt) {
+  shift += (shiftTo - shift) * Math.min(1, dt * 7);
+  const dx = -shift * SHIFT();
+  geo.cx = geo.cx0 + dx;
+  geo.rx = geo.rx0 * (1 - 0.34 * shift);          // a tighter ring while Witty presents, so cards stay off the text
+  wgroup.style.transform = `translateX(${dx.toFixed(1)}px)`;
+  const ell = orbitSvg.firstChild; if (ell) { ell.setAttribute("cx", geo.cx.toFixed(1)); ell.setAttribute("rx", geo.rx.toFixed(1)); }
+}
+function cardPos(i) {
+  const th = phi + i * STEP, s = Math.sin(th), c = Math.cos(th);
+  return { x: geo.cx + geo.rx * s, y: geo.cy + geo.ry * c, depth: c, s, th };
+}
+function layout() {
+  CARDS.forEach((c, i) => {
+    const b = cardEls[i];
+    if (c.sub) b.querySelector("small").textContent = c.sub();
+    const p = cardPos(i), k = (p.depth + 1) / 2;
+    const scale = 0.62 + 0.38 * k;
+    const w = b.offsetWidth, h = b.offsetHeight;
+    b.style.transform = `translate(${p.x - w / 2}px, ${p.y - h / 2}px) perspective(800px) rotateY(${(-p.s * 30).toFixed(1)}deg) scale(${scale.toFixed(3)})`;
+    b.style.opacity = b.dataset.hidden ? "0" : (0.45 + 0.55 * k).toFixed(2);
+    b.style.zIndex = p.depth > 0.05 ? String(30 + Math.round(p.depth * 10)) : String(5 + Math.round(k * 10));
+  });
+}
+const OMEGA = (2 * Math.PI) / 26;   // one lap every 26 s while drifting
+let last = performance.now(), drifting = true, dragging = false, visible = true;
+function frame(t) {
+  const dt = Math.min(0.05, (t - last) / 1000); last = t;
+  if (visible) {
+    applyShift(dt);
+    if (!dragging) {
+      if (Math.abs(vel) > 0.0005) { phi += vel * dt; vel *= Math.pow(0.04, dt); }
+      else if (drifting && !reduce) phi += OMEGA * dt;
+    }
+    layout();
+    if (openTick) openTick();
+  }
+  requestAnimationFrame(frame);
+}
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+function tweenPhi(to, ms) {
+  return new Promise((res) => {
+    const from = phi, t0 = performance.now();
+    const f = (t) => { const p = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - p, 3); phi = from + (to - from) * e; if (p < 1) requestAnimationFrame(f); else res(); };
+    requestAnimationFrame(f);
+  });
+}
+function frontTarget(i) {           // the phi that brings card i to the front, always turning forwards
+  let target = -i * STEP; const twoPi = 2 * Math.PI;
+  while (target < phi + 0.25) target += twoPi;
+  while (target - phi > twoPi + 0.25) target -= twoPi;
+  return target;
+}
+
+// ---------------- open / close a card ----------------
+let openIdx = -1, openTick = null;
+function stageRect(elm) { const r = elm.getBoundingClientRect(), s = stage.getBoundingClientRect(); return { x: r.left - s.left, y: r.top - s.top, w: r.width, h: r.height }; }
+function panelTarget() {
+  if (W < 520) return null;             // phones: CSS puts it at the bottom
+  const w = Math.min(400, W * 0.52);
+  return { left: W - w - 4, top: Math.max(8, H * 0.2) };
+}
+async function openCard(i) {
+  openIdx = i; drifting = false; shiftTo = 1;
+  const from = stageRect(cardEls[i]);
+  openTick = panelContent(CARDS[i], panel);
+  const t = panelTarget();
+  panel.style.display = "flex";
+  if (t) { panel.style.left = t.left + "px"; panel.style.top = t.top + "px"; }
+  const to = stageRect(panel);
+  cardEls[i].dataset.hidden = "1";
+  if (!reduce) await panel.animate([
+    { transform: `translate(${from.x - to.x}px, ${from.y - to.y}px) scale(${from.w / to.w}, ${from.h / to.h})`, opacity: 0.6, borderRadius: "16px" },
+    { transform: "none", opacity: 1, borderRadius: "24px" },
+  ], { duration: 520, easing: "cubic-bezier(.2,.9,.2,1)" }).finished;
+  wittyImg.animate([{ transform: "translateX(-50%) rotate(0)" }, { transform: "translateX(-50%) rotate(-2deg) scale(1.015)" }, { transform: "translateX(-50%) rotate(0)" }], { duration: 600, easing: "ease-out" });
+}
+async function closeCard(direction = -1) {
+  if (openIdx < 0) return;
+  const i = openIdx;
+  if (!reduce) await panel.animate([{ transform: "none", opacity: 1 }, { transform: `translateX(${direction * 120}%) rotate(${direction * 8}deg)`, opacity: 0 }], { duration: 420, easing: "cubic-bezier(.5,0,.8,.4)" }).finished;
+  panel.style.display = "none"; openTick = null; openIdx = -1; shiftTo = 0;
+  delete cardEls[i].dataset.hidden;
+}
+
+// ---------------- Witty's paw ----------------
+const TIP = { x: 26, y: 3 };   // the fingertip inside the 66 px paw
+function pawAt(x, y) { paw.style.transform = `translate(${x - TIP.x}px, ${y - TIP.y}px)`; }
+function handPoint() { const r = stageRect(wittyImg); return { x: r.x + r.w * 0.72, y: r.y + r.h * 0.66 }; }
+async function pawMove(to, ms) {
+  const fromT = paw.style.transform || "";
+  const anim = paw.animate([{ transform: fromT }, { transform: `translate(${to.x - TIP.x}px, ${to.y - TIP.y}px)` }], { duration: ms, easing: "cubic-bezier(.4,0,.2,1)" });
+  await anim.finished; pawAt(to.x, to.y);
+}
+async function pawTap(at) {
+  const tr = `translate(${at.x - TIP.x}px, ${at.y - TIP.y}px)`;
+  await paw.animate([{ transform: `${tr} scale(1)` }, { transform: `${tr} scale(.82)` }, { transform: `${tr} scale(1)` }], { duration: 260 }).finished;
+  const rp = el("div", "ripple"); rp.style.left = at.x + "px"; rp.style.top = at.y + "px"; stage.append(rp); setTimeout(() => rp.remove(), 650);
+}
+
+// ---------------- the tour: Witty spins, taps a card, shows it, swipes to the next ----------------
+let tourToken = 0, idleTimer = null, nextIdx = 0;
+async function tour() {
+  const my = ++tourToken;
+  const alive = () => my === tourToken;
+  while (alive()) {
+    drifting = true;
+    await sleep(1800); if (!alive()) return;
+    const i = nextIdx;
+    drifting = false;
+    await tweenPhi(frontTarget(i), 1100); if (!alive()) return;
+    const c = stageRect(cardEls[i]); const tip = { x: c.x + c.w * 0.5, y: c.y + c.h * 0.55 };
+    const hp = handPoint(); pawAt(hp.x, hp.y);
+    paw.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, fill: "forwards" });
+    await pawMove(tip, 650); if (!alive()) return;
+    await pawTap(tip); if (!alive()) return;
+    await openCard(i); if (!alive()) return;
+    const pr = stageRect(panel);
+    await pawMove({ x: pr.x + pr.w - 40, y: pr.y + pr.h * 0.55 }, 600);
+    await sleep(3800); if (!alive()) return;
+    await pawMove({ x: pr.x + 30, y: pr.y + pr.h * 0.55 }, 420);       // the swipe
+    await closeCard(-1); if (!alive()) return;
+    paw.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: "forwards" });
+    nextIdx = (i + 1) % N;
+  }
+}
+function stopTour() {
+  tourToken++; paw.getAnimations().forEach((a) => a.cancel()); paw.style.opacity = "0";
+  clearTimeout(idleTimer); idleTimer = setTimeout(() => { if (openIdx >= 0) closeCard(-1).then(tour); else tour(); }, 20000);
+}
+async function userOpen(i) {
+  stopTour();
+  if (openIdx === i) return;
+  if (openIdx >= 0) await closeCard(-1);
+  await tweenPhi(frontTarget(i), 600); await openCard(i); nextIdx = (i + 1) % N;
+}
+async function userStep(d) { const i = ((openIdx < 0 ? 0 : openIdx) + d + N) % N; stopTour(); await closeCard(d > 0 ? -1 : 1); await tweenPhi(frontTarget(i), 600); await openCard(i); nextIdx = (i + 1) % N; }
+async function userClose() { stopTour(); await closeCard(-1); drifting = true; }
+addEventListener("keydown", (e) => { if (openIdx >= 0 && e.key === "Escape") userClose(); if (e.key === "ArrowRight") userStep(1); if (e.key === "ArrowLeft") userStep(-1); });
+
+// drag to spin, with a little inertia
+let downX = 0, moved = 0, lastX = 0, lastT = 0;
+stage.addEventListener("pointerdown", (e) => { if (e.target.closest(".panel")) return; dragging = true; moved = 0; downX = lastX = e.clientX; lastT = performance.now(); vel = 0; stage.classList.add("dragging"); });
+addEventListener("pointermove", (e) => {
+  if (!dragging) return;
+  const dx = e.clientX - lastX, now = performance.now();
+  moved += Math.abs(dx);
+  if (moved > 6 && tourToken && openIdx < 0) stopTour();
+  phi += dx / (W * 0.35); vel = (dx / (W * 0.35)) / Math.max(0.016, (now - lastT) / 1000);
+  lastX = e.clientX; lastT = now;
+});
+addEventListener("pointerup", () => { if (!dragging) return; dragging = false; stage.classList.remove("dragging"); });
+
+// pause when the hero is off screen or the tab is hidden
+new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(stage);
+document.addEventListener("visibilitychange", () => { visible = !document.hidden; last = performance.now(); });
+
+// entrance: Witty pops in, the cards spiral out from behind him
+measure(); addEventListener("resize", () => { measure(); layout(); });
+cardEls.forEach((b) => (b.style.opacity = "0"));
+if (!reduce) {
+  wittyImg.animate([{ transform: "translateX(-50%) translateY(40px) scale(.92)", opacity: 0 }, { transform: "translateX(-50%)", opacity: 1 }], { duration: 800, easing: "cubic-bezier(.2,1.2,.3,1)" });
+  phi = -2.4; tweenPhi(0, 1600);
+}
+requestAnimationFrame(frame);
+if (!reduce) setTimeout(tour, 2200);
+
+// ---------------- below the hero: the 3D tilt on the NFT cards ----------------
+document.querySelectorAll(".level").forEach((card) => {
+  card.addEventListener("pointermove", (e) => {
+    if (reduce) return;
+    const r = card.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+    card.style.transform = `rotateY(${(px - 0.5) * 14}deg) rotateX(${(0.5 - py) * 12}deg) translateZ(10px)`;
+    card.style.setProperty("--gx", `${px * 100}%`); card.style.setProperty("--gy", `${py * 100}%`);
+  });
+  card.addEventListener("pointerleave", () => { card.style.transform = ""; });
+});
+</script>
+<script src="assets/site.js?v=20261110a"></script>
+</body>
+</html>

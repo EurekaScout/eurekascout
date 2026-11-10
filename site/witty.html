@@ -1,0 +1,1290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Witty · EurekaScout</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="img/witty-face-32.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#FFFFFF">
+<script>try{var t=localStorage.getItem("es-theme");if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t;if(t==="dark")document.querySelector('meta[name="theme-color"]').content="#0D0E12"}catch(e){}</script>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EurekaScout">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=20261110a">
+<link rel="stylesheet" href="assets/wallet-modal.css?v=20261110a">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="EurekaScout home">
+      <img src="img/witty-face.webp" width="46" height="46" alt="">
+      <span class="display">EUREKA<span style="color:var(--blue)">SCOUT</span></span>
+    </a>
+    <nav aria-label="Main"><a href="index.html">Home</a><a href="how.html">How it works</a><a href="record.html">Record</a><a href="nfts.html">NFTs</a><a href="rent.html">Rent</a><a href="team.html">Team</a><a href="witty.html" aria-current="page">My Witty</a></nav>
+    <div style="display:flex;gap:10px;align-items:center"><button class="theme-btn" type="button" aria-label="Switch to dark mode"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button><a class="btn btn-ink" href="rent.html">Rent Witty</a><button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span></button></div>
+  </div>
+</header>
+<div class="mnav" id="mnav" hidden><a href="index.html">Home</a><a href="how.html">How it works</a><a href="record.html">Record</a><a href="nfts.html">NFTs</a><a href="rent.html">Rent</a><a href="team.html">Team</a><a href="witty.html" aria-current="page">My Witty</a><button class="theme-row" type="button"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><span>Dark mode</span></button></div>
+<main>
+<section class="wrap mw-top mw">
+  <h1 class="display reveal">YOUR WITTY. <span style="color:var(--blue)">YOUR CALLS.</span></h1>
+  <p class="lead reveal">Connect the NEAR account that holds your pass or Witty NFT. See how long you have left, renew, claim what your NFT has earned, and get every call on Telegram the moment it's sealed.</p>
+  <p class="small reveal" id="net-note" hidden></p>
+</section>
+
+<section class="wrap mw-grid mw">
+  <div class="mw-col">
+    <div class="mw-panel reveal" id="p-account">
+      <div class="mw-acct" id="acct-out">
+        <div><span class="eyebrow">Your NEAR account</span><p class="small" style="margin-top:6px">Connecting is free: it doesn't move any NEAR.</p></div>
+        <button class="btn btn-blue" type="button" id="connect" disabled>Loading wallets…</button>
+        <p class="mw-hint mw-back" id="meteor-back" role="status" hidden><b>Tapped Connect in Meteor?</b> Switch back to this tab to finish.</p>
+        <p class="mw-hint" id="phone-tip" hidden>On a phone it's smoothest inside your wallet app's browser (Meteor or HOT).</p>
+        <p class="mw-hint" id="mnw-hint"><b>Coming from MyNearWallet?</b> Import your account into Meteor Wallet first (recovery phrase or private key), then connect Meteor.</p>
+      </div>
+      <div class="mw-me" id="acct-in" hidden>
+        <div class="mw-mehead">
+          <span class="mw-ava" id="acct-ava" aria-hidden="true"></span>
+          <div class="mw-meid">
+            <div class="mw-namerow"><b id="acct-name"></b><button class="mw-iconbtn mw-copyname" type="button" id="acct-copy" aria-label="Copy account name" title="Copy"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 9V6.5A2.5 2.5 0 0 0 12.5 4h-6A2.5 2.5 0 0 0 4 6.5v6A2.5 2.5 0 0 0 6.5 15H9" fill="none" stroke="currentColor" stroke-width="2"/></svg></button></div>
+            <small class="mw-via" id="acct-via"><i class="mw-dot"></i><span>Connected</span></small>
+          </div>
+          <button class="mw-iconbtn mw-out" type="button" id="disconnect" aria-label="Disconnect"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 3v8M7.4 6.6a8 8 0 1 0 9.2 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span>Disconnect</span></button>
+        </div>
+        <div class="mw-balbox">
+          <i class="tk tk-near">N</i>
+          <div class="mw-balnum"><small>Balance</small><b id="acct-bal">…</b><small id="acct-usd"></small></div>
+          <div class="mw-balacts">
+            <button class="btn btn-blue mw-addnear" type="button" id="topup-open" title="Pay with SOL, ETH, USDC and more" hidden><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>Add NEAR</button>
+            <button class="btn mw-addnear mw-sendbtn" type="button" id="send-open" title="Send NEAR to another NEAR account" hidden><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12h13m0 0-5-5m5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Send</button>
+            <button class="btn mw-addnear mw-sendbtn" type="button" id="cash-open" title="Turn NEAR into SOL or USDC on Solana" hidden><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M7 7h11l-4-4M17 17H6l4 4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Cash out</button>
+          </div>
+        </div>
+        <p class="mw-hint mw-unwrap" id="unwrap-line" hidden>You have <b id="unwrap-amt">0</b> wNEAR. <button class="mw-linkbtn" type="button" id="unwrap-go">Unwrap</button> to turn it into NEAR.</p>
+        <a class="mw-explorer" id="acct-explorer" target="_blank" rel="noopener">View on NearBlocks ↗</a>
+      </div>
+      <p class="mw-msg" id="tx-msg" role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="mw-panel reveal" id="p-loading" hidden><p class="small">Reading your account from NEAR…</p></div>
+
+    <div class="mw-panel" id="p-pass" hidden>
+      <span class="eyebrow">Your pass</span>
+      <div class="mw-pass metal" id="mpass">
+        <i class="sheen" aria-hidden="true"></i>
+        <span class="r1"><span id="mp-title">WITTY · PASS</span><span id="mp-free"></span></span>
+        <span class="mid"><span class="tname"><span class="display" id="mp-tier">PASS</span><small id="mp-days"></small></span><span class="pring"><svg viewBox="0 0 92 92" aria-hidden="true"><circle class="t" cx="46" cy="46" r="38"/><circle class="b" id="mp-ring" cx="46" cy="46" r="38"/></svg><span id="mp-left">–</span></span></span>
+        <span class="r3"><span><small>Holder</small><span id="mp-holder"></span></span><span style="text-align:right"><small>Ends</small><b id="mp-ends"></b></span></span>
+      </div>
+      <div class="mw-acts" id="renew-acts"></div>
+      <p class="small">Renewing adds days to this pass and keeps its tier. Paid in NEAR, straight into Witty's own account.</p>
+    </div>
+
+    <div class="mw-panel" id="p-nft" hidden>
+      <span class="eyebrow">Your Witty NFT</span>
+      <div class="mw-nft">
+        <img id="nft-img" alt="" width="120" height="120">
+        <div><b class="display" id="nft-name" style="font-size:28px">WITTY #1</b><div style="margin-top:8px"><span class="mw-lvl" id="nft-level">Rookie</span></div>
+          <p class="small" style="margin-top:10px" id="nft-earned"></p></div>
+      </div>
+      <div class="mw-acts"><button class="btn btn-blue" type="button" id="claim">Claim</button></div>
+      <p class="small">Every NFT gets an equal share of 70% of all rent. Claiming sends your share from Witty's account to yours.</p>
+    </div>
+
+    <div class="mw-panel mw-sheet" id="p-sheet" hidden>
+      <div class="mw-sheethead"><b class="br-title" id="ps-title">Add NEAR</b><button class="mw-linkbtn" type="button" id="ps-close">Close</button></div>
+
+      <div class="br" id="ps-form" hidden>
+        <div class="br-box">
+          <div class="br-lbl"><span>You pay</span><span id="br-paynet"></span></div>
+          <output class="br-amt" id="br-pay">0</output>
+          <button class="br-tok" type="button" id="br-paytok" aria-haspopup="listbox"></button>
+          <div class="br-sub" id="br-payusd">&nbsp;</div>
+        </div>
+        <div class="br-mid" aria-hidden="true"><span><svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 4v15m0 0-6-6m6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+        <div class="br-box">
+          <div class="br-lbl"><span>You receive</span><span>on NEAR</span></div>
+          <input class="br-amt" id="br-get" inputmode="decimal" autocomplete="off" value="1" aria-label="NEAR to receive">
+          <span class="br-tok br-tokfixed"><i class="tk tk-near">N</i><span>NEAR</span></span>
+          <div class="br-sub" id="br-getusd">&nbsp;</div>
+        </div>
+        <div class="br-info" id="br-info">
+          <div><span>Rate</span><b id="br-rate">–</b></div>
+          <div><span>Fees</span><b id="br-fee">–</b></div>
+          <div><span>Time</span><b id="br-time">–</b></div>
+          <div><span>Route</span><b id="br-route">–</b></div>
+          <div><span>To</span><b id="br-to">–</b></div>
+        </div>
+        <p class="small br-why" id="br-why" hidden></p>
+        <button class="btn btn-blue br-cta" type="button" id="ps-go" disabled>Enter an amount</button>
+        <p class="mw-msg" id="br-msg" role="status" aria-live="polite"></p>
+      </div>
+
+      <div class="br" id="ps-send" hidden>
+        <div class="br-box">
+          <div class="br-lbl"><span>To</span><span>a NEAR account</span></div>
+          <input class="br-amt sd-to" id="sd-to" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="name.near" aria-label="NEAR account to send to" aria-describedby="sd-tosub">
+          <div class="br-sub" id="sd-tosub">&nbsp;</div>
+        </div>
+        <div class="br-box">
+          <div class="br-lbl"><span>Amount</span><button class="mw-linkbtn sd-max" type="button" id="sd-max">Max</button></div>
+          <input class="br-amt" id="sd-amt" inputmode="decimal" autocomplete="off" placeholder="0" aria-label="NEAR to send" aria-describedby="sd-amtsub">
+          <span class="br-tok br-tokfixed"><i class="tk tk-near">N</i><span>NEAR</span></span>
+          <div class="br-sub" id="sd-amtsub">&nbsp;</div>
+        </div>
+        <p class="small">Sending to an exchange? Use the NEAR deposit address it gives you. If it also asks for a memo, send from your wallet app instead: this page can't add one.</p>
+        <button class="btn btn-blue br-cta" type="button" id="sd-go" disabled>Enter an account and an amount</button>
+        <p class="mw-msg" id="sd-msg" role="status" aria-live="polite"></p>
+      </div>
+
+      <div class="br" id="ps-cash" hidden>
+        <div class="br" id="co-form">
+          <div class="br-box">
+            <div class="br-lbl"><span>You cash out</span><button class="mw-linkbtn sd-max" type="button" id="co-max">Max</button></div>
+            <input class="br-amt" id="co-amt" inputmode="decimal" autocomplete="off" placeholder="0" aria-label="NEAR to cash out" aria-describedby="co-amtsub">
+            <span class="br-tok br-tokfixed"><i class="tk tk-near">N</i><span>NEAR</span></span>
+            <div class="br-sub" id="co-amtsub">&nbsp;</div>
+          </div>
+          <div class="br-mid" aria-hidden="true"><span><svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 4v15m0 0-6-6m6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <div class="br-box">
+            <div class="br-lbl"><span>You receive</span><span>on Solana</span></div>
+            <output class="br-amt" id="co-out">0</output>
+            <div class="co-coins" id="co-coins" role="group" aria-label="Coin to receive"></div>
+            <div class="br-sub" id="co-outsub">&nbsp;</div>
+          </div>
+          <div class="br-box">
+            <div class="br-lbl"><span>Solana address</span><span>on Solana</span></div>
+            <input class="br-amt sd-to co-to" id="co-to" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Paste your Solana wallet address" aria-label="Solana address to receive at">
+            <div class="br-sub">&nbsp;</div>
+          </div>
+          <p class="small">Paste a Solana <b>wallet</b> address you control. Sending to an exchange? Check it accepts SOL/USDC on the <b>Solana</b> network. First time: try a small amount.</p>
+          <button class="btn btn-blue br-cta" type="button" id="co-review" disabled>Review</button>
+          <p class="mw-msg" id="co-msg" role="status" aria-live="polite"></p>
+        </div>
+        <div class="br" id="co-rev" hidden>
+          <div class="br-info co-rev">
+            <div><span>You send</span><b id="cr-send"></b></div>
+            <div><span>You get</span><b id="cr-get"></b></div>
+            <div><span>To</span><b id="cr-to" class="co-addr"></b></div>
+            <div><span>Time</span><b id="cr-time"></b></div>
+          </div>
+          <button class="btn btn-blue br-cta" type="button" id="co-go">Cash out</button>
+          <button class="mw-linkbtn co-back" type="button" id="co-back">Change something</button>
+          <p class="mw-msg" id="co-rmsg" role="status" aria-live="polite"></p>
+        </div>
+        <div class="br br-dep" id="co-st" hidden>
+          <ol class="br-track" id="co-track">
+            <li id="co1"><i class="tk tk-near">N</i><b>Your NEAR</b><small id="co1s">from your account</small></li>
+            <li id="co2"><i class="tk tk-intents"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M4 8h13l-4-4M20 16H7l4 4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></i><b>Swap</b><small>NEAR Intents</small></li>
+            <li id="co3"><i class="tk" id="co3tk"></i><b id="co3b">Sent</b><small id="co3s">on Solana</small></li>
+          </ol>
+          <p class="br-status" id="co-status"></p>
+          <div class="mw-acts"><button class="btn btn-blue br-cta" type="button" id="co-unwrap" hidden>Unwrap</button><button class="btn br-cta mw-sendbtn" type="button" id="co-done" hidden>Done</button></div>
+          <p class="mw-msg" id="co-smsg" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <div class="br br-dep" id="ps-pay" hidden>
+        <div class="br-sendhead">
+          <i class="tk" id="ps-tk"></i>
+          <div><small>Send exactly</small><div class="mw-copyrow"><b class="mw-amt" id="ps-amount"></b><button class="mw-copy" type="button" data-copy="ps-amount-raw">Copy</button></div></div>
+          <span class="br-timer" id="ps-deadline"></span>
+        </div>
+        <p class="br-netwarn" id="ps-chain"></p>
+        <div class="mw-send">
+          <div class="mw-qr" id="ps-qr" aria-hidden="true"></div>
+          <div class="mw-sendtxt">
+            <small>Deposit address</small>
+            <code class="mw-addr" id="ps-addr"></code>
+            <div><button class="mw-copy" type="button" data-copy="ps-addr">Copy address</button></div>
+            <div class="mw-copyrow" id="ps-memo-row" hidden><small>Memo, required:</small><code class="mw-addr" id="ps-memo"></code><button class="mw-copy" type="button" data-copy="ps-memo">Copy</button></div>
+          </div>
+        </div>
+        <div class="br-closed" id="ps-closed" hidden>
+          <b id="ps-closed-t">This address is closing.</b>
+          <p class="small" id="ps-closed-p">Don't send to it now: coins sent after it closes can be lost. Already sent? Stay here: it still shows up below.</p>
+          <button class="btn btn-blue br-cta" type="button" id="ps-again">Get a new address</button>
+        </div>
+        <ol class="br-track" id="ps-track">
+          <li id="ps1"><i class="tk" id="ps1tk"></i><b id="ps1b">Deposit</b><small id="ps1s"></small></li>
+          <li id="ps2"><i class="tk tk-intents"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M4 8h13l-4-4M20 16H7l4 4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></i><b>Swap</b><small>NEAR Intents</small></li>
+          <li id="ps3"><i class="tk tk-near">N</i><b>Delivered</b><small id="ps3s">to your account</small></li>
+        </ol>
+        <p class="br-status" id="ps-status"></p>
+        <div class="mw-acts"><button class="btn btn-blue br-cta" type="button" id="ps-finish" hidden></button></div>
+        <p class="mw-msg" id="ps-msg" role="status" aria-live="polite"></p>
+        <p class="small br-note">Send from your own wallet, on the network above, before the timer ends. Sent a bit more? The extra goes back to your NEAR Intents account. So does everything if the swap doesn't happen: sign in at <a href="https://near-intents.org" target="_blank" rel="noopener">near-intents.org</a> with this NEAR account to withdraw it.</p>
+      </div>
+    </div>
+
+    <div class="mw-panel" id="p-get" hidden>
+      <div class="mw-gethead"><span class="eyebrow" id="get-eyebrow">Get Witty's calls</span>
+        <div class="mw-paywith" id="paywith" hidden><span>Pay with</span><button class="br-tok" type="button" id="pay-tok" aria-haspopup="listbox"></button></div></div>
+      <p class="small mw-paynote" id="pay-note" hidden></p>
+      <div class="mw-get">
+        <div class="mw-opt mw-trial" id="opt-trial" hidden>
+          <em class="tag-shiny free">Free</em>
+          <span class="swatch tier-bronze" aria-hidden="true"></span>
+          <div class="mw-nftcopy">
+            <b>Free 7-day trial</b><small>A Bronze Pass, free, for new accounts</small>
+            <ul class="mw-perks">
+              <li>Every call on Telegram for 7 days, the moment it's sealed</li>
+              <li>A real pass, minted to your account: renew it when it ends</li>
+              <li>Network fee: none for you. Witty pays it (about 0.01 NEAR). You only sign a short message: no transaction</li>
+            </ul>
+          </div>
+          <button class="btn btn-blue" type="button" id="trial-go">Start free trial</button>
+          <p class="mw-msg" id="trial-msg" role="status" aria-live="polite"></p>
+        </div>
+        <div class="mw-opt" id="opt7"><span class="swatch tier-bronze" aria-hidden="true"></span><b>Bronze Pass</b><small id="g7">7 days</small><button class="btn btn-blue" type="button" id="buy7" disabled>…</button></div>
+        <div class="mw-opt best" id="opt30"><em class="tag-shiny">Best value</em><span class="swatch tier-silver" aria-hidden="true"></span><b>Silver Pass</b><small id="g30">30 days</small><button class="btn btn-blue" type="button" id="buy30" disabled>…</button></div>
+        <div class="mw-opt mw-optnft" id="opt-mint">
+          <img src="img/nft-rookie.webp" alt="" width="72" height="72" id="mint-pic">
+          <div class="mw-nftcopy">
+            <b>Witty NFT</b><small id="gmint">One of 100</small>
+            <ul class="mw-perks">
+              <li>Every call on Telegram for as long as you hold it</li>
+              <li>An equal share of 70% of all rent, yours to claim any time</li>
+              <li>His picture levels up with his record: Rookie, Analyst, Elite</li>
+            </ul>
+            <a class="mw-more" href="nfts.html">More about the NFT</a>
+          </div>
+          <button class="btn btn-blue" type="button" id="mint" disabled>…</button>
+        </div>
+      </div>
+      <p class="small" id="get-note">A pass gives you calls for 7 or 30 days, then ends by itself. Nothing is charged again unless you renew.</p>
+    </div>
+  </div>
+
+  <div class="mw-col">
+    <div class="mw-panel reveal" id="p-tg">
+      <span class="eyebrow">Calls on Telegram</span>
+      <h2 class="display">GET CALLS THE MOMENT THEY'RE SEALED.</h2>
+      <ol class="mw-steps">
+        <li id="st1"><b>Open the bot.</b> <span>Tap Start in @scout_witty_bot. It sends you back here with a one-time link.</span></li>
+        <li id="st2"><b>Connect your wallet</b> <span>on this page.</span></li>
+        <li id="st3"><b>Sign a short message.</b> <span>It's free: no transaction, no NEAR spent. It proves the account is yours.</span></li>
+      </ol>
+      <div class="mw-acts">
+        <a class="btn btn-blue" id="tg-open" href="https://t.me/scout_witty_bot?start=link" target="_blank" rel="noopener">Open @scout_witty_bot</a>
+        <button class="btn btn-blue" type="button" id="tg-link" hidden>Link to Telegram</button>
+      </div>
+      <div class="mw-codebox" id="tg-codebox" hidden>
+        <button class="mw-linkbtn" type="button" id="tg-code-open" aria-expanded="false" aria-controls="tg-codeform">Have a code from @scout_witty_bot? Enter it</button>
+        <form class="mw-codeform" id="tg-codeform" hidden novalidate>
+          <input id="tg-code" maxlength="16" autocomplete="one-time-code" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="8-character code" aria-label="Your code from @scout_witty_bot">
+          <button class="btn btn-ink" type="submit">Use code</button>
+        </form>
+      </div>
+      <p class="mw-msg" id="tg-msg" role="status" aria-live="polite"></p>
+      <p class="small">The bot checks your pass or NFT on NEAR before every call, and stops when your pass ends. One account links to one Telegram account.</p>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-near"><a href="https://near.org" target="_blank" rel="noopener"><img src="img/built-on-near.svg" width="122" height="20" alt="Built on NEAR"></a><span>Prove on <a href="https://nearblocks.io/address/receipts.eurekascout.near" target="_blank" rel="noopener">receipts.eurekascout.near</a></span></div>
+    <div class="foot-mid"><span class="socials"><a class="social light" href="https://x.com/eurekascout_" target="_blank" rel="noopener" aria-label="EurekaScout on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a><a class="social light" href="https://github.com/EurekaScout" target="_blank" rel="noopener" aria-label="EurekaScout on GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a></span><span class="foot-copy">&copy; 2026 EurekaScout</span></div>
+    <span class="foot-note">Not financial advice. Memecoins rug; size small.</span>
+  </div>
+</footer>
+<script src="assets/site.js?v=20261110a"></script>
+<script src="assets/qr.js?v=20261110a" defer></script>
+<script>
+// My Witty: connect a NEAR wallet, read the account's pass or NFT from the chain, renew / claim / buy / mint, and link
+// Telegram with a free signed message (NEP-413). Wallet code is bundled in assets/wallet.js (wallet-selector 10.1.4).
+const Q = new URLSearchParams(location.search);
+const NET = Q.get("network") === "testnet" ? "testnet" : "mainnet";
+const C = NET === "mainnet"
+  ? { scouts: "scouts.eurekascout.near", pass: "pass.eurekascout.near", explorer: "https://nearblocks.io", rpcs: ["https://free.rpc.fastnear.com", "https://rpc.mainnet.fastnear.com", "https://rpc.mainnet.near.org"] }
+  : { scouts: "scouts.eurekascout.testnet", pass: "passes.eurekascout.testnet", explorer: "https://testnet.nearblocks.io", rpcs: ["https://test.rpc.fastnear.com", "https://rpc.testnet.near.org"] };
+const PICK = { bronze: "opt7", silver: "opt30", mint: "opt-mint", trial: "opt-trial" }[Q.get("pick")] || null;   // sent here from the Rent page
+const API = "https://api.eurekascout.com/link", RECIPIENT = "eurekascout.com", BOT = "scout_witty_bot";
+const PAYAPI = "https://api.eurekascout.com/pay";
+const TRIALAPI = "https://api.eurekascout.com/trial";   // the free 7-day trial: Witty mints a Bronze Pass to new accounts      // other coins: NEAR Intents, through Witty's API (mainnet only)
+const TGAS = "100000000000000", ONE_YOCTO = "1";
+const $ = (id) => document.getElementById(id);
+const pad = (n) => String(n).padStart(2, "0");
+const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const fmtDate = (ms) => { const d = new Date(ms); return `${d.getUTCDate()} ${MON[d.getUTCMonth()]} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())} UTC`; };
+const near = (y) => { const n = BigInt(y || 0), w = n / 10n ** 24n, f = (n % 10n ** 24n) * 1000n / 10n ** 24n; return f ? `${w}.${String(f).padStart(3, "0").replace(/0+$/, "")}` : String(w); };
+const ss = {
+  get(k) { try { return JSON.parse(sessionStorage.getItem(k) || "null"); } catch { return null; } },
+  set(k, v) { try { sessionStorage.setItem(k, JSON.stringify(v)); } catch { /* private mode: redirect wallets can't finish, popups still work */ } },
+  del(k) { try { sessionStorage.removeItem(k); } catch { /* ignore */ } },
+};
+function say(id, text, kind = "") { const e = $(id); e.textContent = text; e.className = `mw-msg ${kind}`; }
+
+async function view(contract, method, args = {}) {
+  // first RPC to answer wins; a slow one never holds the page up
+  const body = JSON.stringify({ jsonrpc: "2.0", id: "es", method: "query", params: { request_type: "call_function", finality: "optimistic", account_id: contract, method_name: method, args_base64: btoa(JSON.stringify(args)) } });
+  const ask = (url) => fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body, signal: AbortSignal.timeout?.(8000) })
+    .then((r) => r.json()).then((j) => { if (j.error || !j.result?.result) throw new Error(JSON.stringify(j.error || j.result?.error || "bad answer")); return JSON.parse(new TextDecoder().decode(Uint8Array.from(j.result.result))); });
+  return new Promise((resolve, reject) => {
+    let started = 0, failed = 0, done = false;
+    const next = () => {
+      if (done || started >= C.rpcs.length) return;
+      const url = C.rpcs[started++], timer = setTimeout(next, 1200);
+      ask(url).then((v) => { clearTimeout(timer); if (!done) { done = true; resolve(v); } },
+        (e) => { clearTimeout(timer); if (++failed === C.rpcs.length && !done) { done = true; reject(e); } else next(); });
+    };
+    next();
+  });
+}
+
+// ---------- what came back in the URL: a Telegram link code, or a redirect wallet's answer ----------
+const hash = new URLSearchParams(location.hash.slice(1));
+if (hash.get("link")) ss.set("es-link", { code: hash.get("link").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 12), at: Date.now() });
+const signedBack = hash.get("signature") && hash.get("publicKey") && hash.get("accountId")
+  ? { accountId: hash.get("accountId"), publicKey: hash.get("publicKey"), signature: hash.get("signature") } : null;
+const signError = hash.get("error") || null;
+const txBack = Q.get("transactionHashes"), txError = Q.get("errorCode");
+if (location.hash || txBack || txError) {             // keep the address bar clean
+  const keep = new URLSearchParams(location.search); ["transactionHashes", "errorCode", "errorMessage", "account_id", "public_key", "all_keys"].forEach((k) => keep.delete(k));
+  history.replaceState(null, "", location.pathname + (keep.toString() ? `?${keep}` : ""));
+}
+const linkCode = () => { const l = ss.get("es-link"); return l && Date.now() - l.at < 14 * 60e3 ? l.code : null; };
+
+if (NET === "testnet") { $("net-note").hidden = false; $("net-note").textContent = "Testnet: test NEAR only. Telegram linking works on mainnet only."; }
+
+// ---------- the wallet ----------
+let selector = null, modal = null, account = null, data = null;
+function loadWallet() {
+  return new Promise((res, rej) => { const s = document.createElement("script"); s.src = "assets/wallet.js?v=20261110a"; s.onload = res; s.onerror = () => rej(new Error("wallet code didn't load")); document.head.append(s); });
+}
+async function startWallet() {
+  try {
+    await loadWallet();
+    ({ selector, modal } = await WittyWallet.connect({ network: NET, theme: document.documentElement.dataset.theme === "dark" ? "dark" : "light", contractId: C.pass }));
+  } catch (e) { $("connect").textContent = "Wallets didn't load"; say("tx-msg", "Wallets didn't load. Reload the page to try again.", "err"); return; }
+  $("connect").disabled = false; $("connect").textContent = "Connect wallet";
+  try { modal.on("onHide", () => { if (!account) $("meteor-back").hidden = true; }); } catch { /* older modal: the line hides once connected */ }
+  const pick = (st) => st.accounts.find((a) => a.active)?.accountId || st.accounts[0]?.accountId || null;
+  selector.store.observable.subscribe((st) => { const a = pick(st); if (a !== account) { account = a; showAccount(); } });
+  account = pick(selector.store.getState()); showAccount();
+  const sent = ss.get("es-send"); ss.del("es-send");
+  const co = cashStore.get();
+  if (co && co.account === account && co.status === "SIGNING") {
+    if (txBack) { co.status = "PENDING_DEPOSIT"; co.hash = txBack.split(",").pop(); cashStore.set(co); submitCash(co); }
+    else if (txError) cashStore.del();
+  }
+  if (txBack && !(co && co.account === account)) say("tx-msg", sent && Date.now() - sent.at < 15 * 60e3 ? `Sent ${sent.amount} NEAR to ${sent.to}.` : "Done: your transaction went through on NEAR.", "ok");
+  if (txError) say("tx-msg", txError === "userRejected" ? "You cancelled in your wallet. Nothing was sent." : `The wallet said: ${txError}. Nothing was charged if it didn't go through.`, "err");
+  const pendingSign = ss.get("es-sign");
+  if (signedBack) (pendingSign?.kind === "trial" ? finishTrial : finishLink)(signedBack);
+  if (signError) { if (pendingSign?.kind === "trial") { ss.del("es-sign"); say("tx-msg", "You cancelled in your wallet. Nothing was minted.", "err"); } else say("tg-msg", "You cancelled in your wallet. Nothing was linked.", "err"); }
+}
+// Inside the Meteor app's own browser, connect through the app (its website can't open there); elsewhere, the wallet list.
+async function openConnect() {
+  if (!selector) return;
+  if (WittyWallet.inMeteorApp?.()) {
+    try { await (await selector.wallet("meteor-wallet-app")).signIn({ contractId: C.pass }); return; }
+    catch (e) { say("tx-msg", `Meteor didn't connect: ${String(e?.message || e).slice(0, 120)}`, "err"); }
+  }
+  modal && modal.show();
+}
+$("connect").addEventListener("click", openConnect);
+// On a phone, Meteor's website opens in a new tab and has to hand the answer back to this one; Chrome pauses this tab
+// meanwhile, so the page looks stuck until you come back. Say so the moment Meteor is picked.
+const IS_PHONE = !!navigator.userAgentData?.mobile || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+$("phone-tip").hidden = !IS_PHONE || !!window.__is_running_in_meteor_wallet_app__;
+document.addEventListener("click", (e) => {
+  const opt = e.target.closest?.("#near-wallet-selector-modal .single-wallet");
+  if (!opt) return;
+  $("meteor-back").hidden = !(IS_PHONE && opt.classList.contains("meteor-wallet") && !account);
+}, true);
+/** The connected account: an avatar coloured from its name, the wallet it came through, a link to the explorer. */
+function drawMe() {
+  let h = 0; for (const ch of account) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  const a = $("acct-ava"), h1 = h % 360, h2 = (h1 + 50 + (h >> 9) % 80) % 360;
+  a.style.background = `linear-gradient(135deg, hsl(${h1} 85% 62%), hsl(${h2} 80% 48%))`;
+  a.textContent = account.replace(/\.(near|testnet|tg)$/, "").replace(/[^a-z0-9]/gi, "").slice(0, 1).toUpperCase() || "N";
+  $("acct-explorer").href = `${C.explorer}/address/${account}`;
+  const via = $("acct-via"); via.querySelector("span").textContent = "Connected";
+  via.querySelector("img")?.remove();
+  selector?.wallet().then((w) => {
+    const m = w?.metadata; if (!m?.name) return;
+    via.querySelector("span").textContent = `Connected with ${m.name}`;
+    if (m.iconUrl) { const img = new Image(16, 16); img.src = m.iconUrl; img.alt = ""; via.querySelector(".mw-dot").after(img); }
+  }).catch(() => {});
+}
+function drawBalance() {
+  const bal = data?.bal;
+  if (!bal) { $("acct-bal").textContent = "–"; $("acct-usd").textContent = ""; return; }
+  const total = Number((bal.native + bal.wnear) / 10n ** 21n) / 1000;
+  $("acct-bal").textContent = `${near(bal.native)} NEAR`;
+  $("acct-usd").textContent = [nearPrice ? usd(total * nearPrice) : "", bal.wnear > 0n ? `+ ${near(bal.wnear)} wNEAR` : ""].filter(Boolean).join(" · ");
+  $("unwrap-line").hidden = !(NET === "mainnet" && bal.wnear > 0n); $("unwrap-amt").textContent = near(bal.wnear);
+}
+$("acct-copy").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText(account); $("acct-copy").classList.add("done"); setTimeout(() => $("acct-copy").classList.remove("done"), 1400); } catch { /* select it by hand */ }
+});
+$("disconnect").addEventListener("click", async () => { try { await (await selector.wallet()).signOut(); } catch { /* already out */ } account = null; showAccount(); });
+
+function showAccount() {
+  $("acct-out").hidden = !!account; $("acct-in").hidden = !account;
+  if (account) $("meteor-back").hidden = true;
+  $("acct-name").textContent = account || "";
+  if (account) drawMe();
+  ["p-pass", "p-nft", "p-get", "p-sheet"].forEach((id) => ($(id).hidden = true));
+  $("acct-bal").textContent = "…"; $("acct-usd").textContent = ""; $("topup-open").hidden = true; $("send-open").hidden = true; $("cash-open").hidden = true; $("unwrap-line").hidden = true; clearTimeout(pollTimer); clearTimeout(cashPoll); sheet = null; cashOut = null;
+  renderTelegram();
+  if (account) refresh().then(() => { resumeSheet(); resumeCash(); }); else renderGet(null);
+}
+
+// ---------- read the account from the chain ----------
+async function refresh() {
+  $("p-loading").hidden = false;
+  const who = account;
+  const safe = (p) => p.catch(() => undefined);
+  const [nft, pass, listing, scout, bal, trialSt] = await Promise.all([
+    safe(view(C.scouts, "access", { account_id: who, scout_id: "witty" })),
+    safe(view(C.pass, "active_pass", { account_id: who, scout_id: "witty" })),
+    safe(view(C.pass, "get_listing", { scout_id: "witty" })),
+    safe(view(C.scouts, "get_scout", { scout_id: "witty" })),
+    safe(balances(who)),
+    NET === "mainnet" ? safe(fetch(`${TRIALAPI}/status?account=${encodeURIComponent(who)}`, { signal: AbortSignal.timeout?.(6000) }).then((r) => r.json())) : undefined,
+  ]);
+  if (who !== account) return;
+  $("p-loading").hidden = true;
+  if (nft === undefined && pass === undefined) { say("tx-msg", "NEAR didn't answer. Reload the page in a moment.", "err"); return; }
+  data = { nft, pass: pass && pass.active !== false && Number(BigInt(pass.expires_at) / 1000000n) > Date.now() ? pass : null, listing, scout, bal: bal || null,
+    trial: trialSt?.ok && trialSt.eligible ? trialSt : null };
+  drawBalance();
+  $("topup-open").hidden = !coins; $("send-open").hidden = !data.bal; $("cash-open").hidden = !(cashCfg && data.bal);
+  if (data.nft) renderNft(); else $("p-nft").hidden = true;
+  if (data.pass) renderPass(); else $("p-pass").hidden = true;
+  renderGet(data);
+  renderTelegram();
+}
+
+let tickTimer = null;
+function renderPass() {
+  const p = data.pass, tier = (p.tier || "").toLowerCase();
+  const card = $("mpass");
+  card.classList.remove("tier-bronze", "tier-silver"); if (tier) card.classList.add(`tier-${tier}`);
+  $("mp-title").textContent = `WITTY · ${(p.tier || "").toUpperCase()} PASS #${p.token_id}`;
+  $("mp-tier").textContent = (p.tier || "PASS").toUpperCase();
+  $("mp-free").textContent = p.comp ? "FOUNDING · FREE" : "";
+  $("mp-holder").textContent = p.owner_id;
+  const end = Number(BigInt(p.expires_at) / 1000000n);
+  $("mp-ends").textContent = fmtDate(end);
+  const total = (tier === "silver" ? 30 : 7) * 86400e3;
+  const tick = () => {
+    const left = Math.max(0, end - Date.now()), d = Math.floor(left / 86400e3), h = Math.floor((left % 86400e3) / 3600e3), m = Math.floor((left % 3600e3) / 60e3);
+    $("mp-left").textContent = d ? `${d}d ${h}h` : `${h}h ${pad(m)}m`;
+    $("mp-days").textContent = left ? `${d ? `${d} day${d === 1 ? "" : "s"}` : `${h} h`} of calls left` : "ended";
+    $("mp-ring").style.strokeDashoffset = 238.8 * (1 - Math.min(1, left / total));
+  };
+  tick(); clearInterval(tickTimer); tickTimer = setInterval(tick, 30000);
+  const acts = $("renew-acts"); acts.textContent = "";
+  const l = data.listing;
+  if (l && l.sales_open !== false) {
+    for (const [days, price] of [[7, l.price_7d], [30, l.price_30d]]) {
+      const b = document.createElement("button"); b.className = "btn btn-blue"; b.type = "button";
+      b.textContent = `Add ${days} days · ${near(price)} NEAR`;
+      b.addEventListener("click", () => send(C.pass, "renew", { token_id: p.token_id, days }, price, `Renewing pass #${p.token_id} for ${days} days`));
+      acts.append(b);
+    }
+  }
+  $("p-pass").hidden = false;
+}
+
+async function renderNft() {
+  const e = data.nft;
+  $("nft-name").textContent = `WITTY #${e.number}`;
+  $("nft-earned").textContent = `Earned so far, ready to claim: ${near(e.claimable)} NEAR`;
+  $("claim").disabled = BigInt(e.claimable || 0) === 0n;
+  $("claim").textContent = BigInt(e.claimable || 0) === 0n ? "Nothing to claim yet" : `Claim ${near(e.claimable)} NEAR`;
+  $("claim").onclick = async () => {
+    const all = await view(C.scouts, "claimable_for", { account_id: account, scout_id: "witty" }).catch(() => [e]);
+    const ids = all.filter((x) => BigInt(x.claimable || 0) > 0n).map((x) => x.token_id).slice(0, 20);
+    send(C.scouts, "claim", { token_ids: ids.length ? ids : [e.token_id] }, ONE_YOCTO, "Claiming your share");
+  };
+  $("p-nft").hidden = false;
+  try {
+    const t = await view(C.scouts, "nft_token", { token_id: e.token_id });
+    if (t?.metadata?.media) $("nft-img").src = t.metadata.media;
+    const lvl = JSON.parse(t?.metadata?.extra || "{}").level;
+    $("nft-level").textContent = lvl || data.scout?.level_name || "Rookie";
+  } catch { $("nft-level").textContent = data.scout?.level_name || "Rookie"; }
+}
+
+function renderGet(d) {
+  const p = $("p-get");
+  const hasAccess = d && (d.nft || d.pass);
+  $("get-eyebrow").textContent = hasAccess ? "Add more" : "Get Witty's calls";
+  const l = d?.listing, s = d?.scout;
+  const open = l && l.sales_open !== false;
+  const c = coinOf(payCoin());
+  const label = (price, attach) => { const y = c ? swapNear(attach) : null; return y ? `Get it · ≈ ${sig(estimate(y, c))} ${c.symbol}` : `Get it · ${near(price)} NEAR`; };
+  const setBuy = (id, smallId, plan, days, price, attach) => {
+    const b = $(id);
+    if (!account) { b.disabled = true; b.textContent = "Connect first"; return; }
+    if (!open) { b.disabled = true; b.textContent = "Opens at launch"; return; }
+    $(smallId).textContent = `${days} days · ${near(price)} NEAR`;
+    b.disabled = false; b.textContent = label(price, attach);
+    b.onclick = () => buy(plan);
+  };
+  setBuy("buy7", "g7", "bronze", 7, l?.price_7d, l?.attach_7d);
+  setBuy("buy30", "g30", "silver", 30, l?.price_30d, l?.attach_30d);
+  const m = $("mint");
+  if (!account) { m.disabled = true; m.textContent = "Connect first"; }
+  else if (!s || !s.mint_open) { m.disabled = true; m.textContent = "Opens at launch"; }
+  else if (s.minted >= s.max_supply) { m.disabled = true; m.textContent = "All 100 minted"; }
+  else {
+    $("gmint").textContent = `#${s.minted + 1} of ${s.max_supply} · ${s.level_name}`;
+    m.disabled = false; m.textContent = label(s.mint_price, s.attach_to_mint).replace("Get it", "Mint");
+    m.onclick = () => buy("mint");
+  }
+  $("paywith").hidden = !coins;
+  $("pay-note").hidden = !(c && account);
+  if (c && account) {
+    const enough = d?.bal && [l?.attach_7d, l?.attach_30d, s?.attach_to_mint].filter(Boolean).every((a) => !swapNear(a));
+    $("pay-note").textContent = enough ? `You already have enough NEAR for this, so it's paid in NEAR: no swap needed.`
+      : `Send ${c.symbol} on ${c.chainName}; NEAR Intents swaps it into NEAR in ${account}; then you approve in your wallet. Amounts are estimates until you get the deposit address.`;
+  }
+  // the free trial: only for accounts that can have one (the server says; never until when)
+  const tr = $("opt-trial"), showTrial = !!(account && d?.trial && !hasAccess);
+  tr.hidden = !showTrial;
+  if (showTrial && !trialBusy) { $("trial-go").disabled = false; $("trial-go").textContent = "Start free trial"; }
+  // someone with a live pass renews it instead; the NFT is open to everyone
+  $("opt7").hidden = $("opt30").hidden = !!(d?.pass || d?.nft);
+  $("get-note").hidden = !!(d?.pass || d?.nft);
+  p.hidden = false;
+  document.querySelectorAll(".mw-opt").forEach((o) => o.classList.toggle("picked", o.id === PICK && !o.hidden));
+  if (PICK && d && !picked) { picked = true; const o = $(PICK); if (!o.hidden && o.getBoundingClientRect().top > innerHeight - 120) o.scrollIntoView({ behavior: "smooth", block: "center" }); }
+}
+let picked = false;
+
+// ---------- the free trial: sign a free message, Witty mints the pass ----------
+let trialBusy = false;
+$("trial-go").addEventListener("click", async () => {
+  if (!account) return openConnect();
+  const wallet = await selector.wallet();
+  if (!wallet.signMessage) { say("trial-msg", "This wallet can't sign messages. Try Meteor, HOT or Intear.", "err"); return; }
+  const message = `Start my free Witty trial: ${account} at ${new Date().toISOString()}`;
+  const nonce = crypto.getRandomValues(new Uint8Array(32));
+  const nonceB64 = btoa(String.fromCharCode(...nonce));
+  const callbackUrl = location.origin + location.pathname + location.search;   // some wallets sign it too, so the server is told exactly this
+  ss.set("es-sign", { kind: "trial", message, nonce: nonceB64, callback_url: callbackUrl, wallet: wallet.id });
+  say("trial-msg", "Sign the message in your wallet. It's free: no transaction, no NEAR.");
+  try {
+    const res = await wallet.signMessage({ message, recipient: RECIPIENT, nonce: WittyWallet.Buffer.from(nonce), callbackUrl });
+    if (res) finishTrial(res);                           // popup and extension wallets answer here; redirect wallets come back in the URL
+  } catch (e) { say("trial-msg", /reject|cancel|closed/i.test(String(e?.message)) ? "You cancelled in your wallet. Nothing was minted." : `Signing didn't work: ${String(e?.message || e).slice(0, 140)}`, "err"); }
+});
+/** The wallet that signed ("meteor-wallet", "meteor-wallet-app", "hot-wallet", "intear-wallet"), for the bot's logs. */
+async function walletIdFor(pending) {
+  const id = pending?.wallet || (await selector?.wallet().catch(() => null))?.id;
+  return id ? { wallet: String(id) } : {};
+}
+async function finishTrial(res) {
+  const pending = ss.get("es-sign");
+  if (!pending || pending.kind !== "trial") return;
+  const msgId = $("opt-trial").hidden ? "tx-msg" : "trial-msg";
+  trialBusy = true; $("trial-go").disabled = true; $("trial-go").textContent = "Minting your pass…";
+  say(msgId, "Witty is minting your Bronze Pass. It takes a few seconds.");
+  try {
+    const r = await fetch(TRIALAPI, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({
+      account_id: res.accountId, public_key: res.publicKey, signature: res.signature, nonce: pending.nonce, message: pending.message, recipient: RECIPIENT,
+      ...(pending.callback_url ? { callback_url: pending.callback_url } : {}), ...(await walletIdFor(pending)) }) });
+    const j = await r.json().catch(() => ({}));
+    ss.del("es-sign");
+    if (!j.ok) { trialBusy = false; $("trial-go").disabled = false; $("trial-go").textContent = "Start free trial"; say(msgId, j.error || "Minting didn't work. Try again in a minute.", "err"); return; }
+    trialBusy = false;
+    say("tx-msg", `✅ Bronze Pass #${j.token_id} is yours, free, until ${fmtDate(j.until_ms)}. ${j.linked ? "Calls are on their way to your Telegram." : "Now link Telegram below to get the calls."}`, "ok");
+    if (!j.linked) $("p-tg").scrollIntoView({ behavior: "smooth", block: "center" });
+    refresh();
+  } catch { trialBusy = false; $("trial-go").disabled = false; $("trial-go").textContent = "Start free trial"; say(msgId, "Couldn't reach Witty's server. Try again in a minute.", "err"); }
+}
+
+// ---------- transactions ----------
+async function send(receiverId, method, args, deposit, label) {
+  if (!account) return openConnect();
+  say("tx-msg", `${label}: confirm in your wallet…`);
+  // NEAR that arrived as wNEAR (from a swap) is unwrapped in the same approval
+  const b = data?.bal, unwrap = NET === "mainnet" && b && b.wnear > 0n && b.native < BigInt(deposit) + GAS_BUF ? b.wnear : 0n;
+  const txs = [{ receiverId, actions: [WittyWallet.functionCall(method, args, TGAS, deposit)] }];
+  if (unwrap) txs.unshift({ receiverId: "wrap.near", actions: [WittyWallet.functionCall("near_withdraw", { amount: unwrap.toString() }, "30000000000000", ONE_YOCTO)] });
+  try {
+    const wallet = await selector.wallet();
+    const out = txs.length === 1 ? await wallet.signAndSendTransaction({ ...txs[0], callbackUrl: location.href })
+      : await wallet.signAndSendTransactions({ transactions: txs, callbackUrl: location.href });
+    if (!out) return;                                   // a redirect wallet: the answer comes back in the URL
+    const failed = (Array.isArray(out) ? out : [out]).some((o) => o?.status && typeof o.status === "object" && "Failure" in o.status);
+    say("tx-msg", failed ? `${label} didn't go through. Anything unused was refunded.` : `${label}: done.`, failed ? "err" : "ok");
+    setTimeout(refresh, 1500);
+  } catch (e) {
+    const msg = String(e?.message || e);
+    say("tx-msg", /reject|cancel|closed/i.test(msg) ? "You cancelled in your wallet. Nothing was sent." : `${label} didn't go through: ${msg.slice(0, 160)}`, "err");
+  }
+}
+
+// ---------- Send NEAR: a plain transfer from your own wallet to another NEAR account ----------
+// Named accounts must exist (a typo would only burn the fee); 64-character and 0x addresses are always valid and are
+// created by the transfer if they're new. 0.03 NEAR always stays behind for fees.
+const NAMED_ACC = /^(?=.{2,64}$)(?:(?:[a-z\d]+[-_])*[a-z\d]+\.)*(?:[a-z\d]+[-_])*[a-z\d]+$/, IMPLICIT_ACC = /^[0-9a-f]{64}$/, ETH_ACC = /^0x[0-9a-f]{40}$/;
+/** "1.5" -> yocto, exactly; null if it isn't a plain NEAR amount. */
+function parseNear(v) {
+  const t = String(v).trim().replace(/[,\s]/g, "");
+  if (!/^\d*\.?\d{0,24}$/.test(t) || !/\d/.test(t)) return null;
+  const [w, f = ""] = t.split(".");
+  return BigInt(w || "0") * 10n ** 24n + BigInt((f + "0".repeat(24)).slice(0, 24));
+}
+/** yocto -> the exact NEAR amount, every digit kept ("1.23456"), so the button shows exactly what is sent. */
+const exactNear = (y) => { const w = y / 10n ** 24n, f = String(y % 10n ** 24n).padStart(24, "0").replace(/0+$/, ""); return f ? `${w}.${f}` : String(w); };
+const sendable = () => { const n = (data?.bal?.native || 0n) - GAS_BUF; return n > 0n ? n : 0n; };
+let sendTo = { id: "", ok: false, isNew: false }, sendSeq = 0, sendTimer = null, sending = false;
+async function checkTo() {
+  const id = $("sd-to").value.trim().toLowerCase(), seq = ++sendSeq;
+  sendTo = { id, ok: false, isNew: false };
+  const sub = (t, kind = "") => { $("sd-tosub").textContent = t || "\u00a0"; $("sd-tosub").className = `br-sub ${kind}`; };
+  if (!id) { sub(""); return drawSend(); }
+  if (id === account) { sub("That's your own account.", "err"); return drawSend(); }
+  if (IMPLICIT_ACC.test(id) || ETH_ACC.test(id)) {
+    sendTo = { id, ok: true, isNew: false }; sub("A NEAR address. If it's new, sending creates it.");
+    rpcQuery({ request_type: "view_account", finality: "optimistic", account_id: id }).then((a) => { if (seq === sendSeq && !a) { sendTo.isNew = true; drawSend(); } }).catch(() => {});
+    return drawSend();
+  }
+  if (!NAMED_ACC.test(id)) { sub("That isn't a NEAR account: it looks like name.near.", "err"); return drawSend(); }
+  sub("Checking…"); drawSend();
+  let a; try { a = await rpcQuery({ request_type: "view_account", finality: "optimistic", account_id: id }); } catch { a = undefined; }
+  if (seq !== sendSeq) return;
+  if (a === undefined) { sub("NEAR didn't answer. Try again in a moment.", "err"); return drawSend(); }
+  if (!a) { sub(`There's no NEAR account called ${id}. Check the spelling.`, "err"); return drawSend(); }
+  sendTo = { id, ok: true, isNew: false }; sub(`✓ ${id}`, "ok"); drawSend();
+}
+function drawSend() {
+  const y = parseNear($("sd-amt").value), max = sendable(), go = $("sd-go"), sub = $("sd-amtsub");
+  let why = "";
+  if (!max) why = "Nothing to send yet: 0.03 NEAR always stays behind for fees.";
+  else if ($("sd-amt").value.trim() && y === null) why = "Enter an amount like 1.5.";
+  else if (y !== null && y > max) why = `You can send up to ${near(max)} NEAR (0.03 NEAR stays behind for fees).`;
+  else if (y !== null && y > 0n && sendTo.isNew && y < 10n ** 22n) why = "A new address needs at least 0.01 NEAR.";
+  sub.textContent = why || (nearPrice && y ? `${usd(fromY(y) * nearPrice)} · up to ${near(max)} NEAR` : `Up to ${near(max)} NEAR`);
+  sub.className = `br-sub ${why ? "err" : ""}`;
+  const ready = !sending && sendTo.ok && y !== null && y > 0n && !why;
+  go.disabled = !ready;
+  go.textContent = sending ? "Confirm in your wallet…" : ready ? `Send ${exactNear(y)} NEAR to ${sendTo.id}` : !sendTo.ok ? "Enter a NEAR account" : "Enter an amount";
+}
+$("send-open").addEventListener("click", () => {
+  clearTimeout(pollTimer); clearTimeout(quoteTimer); clearInterval(deadlineTimer); quoteSeq++;
+  $("ps-title").textContent = "Send NEAR"; showSheet("send"); say("sd-msg", "");
+  drawSend(); $("sd-to").focus();
+});
+$("sd-to").addEventListener("input", () => { clearTimeout(sendTimer); sendTo = { id: "", ok: false, isNew: false }; drawSend(); sendTimer = setTimeout(checkTo, 450); });
+$("sd-to").addEventListener("blur", () => { clearTimeout(sendTimer); if ($("sd-to").value.trim().toLowerCase() !== sendTo.id) checkTo(); });
+$("sd-amt").addEventListener("input", drawSend);
+$("sd-max").addEventListener("click", () => { $("sd-amt").value = near(sendable()); drawSend(); });
+$("sd-go").addEventListener("click", async () => {
+  const y = parseNear($("sd-amt").value), to = sendTo.id;
+  if (!sendTo.ok || y === null || y <= 0n || y > sendable()) return drawSend();
+  const amount = exactNear(y);
+  sending = true; drawSend(); say("sd-msg", `Sending ${amount} NEAR to ${to}: confirm in your wallet.`);
+  ss.set("es-send", { to, amount, at: Date.now() });     // a redirect wallet comes back to this page with the answer
+  try {
+    const wallet = await selector.wallet();
+    const out = await wallet.signAndSendTransaction({ receiverId: to, actions: [WittyWallet.transfer(y.toString())], callbackUrl: location.href });
+    sending = false;
+    if (!out) return drawSend();
+    ss.del("es-send");
+    const failed = out?.status && typeof out.status === "object" && "Failure" in out.status;
+    const hash = out?.transaction?.hash || out?.transaction_outcome?.id;
+    if (failed) say("sd-msg", "The transfer didn't go through. Nothing left your account except the network fee.", "err");
+    else {
+      say("sd-msg", `Sent ${amount} NEAR to ${to}.`, "ok");
+      if (hash) { const a = document.createElement("a"); a.href = `${C.explorer}/txns/${hash}`; a.target = "_blank"; a.rel = "noopener"; a.textContent = " See it on NearBlocks ↗"; $("sd-msg").append(a); }
+      $("sd-amt").value = "";
+    }
+    drawSend(); setTimeout(refresh, 1500);
+  } catch (e) {
+    sending = false; ss.del("es-send"); drawSend();
+    const msg = String(e?.message || e);
+    say("sd-msg", /reject|cancel|closed/i.test(msg) ? "You cancelled in your wallet. Nothing was sent." : `The transfer didn't go through: ${msg.slice(0, 160)}`, "err");
+  }
+});
+
+// ---------- Cash out: NEAR from your account into SOL or USDC on Solana, through NEAR Intents (witty-pay 1.3) ----------
+// The server writes the quote, checks the address, and builds the one transaction to sign (4 steps on wrap.near). The page
+// only converts its actions to the wallets' shape (losslessly, checked), signs, and follows the status.
+const CASHAPI = "https://api.eurekascout.com/cashout";
+const cashStore = {
+  get() { try { return JSON.parse(localStorage.getItem("es-cashout") || "null"); } catch { return null; } },
+  set(v) { try { localStorage.setItem("es-cashout", JSON.stringify(v)); } catch { /* private mode: the bot still tells linked holders */ } },
+  del() { try { localStorage.removeItem("es-cashout"); } catch { /* ignore */ } },
+};
+let cashOut = null, cashCoin = null, cashSeq = 0, cashTimer = null, cashPoll = null, cashBusy = false;
+const shortSol = (a) => (a && a.length > 12 ? `${a.slice(0, 4)}…${a.slice(-4)}` : a || "");
+const cashKeep = () => toY(cashCfg?.keepNear ?? 0.05);
+function cashMax() {
+  let y = (data?.bal?.native || 0n) - cashKeep();
+  const cap = toY(cashCfg?.max ?? 200); if (y > cap) y = cap;
+  return y > 0n ? (y / 10n ** 21n) * 10n ** 21n : 0n;     // whole thousandths: the API takes up to 3 decimals
+}
+const cashAmount = () => { const t = $("co-amt").value.trim().replace(/[,\s]/g, ""); return /^\d+(\.\d{1,3})?$/.test(t) && Number(t) > 0 ? t : null; };
+function drawCashCoins() {
+  const box = $("co-coins"); box.textContent = "";
+  for (const key of cashCfg.coins.filter((k) => coinOf(k))) {
+    const c = coinOf(key), b = document.createElement("button");
+    b.type = "button"; b.className = "br-tok co-coin"; b.dataset.key = key; b.setAttribute("aria-pressed", String(key === cashCoin));
+    b.innerHTML = "<i></i><span></span>"; chip(b.querySelector("i"), c.symbol, key.split(":")[0]); b.querySelector("span").textContent = c.symbol;
+    b.setAttribute("aria-label", `Receive ${c.symbol} on ${c.chainName}`);
+    b.addEventListener("click", () => { cashCoin = key; drawCashCoins(); cashQuoteSoon(0); });
+    box.append(b);
+  }
+}
+function cashView(which) { $("co-form").hidden = which !== "form"; $("co-rev").hidden = which !== "rev"; $("co-st").hidden = which !== "st"; }
+$("cash-open").addEventListener("click", () => {
+  clearTimeout(pollTimer); clearTimeout(quoteTimer); clearInterval(deadlineTimer); quoteSeq++;
+  const p = cashStore.get();
+  $("ps-title").textContent = "Cash out NEAR"; showSheet("cash");
+  if (p && p.account === account && cashLive(p)) return showCashStatus(p);
+  if (!cashCoin || !cashCfg.coins.includes(cashCoin)) cashCoin = cashCfg.coins.find((k) => coinOf(k));
+  drawCashCoins(); cashView("form"); say("co-msg", "");
+  $("co-amtsub").textContent = `Up to ${near(cashMax())} NEAR · ${cashCfg.keepNear ?? 0.05} NEAR stays for network fees`;
+  $("co-amt").focus();
+});
+$("co-max").addEventListener("click", () => { $("co-amt").value = near(cashMax()); cashQuoteSoon(0); });
+$("co-amt").addEventListener("input", () => cashQuoteSoon());
+$("co-to").addEventListener("input", () => cashQuoteSoon());
+function cashQuoteSoon(ms = 400) {
+  clearTimeout(cashTimer); cashSeq++; $("co-review").disabled = true;
+  const amt = cashAmount(), raw = $("co-amt").value.trim();
+  $("co-out").textContent = "0"; $("co-outsub").innerHTML = "&nbsp;";
+  if (!amt) { say("co-msg", raw ? "Enter an amount like 0.5 (up to 3 decimals)." : "", raw ? "err" : ""); return; }
+  $("co-amtsub").textContent = nearPrice ? `${usd(Number(amt) * nearPrice)} · up to ${near(cashMax())} NEAR` : `Up to ${near(cashMax())} NEAR`;
+  say("co-msg", ""); cashTimer = setTimeout(() => cashQuote(true), ms);
+}
+async function postCash(path, body) {
+  const r = await fetch(`${CASHAPI}/${path}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body), signal: AbortSignal.timeout?.(20000) });
+  const j = await r.json().catch(() => ({ ok: false, error: "Witty's server didn't answer properly. Try again in a minute." }));
+  return j;
+}
+/** dry: a price while you type. Not dry (Review): the deposit address and the transaction, valid 30 minutes. */
+async function cashQuote(dry) {
+  const amt = cashAmount(), to = $("co-to").value.trim(), seq = ++cashSeq;
+  if (!amt) return;
+  const body = { account, coin: cashCoin, near: amt, dry, ...(to ? { to } : {}) };
+  if (!dry && !to) { say("co-msg", "Paste the Solana address to receive at.", "err"); return null; }
+  let j; try { j = await postCash("quote", body); } catch { j = { ok: false, error: "Couldn't reach Witty's server. Try again in a minute." }; }
+  if (seq !== cashSeq) return null;
+  if (!j.ok) { $("co-out").textContent = "0"; $("co-outsub").innerHTML = "&nbsp;"; say("co-msg", j.error || "That didn't work. Try again.", "err"); $("co-review").disabled = true; return null; }
+  const sym = j.coin?.symbol || coinOf(cashCoin)?.symbol || "";
+  $("co-out").textContent = `${sig(j.amountOutFormatted)} ${sym}`;
+  $("co-outsub").textContent = [j.amountOutUsd ? `≈ $${j.amountOutUsd}` : "", j.minAmountOutFormatted ? `at least ${sig(j.minAmountOutFormatted)} ${sym}` : "", j.timeEstimate ? `about ${j.timeEstimate} s` : ""].filter(Boolean).join(" · ");
+  say("co-msg", "");
+  $("co-review").disabled = !to;
+  return j;
+}
+$("co-review").addEventListener("click", async () => {
+  if (cashBusy) return;
+  cashBusy = true; $("co-review").disabled = true; $("co-review").textContent = "Getting your quote…";
+  const q = await cashQuote(false);
+  cashBusy = false; $("co-review").textContent = "Review";
+  if (!q) { $("co-review").disabled = !$("co-to").value.trim() || !cashAmount(); return; }
+  if (!q.depositAddress || !q.tx?.actions?.length) { say("co-msg", "The quote came back without a deposit address. Try again in a minute.", "err"); $("co-review").disabled = false; return; }
+  cashOut = { ...q, at: Date.now() };
+  drawCashReview(); cashView("rev"); say("co-rmsg", "");
+});
+function drawCashReview() {
+  const q = cashOut, sym = q.coin?.symbol || "";
+  const sendY = parseNear(q.near) || 0n, extra = q.tx?.attached ? BigInt(q.tx.attached) - sendY : 0n;
+  $("cr-send").textContent = `${q.near} NEAR${extra > 0n ? ` (plus ${exactNear(extra).replace(/^(\d+\.\d{4})\d+$/, "$1")} NEAR storage, refunded if already set up)` : ""}`;
+  $("cr-get").textContent = `about ${sig(q.amountOutFormatted)} ${sym}${q.minAmountOutFormatted ? ` (at least ${sig(q.minAmountOutFormatted)})` : ""}`;
+  const to = $("cr-to"); to.textContent = "";
+  const a = String(q.to || ""), b1 = document.createElement("b"), b2 = document.createElement("b");
+  b1.textContent = a.slice(0, 4); b2.textContent = a.slice(-4);
+  to.append(b1, a.slice(4, -4), b2, " on Solana");
+  $("cr-time").textContent = `about ${q.timeEstimate || 20} s once your wallet confirms`;
+  $("co-go").disabled = false; $("co-go").textContent = `Cash out ${q.near} NEAR`;
+}
+$("co-back").addEventListener("click", () => { cashOut = null; cashView("form"); cashQuoteSoon(0); });
+$("co-go").addEventListener("click", async () => {
+  const q = cashOut; if (!q) return;
+  if (Date.now() - q.at > 25 * 60e3) { cashOut = null; cashView("form"); say("co-msg", "That quote expired. Here's a fresh price: tap Review again."); return cashQuoteSoon(0); }
+  let actions;
+  try { actions = WittyWallet.toWalletActions(q.tx.actions); } catch (e) { say("co-rmsg", `Witty's transaction couldn't be prepared for your wallet, so nothing was sent (${String(e?.message || e).slice(0, 100)}).`, "err"); return; }
+  const pend = { account, address: q.depositAddress, coin: q.coin?.key || cashCoin, symbol: q.coin?.symbol || "", to: q.to, near: q.near, out: q.amountOutFormatted, min: q.minAmountOutFormatted, at: Date.now(), status: "SIGNING" };
+  cashStore.set(pend);                                   // a redirect wallet comes back to this page with the answer
+  $("co-go").disabled = true; $("co-go").textContent = "Confirm in your wallet…"; say("co-rmsg", "");
+  try {
+    const wallet = await selector.wallet();
+    const out = await wallet.signAndSendTransaction({ receiverId: q.tx.receiverId, actions, callbackUrl: location.href });
+    if (!out) return;                                    // redirect wallets: handled when they come back
+    const failed = out?.status && typeof out.status === "object" && "Failure" in out.status;
+    if (failed) { cashStore.del(); $("co-go").disabled = false; $("co-go").textContent = `Cash out ${q.near} NEAR`; return say("co-rmsg", "The transaction didn't go through on NEAR, so nothing was sent. Try again with a fresh quote.", "err"); }
+    pend.status = "PENDING_DEPOSIT"; pend.hash = out?.transaction?.hash || out?.transaction_outcome?.id || null; cashStore.set(pend);
+    submitCash(pend); cashOut = null; showCashStatus(pend); setTimeout(refresh, 2000);
+  } catch (e) {
+    cashStore.del(); $("co-go").disabled = false; $("co-go").textContent = `Cash out ${q.near} NEAR`;
+    const msg = String(e?.message || e);
+    say("co-rmsg", /reject|cancel|closed/i.test(msg) ? "You cancelled in your wallet. Nothing was sent." : `The cash out didn't go through: ${msg.slice(0, 160)}`, "err");
+  }
+});
+/** Tell the API the transaction hash so NEAR Intents starts sooner. Optional: if it fails, NEAR Intents finds the deposit itself. */
+function submitCash(p) { if (p?.hash) postCash("submit", { address: p.address, txHash: p.hash }).catch(() => {}); }
+const cashLive = (p) => p && !["SUCCESS", "REFUNDED", "FAILED"].includes(p.status) && Date.now() - p.at < (p.status === "SIGNING" ? 35 * 60e3 : 86400e3);
+function resumeCash() {
+  const p = cashStore.get();
+  if (!p || p.account !== account) return;
+  if (!cashLive(p) || p.status === "SIGNING") { if (!cashLive(p)) cashStore.del(); return; }
+  $("ps-title").textContent = "Cash out NEAR"; showSheet("cash"); showCashStatus(p);
+}
+function showCashStatus(p) {
+  cashView("st"); chip($("co3tk"), p.symbol || "SOL", "sol"); $("co3b").textContent = p.symbol || "Sent";
+  drawCashStatus(p, { status: p.status === "SIGNING" ? "PENDING_DEPOSIT" : p.status }); pollCash(p);
+}
+async function pollCash(p) {
+  clearTimeout(cashPoll);
+  let j = null;
+  try { j = await fetch(`${PAYAPI}/status?address=${encodeURIComponent(p.address)}`, { signal: AbortSignal.timeout?.(10000) }).then((r) => r.json()); } catch { /* try again soon */ }
+  const cur = cashStore.get(); if (!cur || cur.address !== p.address) return;
+  if (j?.ok && j.status) { p.status = j.status; cashStore.set(p); drawCashStatus(p, j); }
+  if (["SUCCESS", "REFUNDED", "FAILED"].includes(p.status)) { cashStore.del(); setTimeout(refresh, 1500); return; }
+  cashPoll = setTimeout(() => pollCash(p), document.hidden ? 15000 : 4500);
+}
+function drawCashStatus(p, j) {
+  const st = j?.status || p.status, sym = j?.coin?.symbol || p.symbol || "";
+  const mark = (id, cls) => { $(id).classList.toggle("done", cls === "done"); $(id).classList.toggle("now", cls === "now"); };
+  const swapping = st === "PROCESSING", done = st === "SUCCESS";
+  mark("co1", swapping || done ? "done" : "now"); mark("co2", done ? "done" : swapping ? "now" : ""); mark("co3", done ? "done" : "");
+  $("co-track").dataset.stage = done ? "3" : swapping ? "2" : "1";
+  $("co1s").textContent = `${p.near} NEAR`; $("co3s").textContent = `to ${shortSol(p.to)}`;
+  const el = $("co-status"); el.textContent = ""; el.className = "br-status";
+  $("co-unwrap").hidden = true; $("co-done").hidden = true;
+  if (st === "PENDING_DEPOSIT" || st === "KNOWN_DEPOSIT_TX") el.textContent = "Waiting for your NEAR…";
+  else if (st === "INCOMPLETE_DEPOSIT") el.textContent = "Waiting…";
+  else if (swapping) el.textContent = "Swapping…";
+  else if (done) {
+    el.className = "br-status ok";
+    el.append(`Done: ${j?.amountOutFormatted || p.out} ${sym} sent to ${shortSol(p.to)}.`);
+    const tx = Array.isArray(j?.outTx) ? j.outTx[0] : null;
+    if (typeof tx === "string" && /^https:\/\//.test(tx)) { const a = document.createElement("a"); a.href = tx; a.target = "_blank"; a.rel = "noopener"; a.textContent = "See it on Solana ↗"; el.append(" ", a); }
+    $("co-done").hidden = false;
+  } else if (st === "REFUNDED" || st === "FAILED") {
+    el.className = "br-status err"; el.textContent = "It didn't go through, so your NEAR came back as wNEAR.";
+    $("co-unwrap").hidden = false; $("co-done").hidden = false;
+  }
+}
+$("co-done").addEventListener("click", () => { clearTimeout(cashPoll); $("p-sheet").hidden = true; });
+// ---------- Unwrap: wNEAR (a refund, or a swap that landed as wNEAR) back into NEAR ----------
+async function unwrapAll(msgId) {
+  if (!account || NET !== "mainnet") return;
+  let w; try { w = BigInt(await view("wrap.near", "ft_balance_of", { account_id: account })); } catch { w = data?.bal?.wnear || 0n; }
+  if (!(w > 0n)) { say(msgId, "There's no wNEAR to unwrap right now.", "err"); return refresh(); }
+  say(msgId, `Unwrapping ${near(w)} wNEAR: confirm in your wallet…`);
+  try {
+    const wallet = await selector.wallet();
+    const out = await wallet.signAndSendTransaction({ receiverId: "wrap.near", actions: [WittyWallet.functionCall("near_withdraw", { amount: w.toString() }, "30000000000000", ONE_YOCTO)], callbackUrl: location.href });
+    if (!out) return;
+    const failed = out?.status && typeof out.status === "object" && "Failure" in out.status;
+    say(msgId, failed ? "Unwrapping didn't go through. Your wNEAR is still there." : `Unwrapped ${near(w)} wNEAR: it's NEAR again.`, failed ? "err" : "ok");
+    setTimeout(refresh, 1500);
+  } catch (e) {
+    const msg = String(e?.message || e);
+    say(msgId, /reject|cancel|closed/i.test(msg) ? "You cancelled in your wallet. Nothing changed." : `Unwrapping didn't go through: ${msg.slice(0, 160)}`, "err");
+  }
+}
+$("unwrap-go").addEventListener("click", () => unwrapAll("tx-msg"));
+$("co-unwrap").addEventListener("click", () => unwrapAll("co-smsg"));
+
+// ---------- paying with another coin: a bridge (NEAR Intents swaps the coin into NEAR in your account) ----------
+const GAS_BUF = 3n * 10n ** 22n;                        // 0.03 NEAR kept for gas
+const fromY = (y) => Number(y / 10n ** 21n) / 1000;
+const toY = (v) => BigInt(Math.round(+v * 1000)) * 10n ** 21n;
+const sig = (x) => { const v = Number(x); return !isFinite(v) ? "?" : v >= 100 ? v.toFixed(1) : v >= 1 ? v.toFixed(2) : v.toPrecision(3); };
+const usd = (x) => (x == null || !isFinite(x) ? "" : x < 0.01 ? "< $0.01" : `≈ $${x < 1000 ? x.toFixed(2) : Math.round(x).toLocaleString("en-US")}`);
+/** An amount in base units, rounded UP to `sig` significant digits, as a decimal string: easy to type, never short. */
+function roundUpAmount(raw, decimals, sig = 8) {
+  try {
+    let n = BigInt(raw); const len = n.toString().length;
+    if (len > sig) { const u = 10n ** BigInt(len - sig); n = ((n + u - 1n) / u) * u; }
+    const d = BigInt(decimals), w = n / 10n ** d, f = (n % 10n ** d).toString().padStart(Number(d), "0").replace(/0+$/, "");
+    return f ? `${w}.${f}` : String(w);
+  } catch { return null; }
+}
+/** Stop showing a deposit address this long before NEAR Intents closes it, so nobody sends at the last second. */
+const cutoffOf = (s) => s.deadline - Math.min(10 * 60e3, Math.max(3 * 60e3, (s.deadline - s.at) / 4));
+function closeAddress() {
+  const s = sheet; if (!s || s.closed) return;
+  s.closed = true; store.set(s);
+  const part = s.status === "INCOMPLETE_DEPOSIT";
+  $("ps-closed-t").textContent = part ? "Part of it arrived, but this address is closing." : "This address is closing.";
+  $("ps-closed-p").textContent = part ? "Don't send more to it. When it closes, NEAR Intents returns what arrived to your NEAR Intents account; start again for a new address."
+    : "Don't send to it now: coins sent after it closes can be lost. Already sent? Stay here: it still shows up below.";
+  $("ps-again").textContent = part ? "Start again" : "Get a new address";
+  $("ps-pay").classList.add("closed"); $("ps-closed").hidden = false;
+  if (!part) $("ps-status").textContent = "Still watching, in case you already sent it…";
+}
+$("ps-again").addEventListener("click", () => {
+  const s = sheet; if (!s) return;
+  clearTimeout(pollTimer); clearInterval(deadlineTimer); store.del(); sheet = null;
+  $("ps-pay").classList.remove("closed"); $("ps-closed").hidden = true;
+  if (s.plan === "topup") return openBridge({ plan: "topup", coin: s.coin, y: toY(s.near) });
+  payKey = s.coin; tokButton($("pay-tok"), payKey); buy(s.plan);
+});
+const PLAN_NAME = { bronze: "Bronze Pass", silver: "Silver Pass", mint: "Witty NFT", topup: "NEAR" };
+let cashCfg = null, coins = null, nearPrice = null, payKey = "near", sheet = null, pollTimer = null, deadlineTimer = null, bridge = null, quoteTimer = null, quoteSeq = 0, menu = null;
+const coinOf = (key) => coins?.find((c) => c.key === key) || null;
+const payCoin = () => payKey;
+const store = {
+  get() { try { return JSON.parse(localStorage.getItem("es-pay") || "null"); } catch { return null; } },
+  set(v) { try { localStorage.setItem("es-pay", JSON.stringify(v)); } catch { /* private mode: the bot still tells linked holders */ } },
+  del() { try { localStorage.removeItem("es-pay"); } catch { /* ignore */ } },
+};
+async function rpcQuery(params) {
+  let last;
+  for (const url of C.rpcs) {
+    try {
+      const j = await fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: "es", method: "query", params }), signal: AbortSignal.timeout?.(8000) }).then((r) => r.json());
+      if (j.error && /UNKNOWN_ACCOUNT|does not exist/i.test(JSON.stringify(j.error))) return null;
+      if (j.error) { last = j.error; continue; }
+      return j.result;
+    } catch (e) { last = e; }
+  }
+  throw new Error("no RPC answered");
+}
+/** Spendable NEAR (minus what storage locks) and any wNEAR. An account that doesn't exist yet has 0. */
+async function balances(who) {
+  const [a, w] = await Promise.all([
+    rpcQuery({ request_type: "view_account", finality: "optimistic", account_id: who }),
+    NET === "mainnet" ? view("wrap.near", "ft_balance_of", { account_id: who }).catch(() => "0") : "0",
+  ]);
+  const native = a ? BigInt(a.amount) - BigInt(a.storage_usage) * 10n ** 19n : 0n;
+  return { native: native > 0n ? native : 0n, wnear: BigInt(w || 0) };
+}
+/** NEAR to swap for something that costs `attach`: what's missing plus gas, rounded up to 0.01, at least 0.1. Null: none. */
+function swapNear(attach) {
+  const b = data?.bal; if (!b || !attach) return null;
+  const miss = BigInt(attach) + GAS_BUF - b.native - b.wnear;
+  if (miss <= 0n) return null;
+  const step = 10n ** 22n; let y = ((miss + step - 1n) / step) * step;
+  return y < 10n ** 23n ? 10n ** 23n : y;
+}
+const estimate = (y, c) => (nearPrice && c?.price ? fromY(y) * nearPrice / c.price * 1.01 : null);
+function planTx(plan) {
+  const l = data?.listing, s = data?.scout;
+  if (plan === "bronze") return { receiverId: C.pass, method: "buy_pass", args: { scout_id: "witty", days: 7 }, attach: l?.attach_7d, price: l?.price_7d, label: "Getting a Bronze Pass", name: "Bronze Pass" };
+  if (plan === "silver") return { receiverId: C.pass, method: "buy_pass", args: { scout_id: "witty", days: 30 }, attach: l?.attach_30d, price: l?.price_30d, label: "Getting a Silver Pass", name: "Silver Pass" };
+  if (plan === "mint" && s) return { receiverId: C.scouts, method: "mint", args: { scout_id: "witty" }, attach: s.attach_to_mint, price: s.mint_price, label: `Minting Witty #${s.minted + 1}`, name: "Witty NFT" };
+  return null;
+}
+function buy(plan) {
+  const t = planTx(plan); if (!t?.attach) return;
+  const c = coinOf(payKey), y = c ? swapNear(t.attach) : null;
+  if (!y) return send(t.receiverId, t.method, t.args, t.attach, t.label);
+  openBridge({ plan, coin: c.key, y });
+}
+
+// ----- tokens: a coloured chip with the coin's letter, and a picker like a DEX's -----
+// coin and network marks: @web3icons/core 4.0.58 (MIT), served from img/tokens and img/chains
+const TOKEN_ICON = { SOL: "sol", NEAR: "near", USDC: "usdc", USDT: "usdt", ETH: "eth", BTC: "btc" };
+const CHAIN_ICON = { sol: "solana", base: "base", eth: "ethereum", arb: "arbitrum", btc: "bitcoin" };
+const NATIVE = { sol: "SOL", eth: "ETH", btc: "BTC" };
+const CHAIN_NAME = { sol: "Solana", base: "Base", eth: "Ethereum", arb: "Arbitrum", btc: "Bitcoin" };
+/** A coin's logo, with its network's logo on the corner unless it's that network's own coin (USDC on Base, not SOL on Solana). */
+function chip(el, symbol, chain = null) {
+  el.className = "tk"; el.textContent = ""; el.removeAttribute("title");
+  const icon = TOKEN_ICON[symbol];
+  if (icon) { const img = new Image(30, 30); img.src = `img/tokens/${icon}.svg`; img.alt = ""; img.decoding = "async"; el.append(img); }
+  else { el.classList.add("tk-x"); el.textContent = String(symbol).slice(0, 1); }
+  if (chain && CHAIN_ICON[chain] && NATIVE[chain] !== symbol) {
+    const b = document.createElement("b"), ci = new Image(16, 16); b.className = "tk-chain"; ci.src = `img/chains/${CHAIN_ICON[chain]}.svg`; ci.alt = ""; b.append(ci); el.append(b);
+    el.title = `${symbol} on ${CHAIN_NAME[chain]}`;
+  }
+}
+document.querySelectorAll("i.tk-near").forEach((e) => chip(e, "NEAR"));
+const CARET = '<svg class="br-caret" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function tokButton(btn, key) {
+  const c = coinOf(key), sym = c ? c.symbol : "NEAR";
+  btn.innerHTML = `<i></i><span></span>${CARET}`;
+  chip(btn.querySelector("i"), sym, c ? c.chain || c.key.split(":")[0] : null);
+  const t = btn.querySelector("span"); t.textContent = sym;
+  if (c) { const sm = document.createElement("small"); sm.textContent = c.chainName; t.append(sm); }
+  btn.setAttribute("aria-label", `Pay with ${sym}${c ? ` on ${c.chainName}` : ""}. Change`);
+}
+function closeMenu() { if (!menu) return; menu.remove(); menu = null; document.removeEventListener("pointerdown", outsideMenu, true); }
+function outsideMenu(e) { if (menu && !menu.contains(e.target) && !menu.anchor.contains(e.target)) closeMenu(); }
+function openMenu(anchor, { withNear, current, onPick }) {
+  if (menu) { const same = menu.anchor === anchor; closeMenu(); if (same) return; }
+  menu = document.createElement("div"); menu.className = "tkmenu"; menu.setAttribute("role", "listbox"); menu.anchor = anchor;
+  const head = document.createElement("p"); head.textContent = "Pay with"; menu.append(head);
+  const rows = [...(withNear ? [{ key: "near", symbol: "NEAR", chainName: "NEAR", price: nearPrice }] : []), ...coins];
+  for (const c of rows) {
+    const b = document.createElement("button"); b.type = "button"; b.setAttribute("role", "option"); b.setAttribute("aria-selected", String(c.key === current));
+    const i = document.createElement("i"); chip(i, c.symbol, c.key === "near" ? null : c.chain || c.key.split(":")[0]);
+    const t = document.createElement("span"); t.textContent = c.symbol;
+    const sm = document.createElement("small"); sm.textContent = c.key === "near" ? "Already on NEAR" : `on ${c.chainName}`; t.append(sm);
+    const p = document.createElement("em"); p.textContent = c.price ? `$${c.price >= 100 ? Math.round(c.price).toLocaleString("en-US") : c.price.toFixed(2)}` : "";
+    b.append(i, t, p);
+    b.addEventListener("click", () => { closeMenu(); onPick(c.key); anchor.focus(); });
+    menu.append(b);
+  }
+  document.body.append(menu);
+  const r = anchor.getBoundingClientRect(), w = menu.offsetWidth;
+  menu.style.top = `${scrollY + r.bottom + 8}px`;
+  menu.style.left = `${Math.max(scrollX + 16, Math.min(scrollX + r.right - w, scrollX + innerWidth - w - 16))}px`;
+  document.addEventListener("pointerdown", outsideMenu, true);
+  (menu.querySelector('[aria-selected="true"]') || menu.querySelector("button")).focus({ preventScroll: true });
+}
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenu(); });
+$("pay-tok").addEventListener("click", () => openMenu($("pay-tok"), { withNear: true, current: payKey,
+  onPick: (k) => { payKey = k; tokButton($("pay-tok"), k); $("paywith").classList.remove("picked"); renderGet(data); } }));
+
+async function loadCoins() {
+  if (NET !== "mainnet") return;
+  try {
+    const j = await fetch(`${PAYAPI}/coins`, { signal: AbortSignal.timeout?.(10000) }).then((r) => r.json());
+    if (!j.ok || !j.coins?.length) return;
+    coins = j.coins; nearPrice = j.nearPrice;
+    cashCfg = j.cashout && Array.isArray(j.cashout.coins) && j.cashout.coins.some((k) => coinOf(k)) ? j.cashout : null;   // Cash out: SOL / USDC on Solana
+  } catch { return; }                                   // no other coins today: NEAR still works
+  const want = { usdc: "sol:usdc", sol: "sol:sol", eth: "base:eth" }[(Q.get("pay") || "").toLowerCase()] || Q.get("pay");
+  payKey = coinOf(want) ? want : "near";
+  if (Q.get("pay") === "other") $("paywith").classList.add("picked");
+  tokButton($("pay-tok"), payKey);
+  if (account && data) { $("topup-open").hidden = false; $("cash-open").hidden = !(cashCfg && data.bal); drawBalance(); }
+  renderGet(data);
+}
+
+function showSheet(mode) {
+  closeMenu();
+  $("p-sheet").hidden = false; $("ps-form").hidden = mode !== "form"; $("ps-pay").hidden = mode !== "pay"; $("ps-send").hidden = mode !== "send"; $("ps-cash").hidden = mode !== "cash";
+  say("ps-msg", ""); say("br-msg", "");
+  const top = $("p-sheet").getBoundingClientRect().top;
+  if (top < 0 || top > innerHeight - 160) $("p-sheet").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+$("ps-close").addEventListener("click", () => { clearTimeout(pollTimer); clearTimeout(quoteTimer); clearInterval(deadlineTimer); closeMenu(); quoteSeq++; $("p-sheet").hidden = true; });
+
+// ----- step 1: the bridge card (you pay / you receive / a live quote) -----
+$("topup-open").addEventListener("click", () => {
+  const p = store.get();
+  if (p && p.account === account && sheetLive(p)) return resumeSheet();
+  openBridge({ plan: "topup", coin: coinOf(payKey) ? payKey : coins[0].key });
+});
+function openBridge({ plan, coin, y = null }) {
+  bridge = { plan, coin, fixed: plan !== "topup" };
+  $("ps-title").textContent = plan === "topup" ? "Add NEAR" : `${PLAN_NAME[plan]}: pay with another coin`;
+  if (y) $("br-get").value = String(fromY(y));
+  $("br-get").readOnly = bridge.fixed;
+  $("br-why").hidden = !bridge.fixed;
+  if (bridge.fixed) {
+    const t = planTx(plan), have = (data?.bal?.native || 0n) + (data?.bal?.wnear || 0n);
+    $("br-why").textContent = `The ${t.name} is ${near(t.attach)} NEAR with storage. You have ${near(have)} NEAR, so you add ${fromY(y)} NEAR (gas included), then approve it in your wallet.`;
+  }
+  tokButton($("br-paytok"), bridge.coin);
+  showSheet("form");
+  if (!bridge.fixed) $("br-get").focus({ preventScroll: true });
+  requote();
+}
+const fitPay = () => { const n = $("br-pay").textContent.length; $("br-pay").classList.toggle("long", n > 7); $("br-pay").classList.toggle("xlong", n > 10); };
+const validGet = () => { const v = $("br-get").value.trim(); return /^\d{1,3}(\.\d{1,3})?$/.test(v) && +v >= 0.1 && +v <= 30 ? v : null; };
+function setInfo(on) { if (!on) ["br-rate", "br-fee", "br-time"].forEach((id) => ($(id).textContent = "–")); }
+function requote() {
+  clearTimeout(quoteTimer);
+  const seq = ++quoteSeq, v = validGet(), c = coinOf(bridge.coin);
+  $("br-paynet").textContent = `on ${c.chainName}`;
+  $("br-to").textContent = account || "–";
+  $("br-route").textContent = `${c.chainName} → NEAR Intents → NEAR`;
+  $("br-getusd").textContent = v && nearPrice ? usd(+v * nearPrice) : " ";
+  say("br-msg", "");
+  if (!v) { $("br-pay").textContent = "0"; $("br-payusd").textContent = " "; setInfo(false); $("ps-go").disabled = true; $("ps-go").textContent = "Enter 0.1 to 30 NEAR"; return; }
+  const est = estimate(toY(v), c);                      // instant, from prices; the quote below replaces it
+  $("br-pay").textContent = est ? `≈ ${sig(est)}` : "…"; $("br-pay").classList.add("est"); fitPay();
+  $("br-payusd").textContent = est ? usd(est * c.price) : " ";
+  setInfo(false); $("ps-go").disabled = true; $("ps-go").textContent = "Getting the best price…";
+  quoteTimer = setTimeout(async () => {
+    let j;
+    try { j = await fetch(`${PAYAPI}/quote`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ account, coin: c.key, near: v, plan: bridge.plan, dry: true }) }).then((r) => r.json()); }
+    catch { j = { ok: false, error: "Couldn't reach Witty's API. Try again in a minute." }; }
+    if (seq !== quoteSeq || $("ps-form").hidden) return;
+    if (!j.ok) { say("br-msg", j.error || "No quote for this. Try another coin.", "err"); $("ps-go").textContent = "No quote right now"; return; }
+    const amt = Number(j.amountInFormatted), inUsd = Number(j.amountInUsd), outUsd = nearPrice ? +v * nearPrice : null;
+    $("br-pay").textContent = roundUpAmount(j.amountIn, c.decimals) || j.amountInFormatted; $("br-pay").classList.remove("est"); fitPay();
+    $("br-payusd").textContent = usd(inUsd);
+    $("br-rate").textContent = `1 NEAR = ${sig(amt / +v)} ${c.symbol}`;
+    $("br-fee").textContent = inUsd && outUsd ? `${usd(Math.max(0, inUsd - outUsd))} (${Math.max(0, (inUsd / outUsd - 1) * 100).toFixed(1)}%), included` : "included";
+    const te = Number(j.timeEstimate);
+    $("br-time").textContent = te ? `≈ ${te < 90 ? `${Math.round(te)} s` : `${Math.round(te / 60)} min`} after your deposit` : "a minute or two";
+    $("ps-go").disabled = false; $("ps-go").textContent = "Get deposit address";
+  }, 450);
+}
+$("br-get").addEventListener("input", () => { if (bridge) requote(); });
+$("br-paytok").addEventListener("click", () => openMenu($("br-paytok"), { withNear: false, current: bridge?.coin,
+  onPick: (k) => { bridge.coin = k; tokButton($("br-paytok"), k); requote(); } }));
+$("ps-go").addEventListener("click", () => { const v = validGet(); if (v && bridge) openSheet({ plan: bridge.plan, coin: bridge.coin, y: toY(v) }); });
+
+// ----- step 2: the deposit (address, countdown, tracker) -----
+async function openSheet({ plan, coin, y }) {
+  const c = coinOf(coin);
+  $("ps-go").disabled = true; $("ps-go").textContent = "Getting your deposit address…";
+  let j;
+  try { j = await fetch(`${PAYAPI}/quote`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ account, coin, near: String(fromY(y)), plan }) }).then((r) => r.json()); }
+  catch { j = { ok: false, error: "Couldn't reach Witty's API. Try again in a minute." }; }
+  if (!j.ok) { $("ps-go").disabled = false; $("ps-go").textContent = "Get deposit address"; return say("br-msg", j.error || "NEAR Intents had no quote for this. Try another coin.", "err"); }
+  sheet = { address: j.depositAddress, memo: j.depositMemo, account, plan, coin, symbol: c.symbol, chainName: c.chainName, near: j.near,
+    amountIn: roundUpAmount(j.amountIn, c.decimals) || j.amountInFormatted, deadline: Date.parse(j.deadline) || Date.now() + 3600e3, at: Date.now(), status: "PENDING_DEPOSIT" };
+  store.set(sheet); showSheet("pay"); drawSheet(); poll();
+}
+const sheetLive = (p) => p && Date.now() - p.at < 86400e3 && !["REFUNDED", "FAILED", "EXPIRED"].includes(p.status) && !(p.status === "PENDING_DEPOSIT" && Date.now() > p.deadline + 60e3);
+function resumeSheet() {
+  const p = store.get();
+  if (!p || p.account !== account) return;
+  if (!sheetLive(p)) return store.del();
+  sheet = p; showSheet("pay"); drawSheet(); poll();
+}
+function drawSheet() {
+  const s = sheet;
+  $("ps-title").textContent = s.plan === "topup" ? `Add ${s.near} NEAR` : `${PLAN_NAME[s.plan]}: pay with ${s.symbol}`;
+  const ch = String(s.coin).split(":")[0]; chip($("ps-tk"), s.symbol, ch); chip($("ps1tk"), s.symbol, ch);
+  $("ps-amount").textContent = `${s.amountIn} ${s.symbol}`; $("ps-amount").dataset.raw = s.amountIn;
+  $("ps-amount").classList.toggle("long", `${s.amountIn} ${s.symbol}`.length > 14);
+  $("ps-chain").textContent = `Only send ${s.symbol} on ${s.chainName}. Coins sent on another network can be lost.`;
+  $("ps-addr").textContent = s.address;
+  $("ps-memo-row").hidden = !s.memo; $("ps-memo").textContent = s.memo || "";
+  $("ps1s").textContent = `${s.symbol} on ${s.chainName}`;
+  const qr = () => { $("ps-qr").innerHTML = window.WittyQR ? WittyQR.svg(s.address) : ""; };
+  if (window.WittyQR) qr(); else document.querySelector('script[src^="assets/qr.js"]')?.addEventListener("load", qr, { once: true });
+  const tick = () => {
+    const el = $("ps-deadline");
+    if (!sheet || !["PENDING_DEPOSIT", "INCOMPLETE_DEPOSIT"].includes(sheet.status)) { el.hidden = true; return clearInterval(deadlineTimer); }
+    const left = cutoffOf(sheet) - Date.now();
+    if (left <= 0) { el.hidden = true; clearInterval(deadlineTimer); return closeAddress(); }
+    el.hidden = false; el.textContent = `Send within ${Math.floor(left / 60e3)}:${pad(Math.floor(left / 1000) % 60)}`;
+    el.classList.toggle("late", left < 5 * 60e3);
+    el.title = `NEAR Intents closes this address at ${fmtDate(sheet.deadline)}; send well before then`;
+  };
+  clearInterval(deadlineTimer); tick(); deadlineTimer = setInterval(tick, 1000);
+  $("ps-pay").classList.remove("closed"); $("ps-closed").hidden = true;
+  stepSheet({ status: s.status, amountOutFormatted: s.out, nearTx: s.nearTx });
+}
+async function poll() {
+  clearTimeout(pollTimer);
+  if (!sheet) return;
+  const s = sheet;
+  let j = null;
+  try { j = await fetch(`${PAYAPI}/status?address=${encodeURIComponent(s.address)}`).then((r) => r.json()); } catch { /* try again soon */ }
+  if (sheet !== s) return;
+  if (j && j.ok === false && /Unknown/i.test(j.error || "")) { store.del(); return say("ps-msg", "Witty's API no longer knows this payment. If you sent it, NEAR Intents still delivers: watch your balance above.", "err"); }
+  if (j?.ok) { s.status = j.status; s.out = j.amountOutFormatted || s.out; s.nearTx = j.nearTx?.length ? j.nearTx : s.nearTx; store.set(s); stepSheet(j); }
+  if (["SUCCESS", "REFUNDED", "FAILED"].includes(s.status)) return;
+  if (s.status === "PENDING_DEPOSIT" && Date.now() > s.deadline + 60e3) { s.status = "EXPIRED"; store.del(); return stepSheet(s); }
+  pollTimer = setTimeout(poll, document.hidden ? 15000 : 4000);
+}
+function stepSheet(j) {
+  const st = j?.status || "", s = sheet;
+  const mark = (id, cls) => { $(id).classList.toggle("done", cls === "done"); $(id).classList.toggle("now", cls === "now"); };
+  const seen = ["KNOWN_DEPOSIT_TX", "PROCESSING", "SUCCESS"].includes(st);
+  mark("ps1", seen ? "done" : ["PENDING_DEPOSIT", "INCOMPLETE_DEPOSIT"].includes(st) ? "now" : "");
+  mark("ps2", st === "SUCCESS" ? "done" : seen ? "now" : "");
+  mark("ps3", st === "SUCCESS" ? "done" : "");
+  $("ps-track").dataset.stage = st === "SUCCESS" ? "3" : seen ? "2" : "1";
+  if (seen || st === "REFUNDED" || st === "FAILED") { $("ps-pay").classList.remove("closed"); $("ps-closed").hidden = true; }
+  else if (s?.closed) { s.closed = false; closeAddress(); }      // re-draw the note (e.g. part of it arrived meanwhile)
+  $("ps3s").textContent = st === "SUCCESS" ? `${j.amountOutFormatted || s.near} NEAR` : "to your account";
+  const status = $("ps-status"); status.textContent = ""; status.className = "br-status";
+  if (st === "PENDING_DEPOSIT") status.textContent = s.closed ? "Still watching, in case you already sent it…" : `Waiting for your ${s.symbol}…`;
+  else if (st === "INCOMPLETE_DEPOSIT") status.textContent = `Part of it arrived. Send the rest of the ${s.amountIn} ${s.symbol}.`;
+  else if (seen && st !== "SUCCESS") status.textContent = `Your ${s.symbol} arrived. Swapping it into NEAR…`;
+  else if (st === "SUCCESS") {
+    status.className = "br-status ok";
+    status.append(`Delivered: ${j.amountOutFormatted || s.near} NEAR in ${s.account}. `);
+    const tx = (j.nearTx || s.nearTx || [])[0];
+    if (tx) { const a = document.createElement("a"); a.href = /^https?:/.test(tx) ? tx : `${C.explorer}/txns/${tx}`; a.target = "_blank"; a.rel = "noopener"; a.textContent = "View on NEAR"; status.append(a); }
+  }
+  const fin = $("ps-finish"); fin.hidden = true;
+  if (st === "SUCCESS") {
+    const t = planTx(s.plan);
+    fin.hidden = false;
+    fin.textContent = s.plan === "topup" ? "Done" : t ? `Get the ${t.name} · ${near(t.price)} NEAR` : "Reload to finish";
+    fin.onclick = async () => {
+      const tt = planTx(s.plan); store.del(); clearInterval(deadlineTimer);
+      if (s.plan === "topup" || !tt) { $("p-sheet").hidden = true; return refresh(); }
+      try { const nb = await balances(account); if (data) data.bal = nb; } catch { /* use what we have */ }   // the swap may be newer than the last read
+      send(tt.receiverId, tt.method, tt.args, tt.attach, tt.label);
+    };
+    if (!s.refreshed) { s.refreshed = true; refresh(); }
+    say("ps-msg", s.plan === "topup" ? "" : "One tap left: approve it in your wallet.", "ok");
+  } else if (st === "INCOMPLETE_DEPOSIT") say("ps-msg", `Less than ${s.amountIn} ${s.symbol} arrived. Send the rest before the timer ends, or NEAR Intents returns it to your NEAR Intents account.`, "err");
+  else if (st === "REFUNDED" || st === "FAILED") { store.del(); say("ps-msg", `The swap ${st === "REFUNDED" ? "didn't go through, so NEAR Intents returned your coin" : "failed. NEAR Intents returns failed swaps"} to your NEAR Intents account: sign in at near-intents.org with ${s.account} to withdraw it.`, "err"); }
+  else if (st === "EXPIRED") say("ps-msg", "This address has closed: don't send to it now. Close this and start again.", "err");
+  else say("ps-msg", "");
+}
+document.querySelectorAll(".mw-copy").forEach((b) => b.addEventListener("click", async () => {
+  const id = b.dataset.copy, text = id === "ps-amount-raw" ? $("ps-amount").dataset.raw : $(id).textContent, label = b.textContent;
+  try { await navigator.clipboard.writeText(text); b.textContent = "Copied"; b.classList.add("done"); setTimeout(() => { b.textContent = label; b.classList.remove("done"); }, 1600); } catch { /* select it by hand */ }
+}));
+
+// ---------- Telegram ----------
+function renderTelegram() {
+  const code = linkCode(), done = ss.get("es-linked");
+  $("st1").classList.toggle("done", !!code || !!done);
+  $("st2").classList.toggle("done", !!account);
+  $("st3").classList.toggle("done", !!(done && done.account === account));
+  const canLink = NET === "mainnet" && code && account;
+  document.querySelector(".mw-grid").classList.toggle("linking", !!code);
+  $("tg-link").hidden = !canLink; $("tg-open").hidden = !!canLink;
+  if (canLink) $("tg-link").textContent = `Link ${account} to Telegram`;
+  if (done && done.account === account && !code) { $("tg-open").textContent = "Open Telegram"; $("tg-open").href = `https://t.me/${BOT}`; }
+  $("tg-codebox").hidden = !!code;                       // a code from the bot, typed in (handy inside a wallet app's browser)
+}
+$("tg-code-open").addEventListener("click", () => {
+  const f = $("tg-codeform"), open = f.hidden;
+  f.hidden = !open; $("tg-code-open").setAttribute("aria-expanded", String(open));
+  if (open) $("tg-code").focus();
+});
+$("tg-codeform").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const code = $("tg-code").value.toUpperCase().replace(/\s+/g, "");
+  if (!/^[A-Z2-9]{8}$/.test(code)) { say("tg-msg", "That code doesn't look right: it's 8 letters and numbers from the bot.", "err"); $("tg-code").focus(); return; }
+  ss.set("es-link", { code, at: Date.now() });
+  $("tg-code").value = ""; $("tg-codeform").hidden = true; $("tg-code-open").setAttribute("aria-expanded", "false");
+  renderTelegram();
+  say("tg-msg", account ? `Code ${code} saved. Tap "Link ${account} to Telegram" to finish.` : `Code ${code} saved. Now connect your wallet, then tap Link.`, "ok");
+});
+$("tg-link").addEventListener("click", async () => {
+  const code = linkCode();
+  if (!code) { say("tg-msg", "The link has expired. Send /start to the bot for a new one.", "err"); return renderTelegram(); }
+  const wallet = await selector.wallet();
+  if (!wallet.signMessage) { say("tg-msg", "This wallet can't sign messages. Try Meteor, HOT or Intear.", "err"); return; }
+  const message = `Link Witty on Telegram: ${code}`;
+  const nonce = crypto.getRandomValues(new Uint8Array(32));
+  const nonceB64 = btoa(String.fromCharCode(...nonce));
+  const callbackUrl = location.origin + location.pathname + location.search;   // some wallets sign it too, so the server is told exactly this
+  ss.set("es-sign", { code, message, nonce: nonceB64, callback_url: callbackUrl, wallet: wallet.id });
+  say("tg-msg", "Sign the message in your wallet. It's free: no transaction.");
+  try {
+    const res = await wallet.signMessage({ message, recipient: RECIPIENT, nonce: WittyWallet.Buffer.from(nonce), callbackUrl });
+    if (res) finishLink(res);                            // popup and extension wallets answer here; redirect wallets come back in the URL
+  } catch (e) { say("tg-msg", /reject|cancel|closed/i.test(String(e?.message)) ? "You cancelled in your wallet. Nothing was linked." : `Signing didn't work: ${String(e?.message || e).slice(0, 140)}`, "err"); }
+});
+async function finishLink(res) {
+  const pending = ss.get("es-sign");
+  if (!pending) { say("tg-msg", "The link has expired. Send /start to the bot for a new one.", "err"); return; }
+  say("tg-msg", "Checking your signature…");
+  try {
+    const r = await fetch(API, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({
+      code: pending.code, account_id: res.accountId, public_key: res.publicKey, signature: res.signature, nonce: pending.nonce, message: pending.message, recipient: RECIPIENT,
+      ...(pending.callback_url ? { callback_url: pending.callback_url } : {}), ...(await walletIdFor(pending)) }) });
+    const j = await r.json().catch(() => ({}));
+    if (!j.ok) { say("tg-msg", j.error || "Linking didn't work. Send /start to the bot and try again.", "err"); return; }
+    ss.del("es-sign"); ss.del("es-link"); ss.set("es-linked", { account: j.account });
+    say("tg-msg", j.access ? `Linked ${j.account}. Calls arrive in Telegram the moment they're sealed.` : `Linked ${j.account}. Get a pass or a Witty NFT and calls start in Telegram.`, "ok");
+    renderTelegram();
+  } catch { say("tg-msg", "Couldn't reach Witty's bot. Try again in a minute.", "err"); }
+}
+
+renderTelegram(); renderGet(null); loadCoins();
+if ("requestIdleCallback" in window) requestIdleCallback(startWallet, { timeout: 800 }); else setTimeout(startWallet, 200);
+</script>
+</body>
+</html>

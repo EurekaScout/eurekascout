@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How it works · EurekaScout</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="img/witty-face-32.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#FFFFFF">
+<script>try{var t=localStorage.getItem("es-theme");if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t;if(t==="dark")document.querySelector('meta[name="theme-color"]').content="#0D0E12"}catch(e){}</script>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EurekaScout">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=20261110a">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="EurekaScout home">
+      <img src="img/witty-face.webp" width="46" height="46" alt="">
+      <span class="display">EUREKA<span style="color:var(--blue)">SCOUT</span></span>
+    </a>
+    <nav aria-label="Main"><a href="index.html">Home</a><a href="how.html" aria-current="page">How it works</a><a href="record.html">Record</a><a href="nfts.html">NFTs</a><a href="rent.html">Rent</a><a href="team.html">Team</a><a href="witty.html">My Witty</a></nav>
+    <div style="display:flex;gap:10px;align-items:center"><button class="theme-btn" type="button" aria-label="Switch to dark mode"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button><a class="btn btn-ink" href="rent.html">Rent Witty</a><button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span></button></div>
+  </div>
+</header>
+<div class="mnav" id="mnav" hidden><a href="index.html">Home</a><a href="how.html" aria-current="page">How it works</a><a href="record.html">Record</a><a href="nfts.html">NFTs</a><a href="rent.html">Rent</a><a href="team.html">Team</a><a href="witty.html">My Witty</a><button class="theme-row" type="button"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><span>Dark mode</span></button></div>
+<main>
+<section class="wrap how-top">
+  <div class="how-head">
+    <div class="reveal"><h1 class="display">SEALED BEFORE THE PUMP, THEN <span style="color:var(--blue)">PROVEN AFTER.</span></h1></div>
+    <p class="reveal">Witty writes every call to NEAR before the price moves. 46 hours later anyone can check it and score it from chain prices.</p>
+  </div>
+  <figure class="film reveal">
+    <video id="film" src="video/preview-loop.mp4" poster="img/preview-poster.webp" autoplay muted loop playsinline preload="metadata" aria-label="Preview: Witty gives a tour of his cards on the home page"></video>
+    <figcaption class="film-tag"><span class="dot"></span>Preview · full demo on 14 Nov</figcaption>
+    <button class="film-btn" id="film-btn" type="button" aria-label="Pause the preview"></button>
+  </figure>
+  <p class="film-note">Until the full demo is out, this loop shows Witty's card tour from the home page.</p>
+</section>
+
+<section class="section" id="steps" style="padding-top:56px">
+  <div class="wrap">
+    <div class="reveal"><h2 class="display">FROM SIGNAL TO SCORE.</h2></div>
+    <div class="story">
+      <div class="story-stage" aria-hidden="true"><div class="viz-host" id="viz-host"></div><div class="prog"><i></i><i></i><i></i><i></i></div></div>
+      <ol class="steps">
+        <li class="step">
+          <div class="viz-inline" aria-hidden="true"></div>
+          <span class="num">01</span>
+          <h3 class="display">SPOT</h3>
+          <p>A coin comes in: a brand-new one, one that's already moving, a team pick, or a buy by a wallet with a winning history. Witty keeps it only if it passes his safety checks, and logs every coin he skips with the reason.</p>
+          <ul class="facts"><li>Four kinds of call</li><li>Safety checks on every coin</li><li>Every skip logged</li></ul>
+        </li>
+        <li class="step">
+          <div class="viz-inline" aria-hidden="true"></div>
+          <span class="num">02</span>
+          <h3 class="display">SEAL</h3>
+          <p>Witty writes the call (coin, kind, entry, its plan and a random salt) and seals only its fingerprint, a SHA-256 hash, on receipts.eurekascout.near. NEAR stamps the time and the block. Nobody can change it, us included.</p>
+          <ul class="facts"><li>Locked contract, no keys</li><li>Renters get the call now</li><li>Backed up the moment it's sealed</li></ul>
+        </li>
+        <li class="step">
+          <div class="viz-inline" aria-hidden="true"></div>
+          <span class="num">03</span>
+          <h3 class="display">REVEAL</h3>
+          <p>46 hours later Witty publishes the full call. The contract re-hashes it and accepts it only if it matches the seal exactly. A call that isn't revealed within 48 hours counts as a loss.</p>
+          <ul class="facts"><li>Renters keep a 46-hour head start</li><li>No reveal = a loss</li><li>Anyone can re-hash it</li></ul>
+        </li>
+        <li class="step">
+          <div class="viz-inline" aria-hidden="true"></div>
+          <span class="num">04</span>
+          <h3 class="display">SCORE</h3>
+          <p>The scorer runs the call's own plan on prices read straight from the chain, then takes 4% off for fees. Wins and losses go on the record together, and none can be dropped.</p>
+          <p>Every call also shows how high the coin went (its peak) next to what Witty's plan actually made. The plan's result is the score.</p>
+          <ul class="facts"><li>Solana pools read every 10–30 s</li><li>Robinhood swaps from the chain</li><li>Never screenshots</li></ul>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="exit" style="padding-top:24px">
+  <div class="wrap">
+    <div class="reveal"><h2 class="display">FOUR KINDS OF CALL. EACH SEALS ITS OWN PLAN.</h2></div>
+    <p class="lead reveal" style="margin-top:14px;max-width:700px">Every call is one of four kinds, and each kind has its own plan for getting in and out. The plan is written into the call before it's sealed, so it can't be picked after the fact. Each kind keeps its own record, so one kind's rugs never drag down another's.</p>
+    <div class="exits four kinds">
+      <article class="exit kred reveal"><span class="glare"></span><span class="display">GAMBLE</span><h3>Caught at the start</h3><p>Brand-new coins, caught at the very start. Big swings both ways.</p></article>
+      <article class="exit kblue reveal"><span class="glare"></span><span class="display">SCALPING</span><h3>Witty trades these</h3><p>Quick in-and-out trades on coins that are already moving. Witty puts its own money on every one.</p></article>
+      <article class="exit kyellow reveal"><span class="glare"></span><span class="display">CONVICTION</span><h3>The team holds these</h3><p>The team's own picks, held for days, not minutes.</p></article>
+      <article class="exit teal reveal"><span class="glare"></span><span class="display">SMART WALLETS</span><h3>Following winners</h3><p>Coins bought by wallets with a winning history, called the moment they buy.</p></article>
+    </div>
+    <div class="exit-notes">
+      <div class="reveal"><b>Rugged</b> means the price collapsed or the pool's liquidity was pulled. The call is scored at that moment.</div>
+      <div class="reveal"><b>After fees</b> means every result × 0.96 (4% for fees and slippage on each round trip). A win is anything above 1.00x.</div>
+    </div>
+    <details class="rules reveal">
+      <summary>Witty's rules (witty-2.1), in short</summary>
+      <table>
+        <tr><td>Safety checks</td><td>Every coin is checked before it's called. A coin that fails is skipped, and the reason is logged.</td></tr>
+        <tr><td>Fresh signals only</td><td>A late signal is skipped, so a call is never made after the move.</td></tr>
+        <tr><td>A plan for each kind</td><td>Gamble, Scalping, Conviction and Smart Wallets each have their own plan for getting in and out, written into the call before it's sealed.</td></tr>
+        <tr><td>Rules versions</td><td>Every call carries the version of the rules it was made under and is scored under those rules. Older calls keep theirs.</td></tr>
+      </table>
+    </details>
+  </div>
+</section>
+
+<section class="section band" id="check">
+  <div class="wrap">
+    <div class="reveal"><span class="eyebrow">Check it yourself</span><h2 class="display" style="margin-top:8px">DON'T TRUST US. CHECK NEAR.</h2></div>
+    <p class="lead reveal" style="margin-top:14px">Every receipt is public. Re-hash one here in your browser, or run the same checks from a terminal.</p>
+    <div class="check-grid">
+      <div class="checker reveal">
+        <h3>Re-hash a call in your browser</h3>
+        <form id="chk-form"><label for="chk-id">Call number</label><input id="chk-id" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Call number, e.g. 6" autocomplete="off"><button class="btn btn-teal" type="submit">Check</button></form>
+        <div id="chk-out" aria-live="polite"></div>
+      </div>
+      <div class="cmds">
+        <div class="cmd reveal"><div class="row"><b>Read any call</b><button class="copy" type="button">Copy</button></div><pre>near contract call-function as-read-only receipts.eurekascout.near get_call json-args '{"id":"1"}' network-config mainnet now</pre><small>You see its hash, the time and block it was sealed, and once revealed, the full call.</small></div>
+        <div class="cmd reveal"><div class="row"><b>Check the contract is locked</b><button class="copy" type="button">Copy</button></div><pre>near account list-keys receipts.eurekascout.near network-config mainnet now</pre><small>You see no access keys at all, so its code can never change.</small></div>
+        <div class="cmd reveal"><div class="row"><b>Re-score every call</b><button class="copy" type="button">Copy</button></div><pre>cd verify &amp;&amp; node fetch_prices.mjs &amp;&amp; node witty_score.mjs</pre><small>Downloads each revealed Solana call's prices, then re-hashes every revealed call and scores it with its own plan: its exit, its result after fees, its peak, and the record. Needs Node 20+ and the repo from GitHub.</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="reveal"><h2 class="display">FAIR QUESTIONS.</h2></div>
+    <div class="faq">
+      <details class="reveal"><summary>Why 46 hours?</summary><p>Renters get each call the moment it's sealed. Everyone else sees it 46 hours later, so renters keep their head start. The contract's deadline is 48 hours, and revealing at 46 leaves a 2-hour safety margin. A call that isn't revealed in time counts as a loss.</p></details>
+      <details class="reveal"><summary>Is the entry price real?</summary><p>Yes. It's the pool's price on the chain at the moment of the call, not a number Witty picks. On Robinhood Chain it's the price after the last swap before the call's block. On Solana it's the price recorder's first reading of the pool, a few seconds after the call.</p></details>
+      <details class="reveal"><summary>Why four kinds of call?</summary><p>They're different bets. A brand-new coin can run or rug within minutes, a coin that's already moving is a quick trade, and a team pick is held for days. Scored together, one kind's rugs would hide how another does, so each kind keeps its own record, and the overall record shows them all.</p></details>
+      <details class="reveal"><summary>Why aren't the plans' numbers on the site?</summary><p>They're Witty's edge, so the site describes each plan instead of printing it. Every plan is still sealed inside its call before anyone sees it, so it can't be changed after the fact, and every result is scored on chain prices after fees, wins and losses alike.</p></details>
+      <details class="reveal"><summary>Can you change or delete a call?</summary><p>No. The contract was deployed with no access keys, so its code can never change, and changing one character of a call changes its hash, so a doctored reveal is rejected. A call we never reveal counts as a loss, so hiding one doesn't help either.</p></details>
+      <details class="reveal"><summary>Where do the prices come from?</summary><p>Prices come from each coin's pool on the chain, or from market price data for coins on other DEXes. On Solana, a price recorder reads the coin's PumpSwap pool every 10 seconds in a call's first hour, then every 30 seconds until the call's time is up. On Robinhood Chain, every swap is already an event on the chain. Scores never use screenshots.</p></details>
+      <details class="reveal"><summary>Is this financial advice?</summary><p>No. Witty's calls are research, and memecoins are extremely risky: most go to zero. Never put in more than you can afford to lose.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" style="padding-bottom:72px">
+  <div class="cta reveal">
+    <h2 class="display">WANT THE CALLS BEFORE THE REVEAL?</h2>
+    <p>Renters get each call the moment it's sealed, 46 hours before everyone else.</p>
+    <div class="btns"><a class="btn btn-ink" style="min-height:52px;padding:0 28px;font-size:16px" href="rent.html">Rent Witty</a><a class="btn btn-white" href="record.html">See the record</a></div>
+    <img src="img/witty-analyst-cut.webp" width="560" height="819" alt="" loading="lazy">
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-near"><a href="https://near.org" target="_blank" rel="noopener"><img src="img/built-on-near.svg" width="122" height="20" alt="Built on NEAR"></a><span>Prove on <a href="https://nearblocks.io/address/receipts.eurekascout.near" target="_blank" rel="noopener">receipts.eurekascout.near</a></span></div>
+    <div class="foot-mid"><span class="socials"><a class="social light" href="https://x.com/eurekascout_" target="_blank" rel="noopener" aria-label="EurekaScout on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a><a class="social light" href="https://github.com/EurekaScout" target="_blank" rel="noopener" aria-label="EurekaScout on GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a></span><span class="foot-copy">&copy; 2026 EurekaScout</span></div>
+    <span class="foot-note">Not financial advice. Memecoins rug; size small.</span>
+  </div>
+</footer>
+<script src="assets/site.js?v=20261110a"></script>
+<script>
+"use strict";
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const HASH = "3be1d07c9a4f52e88c1b6d03f7a2e95c4d18b07e6a3f29c1d5e80b4a7c62a91c";
+// ---------------- the video slot ----------------
+(() => {
+  const v = document.getElementById("film"), b = document.getElementById("film-btn");
+  const PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>';
+  const PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg>';
+  let userPaused = reduce;
+  const sync = () => { b.innerHTML = v.paused ? PLAY : PAUSE; b.setAttribute("aria-label", v.paused ? "Play the preview" : "Pause the preview"); };
+  if (reduce) { v.removeAttribute("autoplay"); v.pause(); }
+  b.addEventListener("click", () => { if (v.paused) { userPaused = false; v.play().catch(() => {}); } else { userPaused = true; v.pause(); } });
+  v.addEventListener("play", sync); v.addEventListener("pause", sync); sync();
+  new IntersectionObserver(([e]) => { if (!e.isIntersecting) v.pause(); else if (!userPaused) v.play().catch(() => {}); }, { threshold: 0.2 }).observe(v);
+})();
+
+// ---------------- the four steps ----------------
+const short = HASH.slice(0, 10) + "…" + HASH.slice(-6);
+const VIZ = [
+  `<div class="viz viz-spot"><span class="eyebrow">Step 1 · Spot</span><div class="spot"><div class="scope"><div class="sweep"></div><b style="left:30%;top:30%;--d:.25s"></b><b style="left:70%;top:28%;--d:.55s"></b><b style="left:26%;top:68%;--d:.85s"></b><b class="win" style="left:64%;top:64%;--d:1.15s"></b></div><div class="sig"><div style="--d:.3s"><span>$GRUG · Robinhood</span><span class="x">✕ late signal</span></div><div style="--d:.6s"><span>$TOADY · Solana</span><span class="x">✕ failed safety checks</span></div><div style="--d:.9s"><span>$MOONCAT · Solana</span><span class="x">✕ skipped, reason logged</span></div><div class="win" style="--d:1.2s"><span>$ZAPP · Solana</span><span class="y">✓ Scalping call</span></div></div></div><small>Example signals. Every coin Witty skips is logged with the reason.</small></div>`,
+  `<div class="viz viz-seal"><span class="eyebrow">Step 2 · Seal</span><div class="hashbox json">{"chain":"solana","token":"ZAPP","category":"scalping","entry":"0.0000412","salt":"7f1c9ae2d4b8"}</div><div class="arrow">SHA-256</div><div class="hashbox hash">${HASH}</div><div class="seal-row"><span class="stamp">SEALED ON NEAR</span><small>Block 222,730,114<br>receipts.eurekascout.near</small></div></div>`,
+  `<div class="viz viz-reveal"><span class="eyebrow">Step 3 · Reveal</span><div class="ring-wrap"><svg class="ring" viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/><circle class="bar" cx="60" cy="60" r="52"/></svg><div class="ring-txt"><b class="display">46:00:00</b><small>until reveal</small></div></div><div class="cmp"><div><span>Sealed on NEAR</span><code>${short}</code></div><div><span>Re-hashed at reveal</span><code>${short}</code></div></div><span class="verdict ok">✓ Match: call accepted</span></div>`,
+  `<div class="viz viz-score"><span class="eyebrow">Step 4 · Score</span><svg class="score-chart" viewBox="0 0 400 212"><line class="l-entry" x1="40" x2="390" y1="130.5" y2="130.5"/><text x="390" y="123" text-anchor="end">entry (1x)</text><path class="px" pathLength="1" d="M40.0 130.5 L63.3 120.3 L86.7 134.8 L110.0 140.7 L133.3 123.7 L156.7 105.0 L180.0 111.8 L203.3 92.3 L226.7 98.2 L250.0 77.8 L273.3 67.6 L296.7 72.7 L320.0 79.5"/><circle class="hit" cx="320" cy="79.5" r="7"/><text class="hit-l" x="312" y="58" text-anchor="end">sold at 1.6x</text><text x="40" y="208">0</text><text x="215" y="208" text-anchor="middle">12 h</text><text x="390" y="208" text-anchor="end">24 h</text></svg><div class="stats"><div class="stat"><span>Sold at</span><span class="display" data-to="1.6">1.00x</span></div><div class="stat"><span>After 4% fees</span><span class="display" data-to="1.54">1.00x</span></div></div></div>`,
+];
+const make = (html) => { const w = document.createElement("div"); w.innerHTML = html; return w.firstElementChild; };
+const pad = (n) => String(n).padStart(2, "0");
+function play(viz) {
+  const run = (viz._run = (viz._run || 0) + 1);
+  const live = () => viz._run === run;
+  const later = (ms, fn) => setTimeout(() => live() && fn(), reduce ? 0 : ms);
+  viz.classList.remove("on", "done"); void viz.offsetWidth; viz.classList.add("on");
+  if (viz.classList.contains("viz-seal")) {
+    const h = viz.querySelector(".hash"), st = viz.querySelector(".stamp");
+    st.classList.remove("on");
+    if (reduce) { h.textContent = HASH; st.classList.add("on"); return; }
+    let n = 0;
+    const tick = () => { n += 3; h.textContent = Array.from({ length: 64 }, (_, i) => i < n ? HASH[i] : "0123456789abcdef"[Math.random() * 16 | 0]).join(""); if (n < 64) later(45, tick); else later(120, () => st.classList.add("on")); };
+    later(350, tick);
+  } else if (viz.classList.contains("viz-reveal")) {
+    const txt = viz.querySelector(".ring-txt b"), lab = viz.querySelector(".ring-txt small"), bar = viz.querySelector(".bar"), C = 326.7;
+    if (reduce) { txt.textContent = "00:00:00"; lab.textContent = "revealed"; bar.style.strokeDashoffset = C; viz.classList.add("done"); return; }
+    txt.textContent = "46:00:00"; lab.textContent = "until reveal"; bar.style.strokeDashoffset = 0;
+    const t0 = performance.now() + 300, D = 1900;
+    const step = (now) => {
+      if (!live()) return;
+      const k = Math.max(0, Math.min(1, (now - t0) / D)), e = k < .5 ? 2 * k * k : 1 - (-2 * k + 2) ** 2 / 2;
+      const s = Math.round(46 * 3600 * (1 - e));
+      txt.textContent = `${pad(Math.floor(s / 3600))}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}`;
+      bar.style.strokeDashoffset = C * e;
+      if (k < 1) requestAnimationFrame(step); else { viz.classList.add("done"); lab.textContent = "revealed"; }
+    };
+    requestAnimationFrame(step);
+  } else if (viz.classList.contains("viz-score")) {
+    const nums = [...viz.querySelectorAll("[data-to]")];
+    nums.forEach((n) => (n.textContent = reduce ? Number(n.dataset.to).toFixed(2) + "x" : "1.00x"));
+    if (reduce) return;
+    later(1900, () => {
+      const t0 = performance.now();
+      const step = (now) => { if (!live()) return; const k = Math.min(1, (now - t0) / 700); nums.forEach((n) => (n.textContent = (1 + (n.dataset.to - 1) * k).toFixed(2) + "x")); if (k < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    });
+  }
+}
+(() => {
+  const host = document.getElementById("viz-host"), steps = [...document.querySelectorAll(".step")], bars = [...document.querySelectorAll(".prog i")];
+  const hostViz = VIZ.map((h) => host.appendChild(make(h)));
+  const inlineViz = steps.map((s, i) => s.querySelector(".viz-inline").appendChild(make(VIZ[i])));
+  hostViz[0].classList.add("shown");
+  const wide = matchMedia("(min-width: 901px)");
+  let active = -1;
+  function setActive(i) {
+    if (i === active) return;
+    active = i;
+    steps.forEach((s, k) => s.classList.toggle("on", k === i));
+    bars.forEach((b, k) => b.classList.toggle("done", k <= i));
+    hostViz.forEach((v, k) => v.classList.toggle("shown", k === i));
+    play(wide.matches ? hostViz[i] : inlineViz[i]);
+  }
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) setActive(steps.indexOf(e.target)); }), { rootMargin: "-45% 0px -45% 0px" });
+  steps.forEach((s) => io.observe(s));
+})();
+
+// ---------------- exit tiles tilt ----------------
+if (!reduce && matchMedia("(hover: hover)").matches) document.querySelectorAll(".exit").forEach((c) => {
+  c.addEventListener("pointermove", (e) => {
+    const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    c.style.transform = `rotateY(${(x - .5) * 12}deg) rotateX(${(.5 - y) * 12}deg)`;
+    c.style.setProperty("--gx", `${x * 100}%`); c.style.setProperty("--gy", `${y * 100}%`);
+  });
+  c.addEventListener("pointerleave", () => { c.style.transform = ""; });
+});
+
+// ---------------- copy buttons ----------------
+document.querySelectorAll(".copy").forEach((b) => b.addEventListener("click", async () => {
+  const pre = b.closest(".cmd").querySelector("pre");
+  try { await navigator.clipboard.writeText(pre.textContent); b.textContent = "Copied"; b.classList.add("ok"); setTimeout(() => { b.textContent = "Copy"; b.classList.remove("ok"); }, 1600); }
+  catch { const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+}));
+
+// ---------------- receipt check, live from NEAR ----------------
+const CONTRACT = "receipts.eurekascout.near";
+const RPCS = ["https://free.rpc.fastnear.com", "https://rpc.mainnet.fastnear.com", "https://rpc.mainnet.near.org"];
+const REVEAL_MS = 46 * 3600e3;
+const MOCK = new URLSearchParams(location.search).get("live") !== "1" && (location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(location.hostname));
+async function view(method, args = {}) {
+  // Ask the first RPC; if it hasn't answered within 1.2 s (or fails), ask the next one too. The first good answer wins,
+  // so one slow or rate-limited RPC never makes a check wait.
+  const body = JSON.stringify({ jsonrpc: "2.0", id: "es", method: "query", params: { request_type: "call_function", finality: "final", account_id: CONTRACT, method_name: method, args_base64: btoa(JSON.stringify(args)) } });
+  const ask = (url) => fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body, signal: AbortSignal.timeout?.(8000) })
+    .then((r) => r.json()).then((j) => { if (j.error || !j.result?.result) throw new Error("bad answer"); return JSON.parse(new TextDecoder().decode(Uint8Array.from(j.result.result))); });
+  return new Promise((resolve, reject) => {
+    let started = 0, failed = 0, done = false;
+    const next = () => {
+      if (done || started >= RPCS.length) return;
+      const url = RPCS[started++], timer = setTimeout(next, 1200);
+      ask(url).then((v) => { clearTimeout(timer); if (!done) { done = true; resolve(v); } },
+        (e) => { clearTimeout(timer); if (++failed === RPCS.length && !done) { done = true; reject(e); } else next(); });
+    };
+    next();
+  });
+}
+const nsToMs = (ns) => Number(BigInt(ns) / 1000000n);
+async function sha256Hex(text) { const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text)); return [...new Uint8Array(d)].map((b) => b.toString(16).padStart(2, "0")).join(""); }
+function el(tag, text, cls) { const e = document.createElement(tag); if (text != null) e.textContent = text; if (cls) e.className = cls; return e; }
+const fmtTime = (ms) => new Date(ms).toISOString().slice(0, 16).replace("T", " ");
+function fmtLeft(ms) { if (ms <= 0) return "any moment"; const h = Math.floor(ms / 3600e3), m = Math.floor((ms % 3600e3) / 60e3); return h ? `${h}h ${pad(m)}m` : `${m}m`; }
+// display only: slurs in coin names are masked; the hash is always taken from the untouched JSON
+const MASK = /(fag|nigg|retard|tranny|kike)\w*/gi;
+const clean = (s) => String(s ?? "?").replace(MASK, (w) => w[0] + "*".repeat(Math.max(1, w.length - 2)) + w.at(-1));
+const CHAIN = { solana: "Solana", robinhood: "Robinhood Chain", near: "NEAR" };
+const out = document.getElementById("chk-out"), form = document.getElementById("chk-form"), input = document.getElementById("chk-id");
+let latest = null;   // the newest call's number, from get_call_count
+async function render(c, sample = false) {
+  out.replaceChildren();
+  if (!c) { out.append(el("span", "No call with that number yet.", "verdict wait")); return; }
+  const dl = el("dl", null, "kv"), add = (k, v, cls) => dl.append(el("dt", k), el("dd", v, cls));
+  const t = nsToMs(c.sealed_at);
+  add("Call", `#${c.id} · ${CHAIN[c.chain] || c.chain}${c.warm_up ? " · warm-up" : ""}`);
+  let verdict;
+  if (c.call_json) {
+    let coin = "?"; try { coin = clean(JSON.parse(c.call_json).token); } catch { /* shown as ? */ }
+    add("Coin", coin);
+    add("Sealed", `${fmtTime(t)} UTC · block ${Number(c.sealed_block).toLocaleString("en")}`);
+    add("Hash on NEAR", c.hash, "mono");
+    const mine = await sha256Hex(c.call_json);
+    add("Hash in your browser", mine, mine === c.hash ? "mono hl" : "mono");
+    verdict = mine === c.hash ? el("span", "✓ Matches the seal", "verdict ok") : el("span", "✗ Does not match the seal", "verdict bad");
+  } else {
+    add("Sealed", `${fmtTime(t)} UTC · block ${Number(c.sealed_block).toLocaleString("en")}`);
+    add("Hash on NEAR", c.hash, "mono");
+    verdict = c.status === "expired" ? el("span", "Never revealed: counts as a loss", "verdict bad")
+      : el("span", `Sealed · reveals in ${fmtLeft(t + REVEAL_MS - Date.now())}`, "verdict wait");
+  }
+  out.append(verdict, dl);
+  if (!c.call_json && c.status !== "expired") out.append(el("p", "Until the reveal, only the hash is public. Nobody can read the call, not even from the chain.", "note"));
+  if (sample) out.append(el("p", "NEAR didn't answer, so this is an example call. Reload to try again.", "note"));
+}
+async function sampleCall() {
+  const call_json = JSON.stringify({ category: "scalping", chain: "solana", entry: "0.0000412", salt: "7f1c9ae2d4b8", token: "ZAPP" });
+  return { id: "6", chain: "solana", status: "revealed", sealed_at: String(BigInt(Date.now() - 50 * 3600e3) * 1000000n), sealed_block: 222730114, hash: await sha256Hex(call_json), call_json };
+}
+(async () => {
+  out.append(el("span", "Asking NEAR for the latest revealed call…", "verdict wait"));
+  try {
+    const n = Number(await view("get_call_count"));
+    latest = n - 1;
+    const list = await view("get_calls", { from_index: String(Math.max(0, n - 50)), limit: 50 });
+    const c = list.filter((x) => x.status === "revealed").at(-1) || list.at(-1);
+    if (c) input.value = c.id;
+    render(c || null);
+  } catch {
+    // the mockup shows a labelled example; the real site never shows a made-up receipt
+    if (MOCK) { const s = await sampleCall(); input.value = s.id; render(s, true); }
+    else out.replaceChildren(el("span", "NEAR didn't answer. Type a call number and press Check to try again.", "verdict bad"));
+  }
+})();
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const id = input.value.trim();
+  if (!/^\d+$/.test(id)) { out.replaceChildren(el("span", "Type a call number, like 6.", "verdict wait")); return; }
+  out.replaceChildren(el("span", `Asking NEAR for call #${id}…`, "verdict wait"));
+  try {
+    const c = await view("get_call", { id });
+    if (!c) {
+      if (latest == null) { try { latest = Number(await view("get_call_count")) - 1; } catch { /* shown without it */ } }
+      out.replaceChildren(el("span", latest != null && latest >= 0 ? `No call #${id} yet. The latest is #${latest}: calls are numbered in the order they're sealed.` : "No call with that number yet.", "verdict wait"));
+      return;
+    }
+    render(c);
+  }
+  catch { out.replaceChildren(el("span", "NEAR didn't answer. Try again in a moment.", "verdict bad")); }
+});
+</script>
+
+</body>
+</html>
