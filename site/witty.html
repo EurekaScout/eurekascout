@@ -17,8 +17,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=20261110a">
-<link rel="stylesheet" href="assets/wallet-modal.css?v=20261110a">
+<link rel="stylesheet" href="assets/site.css?v=20261110b">
+<link rel="stylesheet" href="assets/wallet-modal.css?v=20261110b">
 </head>
 <body>
 <header>
@@ -273,11 +273,16 @@
         <li id="st3"><b>Sign a short message.</b> <span>It's free: no transaction, no NEAR spent. It proves the account is yours.</span></li>
       </ol>
       <div class="mw-acts">
-        <a class="btn btn-blue" id="tg-open" href="https://t.me/scout_witty_bot?start=link" target="_blank" rel="noopener">Open @scout_witty_bot</a>
+        <a class="btn btn-blue" id="tg-open" href="https://t.me/scout_witty_bot?start=link" target="_blank" rel="noopener" data-tg-own>Open @scout_witty_bot</a>
         <button class="btn btn-blue" type="button" id="tg-link" hidden>Link to Telegram</button>
+      </div>
+      <div class="mw-tgcopy" id="tg-copy" hidden>
+        <div class="mw-copyrow"><code class="mw-addr" id="tg-url">https://t.me/scout_witty_bot?start=link</code><button class="mw-copy" type="button" id="tg-copybtn" data-copy="tg-url">Copy link</button></div>
+        <p class="small">Open this link in Telegram or your phone's browser.</p>
       </div>
       <div class="mw-codebox" id="tg-codebox" hidden>
         <button class="mw-linkbtn" type="button" id="tg-code-open" aria-expanded="false" aria-controls="tg-codeform">Have a code from @scout_witty_bot? Enter it</button>
+        <p class="small mw-coderoute" id="tg-code-route" hidden>Or open @scout_witty_bot in Telegram, send /start, and enter the 8-character code here.</p>
         <form class="mw-codeform" id="tg-codeform" hidden novalidate>
           <input id="tg-code" maxlength="16" autocomplete="one-time-code" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="8-character code" aria-label="Your code from @scout_witty_bot">
           <button class="btn btn-ink" type="submit">Use code</button>
@@ -296,8 +301,8 @@
     <span class="foot-note">Not financial advice. Memecoins rug; size small.</span>
   </div>
 </footer>
-<script src="assets/site.js?v=20261110a"></script>
-<script src="assets/qr.js?v=20261110a" defer></script>
+<script src="assets/site.js?v=20261110b"></script>
+<script src="assets/qr.js?v=20261110b" defer></script>
 <script>
 // My Witty: connect a NEAR wallet, read the account's pass or NFT from the chain, renew / claim / buy / mint, and link
 // Telegram with a free signed message (NEP-413). Wallet code is bundled in assets/wallet.js (wallet-selector 10.1.4).
@@ -358,7 +363,7 @@ if (NET === "testnet") { $("net-note").hidden = false; $("net-note").textContent
 // ---------- the wallet ----------
 let selector = null, modal = null, account = null, data = null;
 function loadWallet() {
-  return new Promise((res, rej) => { const s = document.createElement("script"); s.src = "assets/wallet.js?v=20261110a"; s.onload = res; s.onerror = () => rej(new Error("wallet code didn't load")); document.head.append(s); });
+  return new Promise((res, rej) => { const s = document.createElement("script"); s.src = "assets/wallet.js?v=20261110b"; s.onload = res; s.onerror = () => rej(new Error("wallet code didn't load")); document.head.append(s); });
 }
 async function startWallet() {
   try {
@@ -1236,6 +1241,13 @@ function renderTelegram() {
   if (canLink) $("tg-link").textContent = `Link ${account} to Telegram`;
   if (done && done.account === account && !code) { $("tg-open").textContent = "Open Telegram"; $("tg-open").href = `https://t.me/${BOT}`; }
   $("tg-codebox").hidden = !!code;                       // a code from the bot, typed in (handy inside a wallet app's browser)
+  // Inside a wallet app's browser Telegram can't open (tg:// is refused): the link to copy, and the code route, open
+  const inApp = !!window.EsInApp?.();
+  $("tg-open").hidden = !!canLink || inApp;
+  $("tg-copy").hidden = !!canLink || !inApp;
+  $("tg-url").textContent = $("tg-open").href;
+  $("tg-code-open").hidden = inApp; $("tg-code-route").hidden = !inApp;
+  if (inApp && !code) $("tg-codeform").hidden = false;
 }
 $("tg-code-open").addEventListener("click", () => {
   const f = $("tg-codeform"), open = f.hidden;

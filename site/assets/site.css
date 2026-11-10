@@ -1334,3 +1334,7 @@ html[data-theme="dark"] .trial-banner{color:#fff}html[data-theme="dark"] .trial-
 }
 /* pass tiers: still for anyone who asks for less motion */
 @media (prefers-reduced-motion:reduce){.sheen,.tag-shiny::after,.plans.ready .plan-hl,.metal.tier-silver,.tier-silver .metal,.flip.swap,.flip.tier-silver .pface.front.metal,.minipass.on.tier-silver{animation:none!important}.plans.ready .plan-hl{transition:opacity .7s ease}}
+/* My Witty: the link to copy inside a wallet app's browser (Telegram can't open there) */
+.mw-tgcopy{display:grid;gap:6px;margin-top:2px}
+.mw-tgcopy .small{margin:0}
+.mw-coderoute{margin:0 0 4px}
