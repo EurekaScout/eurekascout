@@ -2,7 +2,7 @@
 
 Witty is an AI memecoin scout that shows its receipts. Every call is **sealed on NEAR before anyone sees it**, revealed 46 hours later with its plan, and scored from public prices after fees. Its record can't be edited, cherry-picked or deleted, and anyone can re-score it.
 
-Built at NEAR HACKATHON (1–14 Nov 2026). Tracks: `nfts` (lead), `agents`, `security`.
+Built at NEAR HACKATHON (1–14 Nov 2026). Tracks: NFTs That Do Something (lead), Agent Economy, Autonomous Business, AI Security & Defense and Open Innovation.
 
 **Status, 9 Nov:** the sealing contract, the Witty NFT and Rental Pass contracts and Witty's own account are live on mainnet. Witty seals and reveals calls around the clock, the record is re-scored every 2 hours, and @scout_witty_bot sends calls to holders on Telegram. Pass sales open at the launch on 14 Nov.
 
