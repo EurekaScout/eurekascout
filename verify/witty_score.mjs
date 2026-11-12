@@ -27,7 +27,9 @@
 //              every 10 s, each reading with its slot). A pool's past balances can't be read back from the chain
 //              later, so Solana calls need these files.
 //
-//   node witty_score.mjs              scores every call on chain (Node 20+, nothing to install)
+//   node witty_score.mjs              scores every call on chain (Node 20+, nothing to install). Each call prints as
+//                                     soon as it is scored: Solana calls take no time, a Robinhood call takes from
+//                                     seconds to minutes on the public RPC, because its prices are rebuilt from the chain
 //   node witty_score.mjs --call 12    one call in full detail
 //   node witty_score.mjs --selftest   offline checks
 // Writes data/scores.json. Settings from the environment: WITTY_DATA (default ./data), WITTY_CONTRACT, WITTY_NETWORK,
@@ -700,18 +702,30 @@ async function main() {
   const ci = process.argv.indexOf("--call");
   const only = ci > -1 ? String(process.argv[ci + 1]) : null;
   const rows = [];
-  for (const v of only ? onChain.filter((c) => String(c.id) === only) : onChain) {
-    try {
-      rows.push(await scoreCall({ id: v.id, hash: v.hash, callJson: v.call_json || null, warmUp: v.warm_up, status: v.status, pricesDir: path.join(dataDir, "prices"), rh }));
-    } catch (e) { rows.push({ id: v.id, hash: v.hash, scored: false, why: `error: ${e.message}` }); }
-  }
   const pct = (x) => `${x >= 1 ? "+" : ""}${Math.round((x - 1) * 100)}%`;
-  console.log(`Witty scores (${VERSION}) · ${contract} · ${onChain.length} calls on chain\n`);
-  for (const r of rows) {
+  const line = (r) => {
     const name = `#${r.id} ${(r.token || "?").slice(0, 12).padEnd(12)} ${(r.chain || "").padEnd(9)}`;
-    console.log(r.scored
+    return r.scored
       ? `  ${name} ${String(r.exit).padEnd(7)} ${r.net.toFixed(2)}x after fees (${pct(r.net)})${r.exit_minute != null ? ` · exit min ${r.exit_minute}` : ""}${r.peak_x ? ` · peak ${r.peak_x}x` : ""}${r.warm_up ? " · warm-up" : ""}${/pulled/.test(r.note || "") ? ` · ${r.note}` : ""}`
-      : `  ${name} not scored: ${r.why}`);
+      : `  ${name} not scored: ${r.why}`;
+  };
+  // Each call prints as soon as it is scored, so a long run is never silent.
+  console.log(`Witty scores (${VERSION}) · ${contract} · ${onChain.length} calls on chain`);
+  if (!only) console.log("Solana calls are scored from the downloaded price files. A Robinhood call is rebuilt from the chain: seconds to minutes each on the public RPC.");
+  console.log("");
+  const live = process.stderr.isTTY;   // on a terminal, say which Robinhood call is being read once it has taken 2 s (on stderr, wiped when its result prints)
+  for (const v of only ? onChain.filter((c) => String(c.id) === only) : onChain) {
+    const wait = live && /"chain"\s*:\s*"robinhood"/.test(v.call_json || "") ? `  #${v.id} reading Robinhood Chain...` : "";
+    let shown = false;
+    const timer = wait ? setTimeout(() => { shown = true; process.stderr.write(wait); }, 2000) : null;
+    let r;
+    try {
+      r = await scoreCall({ id: v.id, hash: v.hash, callJson: v.call_json || null, warmUp: v.warm_up, status: v.status, pricesDir: path.join(dataDir, "prices"), rh });
+    } catch (e) { r = { id: v.id, hash: v.hash, scored: false, why: `error: ${e.message}` }; }
+    rows.push(r);
+    clearTimeout(timer);
+    if (shown) process.stderr.write(`\r${" ".repeat(wait.length)}\r`);
+    console.log(line(r));
   }
   const s = rpc.stats;
   console.log(`\nRobinhood RPC: ${s.requests} requests · ${s.retries} waited and retried (rate limits) · ${s.fellOver} moved to the next RPC · ${s.setAside} set aside for 10 min (still rate-limited)`);
@@ -724,11 +738,11 @@ async function main() {
     official: summarize(official), warm_up: summarize(warm),
     by_chain: Object.fromEntries(["solana", "robinhood"].map((c) => [c, summarize(official.filter((r) => r.chain === c))])),
     by_category: Object.fromEntries(["gamble", "scalping", "conviction", "smart"].map((c) => [c, summarize(official.filter((r) => r.category === c))])), calls: rows };
-  const line = (label, s) => s.calls
+  const total = (label, s) => s.calls
     ? `${label}: $1 per call -> $${s.per_dollar} after fees · median ${s.median}x · ${s.win_pct}% wins · ${s.rugged_pct}% rugged${s.stopped_pct ? ` · ${s.stopped_pct}% stopped` : ""} · ${s.calls} calls`
     : `${label}: no scored calls yet`;
-  console.log("\n" + line("Official record", out.official));
-  console.log(line("Warm-up        ", out.warm_up));
+  console.log("\n" + total("Official record", out.official));
+  console.log(total("Warm-up        ", out.warm_up));
   const file = path.join(dataDir, "scores.json");
   fs.mkdirSync(dataDir, { recursive: true });           // a fresh clone has no data/ yet
   fs.writeFileSync(file, JSON.stringify(out, null, 1));
