@@ -17,8 +17,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=20261110f">
-<script src="assets/terms.js?v=20261110f"></script>
+<link rel="stylesheet" href="assets/site.css?v=20261112a">
+<script src="assets/terms.js?v=20261112a"></script>
 </head>
 <body>
 <header>
@@ -132,7 +132,7 @@
     <span class="foot-note">Not financial advice. Memecoins rug; size small.</span>
   </div>
 </footer>
-<script src="assets/site.js?v=20261110f"></script>
+<script src="assets/site.js?v=20261112a"></script>
 <script>
 "use strict";
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -271,7 +271,7 @@ function whenSeen(node, fn) {
 const KIND_COPY = {
   gamble: ["Brand-new coins, caught at the very start. Big swings both ways.", null],
   scalping: ["Quick in-and-out trades on coins that are already moving. Witty puts its own money on every one.", "Witty trades these"],
-  conviction: ["The team's own picks, held for days, not minutes.", "The team holds these"],
+  conviction: ["The team's own picks, held for days to weeks, not minutes.", "The team holds these"],
   smart: ["Coins bought by wallets with a winning history, called the moment they buy.", null],
 };
 const isRug = (e) => /rugged/.test(String(e || ""));            // "rugged after profit" counts too
@@ -295,10 +295,11 @@ function renderRecord(sc) {
   const o = sc?.official, ks = kindStats(sc);
   // calls not scored yet, per kind: sealed (when the chain says the kind) and, for Conviction, revealed but still open
   // sealed: only when the chain says the kind; revealed but not scored yet: waiting for the next score update (Conviction: still held)
-  const sealedBy = {}, waitBy = {};
+  const sealedBy = {}, waitBy = {}, runBy = {};
   for (const r of rows) {
     if (r.warm_up || !r.kind) continue;
     if (r.status === "sealed") sealedBy[r.kind] = (sealedBy[r.kind] || 0) + 1;
+    else if (isRunning(r)) runBy[r.kind] = (runBy[r.kind] || 0) + 1;      // a slow hold still inside its window: not a win, not a loss
     else if (awaitingScore(r)) waitBy[r.kind] = (waitBy[r.kind] || 0) + 1;
   }
   const sealedNow = rows.filter((r) => r.status === "sealed").length;
@@ -307,17 +308,21 @@ function renderRecord(sc) {
     const card = el("article", null, `kcard${has ? "" : " empty"}`); card.dataset.kind = k;   // no scroll-in class: site.js only watches what is there at load
     const top = el("div", null, "kc-top"), body = el("div", null, "kc-body");      // a band in the kind's colour, then the numbers
     top.append(el("h3", KIND[k])); if (badge) top.append(el("em", badge, "kbadge"));
-    const sealed = sealedBy[k] || 0, wait = waitBy[k] || 0;
+    const sealed = sealedBy[k] || 0, wait = waitBy[k] || 0, run = runBy[k] || 0;
+    const runText = run ? `${run} call${run === 1 ? "" : "s"} still running` : "";
+    const intro = el("div", null, "kc-intro"); intro.append(el("p", desc, "kc-desc"));
+    if (SLOW.has(k)) { const sl = el("p", "Slow holds: each call is counted 14 days after it's made.", "kc-slow"); sl.append(el("small", "Calls made before 11 Nov were counted at 3 days.")); intro.append(sl); }
     if (!has) {                                   // no revealed calls yet (scores.json: calls 0, no numbers): a calm placeholder, never "undefined" or dashes
       const empty = el("div", null, "kc-empty");
       const face = el("img"); face.src = "img/witty-face-96.png"; face.alt = ""; face.width = face.height = 52; face.loading = "lazy";
       empty.append(face, el("b", "No revealed calls yet"));
-      if (sealed) empty.append(el("span", `${sealed} sealed · first results when they reveal`));
+      if (run) empty.append(el("span", `${runText} · first results when they're counted`));
+      else if (sealed) empty.append(el("span", `${sealed} sealed · first results when they reveal`));
       else if (wait) empty.append(el("span", `${wait} revealed · scored at the next update`));
-      body.append(el("p", desc, "kc-desc"), empty, el("p", "0 calls scored", "kc-n")); card.append(top, body);
+      body.append(intro, empty, el("p", "0 calls scored", "kc-n")); card.append(top, body);
       return card;
     }
-    const n = el("p", [`${st.calls} call${st.calls === 1 ? "" : "s"} scored`, sealed && `${sealed} sealed now`, wait && (k === "conviction" ? `${wait} open now` : `${wait} waiting for a score`)].filter(Boolean).join(" · "), "kc-n");
+    const n = el("p", [`${st.calls} call${st.calls === 1 ? "" : "s"} scored`, runText, sealed && `${sealed} sealed now`, wait && (k === "conviction" ? `${wait} open now` : `${wait} waiting for a score`)].filter(Boolean).join(" · "), "kc-n");
     const money = el("div", null, "kc-money"); money.append(el("b", has ? fmtUsd(st.per_dollar) : "–", `display${has ? (st.per_dollar >= 1 ? " up" : " down") : ""}`), el("small", "back per $1"));
     const stats = el("div", null, "kc-stats");
     for (const [label, v, cls, box] of [["PnL", pctSigned(st.per_dollar), st.per_dollar >= 1 ? "up" : "down", ""], ["Wins", String(st.wins), "", "w"], ["Losses", String(st.losses), "", "l"]]) {
@@ -328,7 +333,7 @@ function renderRecord(sc) {
     bar.append(el("i")); bar._v = winPct;
     const rate = el("small", has ? `${winPct}% of calls won` : "No calls scored yet", "kc-rate");
     const rugs = el("p", st.rugs ? `Rugs: ${st.rugs}${st.rugPeak ? ` · they reached ${st.rugPeak.toFixed(1)}x first, on average` : ""}` : "Rugs: none so far", "kc-rugs");
-    body.append(el("p", desc, "kc-desc"), money, stats, bar, rate, rugs, n); card.append(top, body);
+    body.append(intro, money, stats, bar, rate, rugs, n); card.append(top, body);
     return card;
   }));
   whenSeen($("kinds"), () => { for (const b of document.querySelectorAll(".kc-bar")) b.querySelector("i").style.width = `${b._v}%`; });
@@ -474,8 +479,9 @@ function renderTable(animate) {
     const coin = el("span", clean(r.token), "c-coin");
     if (r.warm_up) coin.append(el("span", "warm-up", "tagx warm"));
     const [exitText, exitCls] = s?.scored ? (EXIT[s.exit] || [exitLabel(s.exit), isRug(s.exit) ? "rug" : ""]) : r.status === "expired" ? EXIT.expired : ["–", ""];
-    const exit = el("span", null, "c-exit"); if (exitText !== "–") exit.append(el("span", exitText, `tagx ${exitCls}`)); else exit.textContent = "–";
-    const res = s?.scored ? el("span", fmtX(s.net), `c-res res ${s.net > 1 ? "win" : s.net < 1 ? "loss" : "flat"}`) : el("span", awaitingScore(r) ? "scoring soon" : s ? "not scored" : "scores daily", "c-res res flat");
+    const running = isRunning(r);
+    const exit = el("span", null, "c-exit"); if (running) { exit.classList.add("c-left", "c-run"); exit.textContent = `counted on ${fmtDay(countedMs(r))}`; } else if (exitText !== "–") exit.append(el("span", exitText, `tagx ${exitCls}`)); else exit.textContent = "–";
+    const res = running ? el("span", "running", "c-res res flat") : s?.scored ? el("span", fmtX(s.net), `c-res res ${s.net > 1 ? "win" : s.net < 1 ? "loss" : "flat"}`) : el("span", awaitingScore(r) ? "scoring soon" : s ? "not scored" : "scores daily", "c-res res flat");
     btn.append(el("span", `#${r.id}`, "c-id"), el("span", fmtTime(r.calledMs), "c-time"), el("span", CHAIN[r.chain] || r.chain || "–", "c-chain"), coin,
       el("span", r.kind ? KIND[r.kind] : "–", `c-type kind-${r.kind}`), exit, res, peakCell(r), rcCell(r), el("span", `${CHAIN[r.chain] || r.chain} · ${KIND[r.kind]} · ${fmtTime(r.calledMs)}`, "c-meta"));
     const det = el("div", null, `detail${state.open.has(r.id) ? " open" : ""}`);
@@ -485,8 +491,17 @@ function renderTable(animate) {
   });
 }
 // the peak: how high the coin went in the call's window, shown beside Witty's result (the result stays the score)
-const PEAK_WINDOW = { gamble: "first hour", scalping: "first 24 hours", conviction: "first 3 days", smart: "first 3 days" };
-const peakWindow = (r) => PEAK_WINDOW[r.kind] || "window";
+const PEAK_WINDOW = { gamble: "first hour", scalping: "first 24 hours" };
+const peakWindow = (r) => SLOW.has(r.kind) ? `first ${countDays(r)} days` : PEAK_WINDOW[r.kind] || "window";
+// Conviction and Smart Wallets are slow holds: counted 14 days after the call from rules witty-2.9 on, 3 days before.
+// The version is read as two numbers, never as text ("2.10" comes after "2.9").
+const SLOW = new Set(["conviction", "smart"]), DAY_MS = 864e5;
+const rulesFrom = (v, major, minor) => { const m = /(\d+)\.(\d+)/.exec(String(v || "")); return !!m && (+m[1] > major || (+m[1] === major && +m[2] >= minor)); };
+const countDays = (r) => (rulesFrom(r.rules ?? r.s?.rules_version, 2, 9) ? 14 : 3);
+const countedMs = (r) => r.calledMs + countDays(r) * DAY_MS;
+const fmtDay = (ms) => { const d = new Date(ms); return `${d.getUTCDate()} ${MON[d.getUTCMonth()]}`; };
+// revealed, not counted yet, and still inside its window (a call that can never be scored isn't "running")
+const isRunning = (r) => r.status === "revealed" && SLOW.has(r.kind) && !r.s?.scored && nowMs() < countedMs(r) && !/no chain prices|neither a/i.test(r.s?.why || "");
 const peakX = (s) => { const x = Number(s?.peak_x ?? s?.peak); return s?.scored && s.exit !== "expired" && x > 0 ? x : null; };
 function peakCell(r) {
   const x = peakX(r.s);
@@ -521,7 +536,8 @@ function fillDetail(det, r) {
     const t = tradesById.get(r.id), nt = notTradedById.get(r.id);
     if (t) add("Witty's own trade", tradeLine(t), t.pnl_sol > 0 ? "up" : "down");
     else if (nt) add("Witty's own trade", `Not traded: ${nt.why}`);
-  } else if (awaitingScore(r)) add("Not scored yet", "Revealed after the last score update. It's scored at the next one, from the same chain prices.");
+  } else if (isRunning(r)) add("Still running", `Counted on ${fmtDay(countedMs(r))}, ${countDays(r)} days after the call. Until then it's not a win and not a loss.`);
+  else if (awaitingScore(r)) add("Not scored yet", "Revealed after the last score update. It's scored at the next one, from the same chain prices.");
   else if (s && !s.scored) add("Not scored", s.why || "–");
   add("Rules", r.rules || "–");
   const a = el("a", "See the contract on NearBlocks ↗"); a.href = `https://nearblocks.io/address/${CONTRACT}`; a.target = "_blank"; a.rel = "noopener";
@@ -595,7 +611,7 @@ async function load(first) {
     let call = {}; try { call = JSON.parse(c.call_json || "{}"); } catch { /* shown as unknown */ }
     const s = byId.get(String(c.id));
     const r = { id: String(c.id), hash: c.hash, status: c.status, warm_up: !!c.warm_up, chain: c.chain, token: s?.token ?? call.token, kind: kindOf(s, call),
-      calledMs: Date.parse(s?.called_at ?? call.called_at) || nsToMs(c.sealed_at), sealedMs: nsToMs(c.sealed_at), block: c.sealed_block, rules: call.rules_version, stop: call.stop_loss, s };
+      calledMs: Date.parse(s?.called_at ?? call.called_at) || nsToMs(c.sealed_at), sealedMs: nsToMs(c.sealed_at), block: c.sealed_block, rules: call.rules_version ?? s?.rules_version, stop: call.stop_loss, s };
     if (c.call_json) { if (!checks.has(r.id)) checks.set(r.id, (r.mine = await sha256Hex(c.call_json)) === c.hash); else r.mine = await sha256Hex(c.call_json); }
     rows.push(r);
   }

@@ -17,8 +17,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=20261110f">
-<script src="assets/terms.js?v=20261110f"></script>
+<link rel="stylesheet" href="assets/site.css?v=20261112a">
+<script src="assets/terms.js?v=20261112a"></script>
 </head>
 <body>
 <header>
@@ -93,8 +93,8 @@
     <div class="exits four kinds">
       <article class="exit kred reveal"><span class="glare"></span><span class="display">GAMBLE</span><h3>Caught at the start</h3><p>Brand-new coins, caught at the very start. Big swings both ways.</p></article>
       <article class="exit kblue reveal"><span class="glare"></span><span class="display">SCALPING</span><h3>Witty trades these</h3><p>Quick in-and-out trades on coins that are already moving. Witty puts its own money on every one.</p></article>
-      <article class="exit kyellow reveal"><span class="glare"></span><span class="display">CONVICTION</span><h3>The team holds these</h3><p>The team's own picks, held for days, not minutes.</p></article>
-      <article class="exit teal reveal"><span class="glare"></span><span class="display">SMART WALLETS</span><h3>Following winners</h3><p>Coins bought by wallets with a winning history, called the moment they buy.</p></article>
+      <article class="exit kyellow reveal"><span class="glare"></span><span class="display">CONVICTION</span><h3>The team holds these</h3><p>The team's own picks, held for days to weeks, and counted at 14 days.</p></article>
+      <article class="exit teal reveal"><span class="glare"></span><span class="display">SMART WALLETS</span><h3>Following winners</h3><p>Coins bought by wallets with a winning history, called the moment they buy. Held for days to weeks, and counted at 14 days.</p></article>
     </div>
     <div class="exit-notes">
       <div class="reveal"><b>Rugged</b> means the price collapsed or the pool's liquidity was pulled. The call is scored at that moment.</div>
@@ -137,7 +137,7 @@
     <div class="faq">
       <details class="reveal"><summary>Why 46 hours?</summary><p>Renters get each call the moment it's sealed. Everyone else sees it 46 hours later, so renters keep their head start. The contract's deadline is 48 hours, and revealing at 46 leaves a 2-hour safety margin. A call that isn't revealed in time counts as a loss.</p></details>
       <details class="reveal"><summary>Is the entry price real?</summary><p>Yes. It's the pool's price on the chain at the moment of the call, not a number Witty picks. On Robinhood Chain it's the price after the last swap before the call's block. On Solana it's the price recorder's first reading of the pool, a few seconds after the call.</p></details>
-      <details class="reveal"><summary>Why four kinds of call?</summary><p>They're different bets. A brand-new coin can run or rug within minutes, a coin that's already moving is a quick trade, and a team pick is held for days. Scored together, one kind's rugs would hide how another does, so each kind keeps its own record, and the overall record shows them all.</p></details>
+      <details class="reveal"><summary>Why four kinds of call?</summary><p>They're different bets. A brand-new coin can run or rug within minutes, a coin that's already moving is a quick trade, and a team pick is held for days to weeks, and counted at 14 days. Scored together, one kind's rugs would hide how another does, so each kind keeps its own record, and the overall record shows them all.</p></details>
       <details class="reveal"><summary>Why aren't the plans' numbers on the site?</summary><p>They're Witty's edge, so the site describes each plan instead of printing it. Every plan is still sealed inside its call before anyone sees it, so it can't be changed after the fact, and every result is scored on chain prices after fees, wins and losses alike.</p></details>
       <details class="reveal"><summary>Can you change or delete a call?</summary><p>No. The contract was deployed with no access keys, so its code can never change, and changing one character of a call changes its hash, so a doctored reveal is rejected. A call we never reveal counts as a loss, so hiding one doesn't help either.</p></details>
       <details class="reveal"><summary>Where do the prices come from?</summary><p>Prices come from each coin's pool on the chain, or from market price data for coins on other DEXes. On Solana, a price recorder reads the coin's PumpSwap pool every 10 seconds in a call's first hour, then every 30 seconds until the call's time is up. On Robinhood Chain, every swap is already an event on the chain. Scores never use screenshots.</p></details>
@@ -162,7 +162,7 @@
     <span class="foot-note">Not financial advice. Memecoins rug; size small.</span>
   </div>
 </footer>
-<script src="assets/site.js?v=20261110f"></script>
+<script src="assets/site.js?v=20261112a"></script>
 <script>
 "use strict";
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;

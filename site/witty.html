@@ -17,9 +17,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=20261110f">
-<script src="assets/terms.js?v=20261110f"></script>
-<link rel="stylesheet" href="assets/wallet-modal.css?v=20261110f">
+<link rel="stylesheet" href="assets/site.css?v=20261112a">
+<script src="assets/terms.js?v=20261112a"></script>
+<link rel="stylesheet" href="assets/wallet-modal.css?v=20261112a">
 </head>
 <body>
 <header>
@@ -302,8 +302,8 @@
     <span class="foot-note">Not financial advice. Memecoins rug; size small.</span>
   </div>
 </footer>
-<script src="assets/site.js?v=20261110f"></script>
-<script src="assets/qr.js?v=20261110f" defer></script>
+<script src="assets/site.js?v=20261112a"></script>
+<script src="assets/qr.js?v=20261112a" defer></script>
 <script>
 // My Witty: connect a NEAR wallet, read the account's pass or NFT from the chain, renew / claim / buy / mint, and link
 // Telegram with a free signed message (NEP-413). Wallet code is bundled in assets/wallet.js (wallet-selector 10.1.4).
@@ -364,7 +364,7 @@ if (NET === "testnet") { $("net-note").hidden = false; $("net-note").textContent
 // ---------- the wallet ----------
 let selector = null, modal = null, account = null, data = null;
 function loadWallet() {
-  return new Promise((res, rej) => { const s = document.createElement("script"); s.src = "assets/wallet.js?v=20261110f"; s.onload = res; s.onerror = () => rej(new Error("wallet code didn't load")); document.head.append(s); });
+  return new Promise((res, rej) => { const s = document.createElement("script"); s.src = "assets/wallet.js?v=20261112a"; s.onload = res; s.onerror = () => rej(new Error("wallet code didn't load")); document.head.append(s); });
 }
 async function startWallet() {
   try {

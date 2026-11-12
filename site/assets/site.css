@@ -538,6 +538,10 @@ html[data-theme="dark"] .kcard:hover{box-shadow:0 22px 44px rgba(0,0,0,.5)}
 .kbadge{position:absolute;right:16px;bottom:-12px;z-index:1;font-style:normal;font-size:10.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--chip);color:var(--chip-fg);border:1.5px solid var(--band);white-space:nowrap}
 .kc-body{flex:1;display:flex;flex-direction:column;gap:10px;padding:20px 20px 18px}
 .kc-desc{margin:0;font-size:14px;line-height:1.5;color:var(--muted2);min-height:63px}
+.c-exit.c-run{white-space:normal;line-height:1.25}
+.kc-intro{display:flex;flex-direction:column;gap:10px}
+.kc-slow{margin:0;font-size:13px;line-height:1.45;font-weight:600;color:var(--muted2)}
+.kc-slow small{display:block;margin-top:2px;font-size:12px;font-weight:400;color:var(--muted)}
 .kc-money{display:flex;align-items:baseline;gap:8px;margin-top:2px}
 .kc-money b{font-size:46px;line-height:1;font-variant-numeric:tabular-nums}
 .kc-money small{font-size:13px;color:var(--muted)}
