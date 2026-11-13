@@ -19,6 +19,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=20261112a">
 <script src="assets/terms.js?v=20261112a"></script>
+<style>
+/* How it works: the demo video first, then the page's own heading under it */
+.how-sub{display:block;margin-top:56px;margin-bottom:0}
+.how-sub > div{max-width:none}
+.how-sub h2{font-size:clamp(28px,3vw,42px);margin-top:8px}
+.how-sub h2 span{white-space:nowrap}
+.how-sub p{margin-top:14px;max-width:640px}
+@media (max-width:640px){.how-sub{margin-top:40px}}
+.film-play{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;border:0;padding:0 0 36px;background:linear-gradient(rgba(11,11,15,0) 45%,rgba(11,11,15,.38));cursor:pointer}
+.film-play[hidden]{display:none}
+.film-play span{display:flex;align-items:center;gap:12px;min-height:60px;padding:0 30px 0 24px;border-radius:999px;background:var(--blue);color:#fff;font:600 17px Inter,sans-serif;box-shadow:0 10px 30px rgba(11,11,15,.3);transition:transform .15s ease}
+.film-play:hover span{transform:scale(1.04)}
+.film-play:focus-visible span{outline:3px solid var(--teal);outline-offset:3px}
+.film-play svg{width:20px;height:20px;fill:#fff}
+@media (max-width:640px){.film-play{padding-bottom:14px}.film-play span{min-height:48px;font-size:15px;padding:0 22px 0 18px}}
+</style>
 </head>
 <body>
 <header>
@@ -35,15 +51,18 @@
 <main>
 <section class="wrap how-top">
   <div class="how-head">
-    <div class="reveal"><h1 class="display">SEALED BEFORE THE PUMP, THEN <span style="color:var(--blue)">PROVEN AFTER.</span></h1></div>
-    <p class="reveal">Witty writes every call to NEAR before the price moves. 46 hours later anyone can check it and score it from chain prices.</p>
+    <div class="reveal"><h1 class="display">SEE WITTY <span style="color:var(--blue)">AT WORK.</span></h1></div>
   </div>
   <figure class="film reveal">
-    <video id="film" src="video/preview-loop.mp4" poster="img/preview-poster.webp" autoplay muted loop playsinline preload="metadata" aria-label="Preview: Witty gives a tour of his cards on the home page"></video>
-    <figcaption class="film-tag"><span class="dot"></span>Preview · full demo on 14 Nov</figcaption>
-    <button class="film-btn" id="film-btn" type="button" aria-label="Pause the preview"></button>
+    <video id="film" poster="img/demo-poster.jpg?v=20261114a" playsinline preload="none" aria-label="The EurekaScout demo video">
+      <source src="video/witty-demo.mp4?v=20261114a" type="video/mp4">
+    </video>
+    <button class="film-play" id="film-btn" type="button" aria-label="Play the demo video"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Play the demo · 2:48</span></button>
   </figure>
-  <p class="film-note">Until the full demo is out, this loop shows Witty's card tour from the home page.</p>
+  <div class="how-head how-sub">
+    <div class="reveal"><h2 class="display">SEALED BEFORE THE PUMP, <span>THEN <span style="color:var(--blue)">PROVEN AFTER.</span></span></h2></div>
+    <p class="reveal">Witty writes every call to NEAR before the price moves. 46 hours later anyone can check it and score it from chain prices.</p>
+  </div>
 </section>
 
 <section class="section" id="steps" style="padding-top:56px">
@@ -170,14 +189,8 @@ const HASH = "3be1d07c9a4f52e88c1b6d03f7a2e95c4d18b07e6a3f29c1d5e80b4a7c62a91c";
 // ---------------- the video slot ----------------
 (() => {
   const v = document.getElementById("film"), b = document.getElementById("film-btn");
-  const PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>';
-  const PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg>';
-  let userPaused = reduce;
-  const sync = () => { b.innerHTML = v.paused ? PLAY : PAUSE; b.setAttribute("aria-label", v.paused ? "Play the preview" : "Pause the preview"); };
-  if (reduce) { v.removeAttribute("autoplay"); v.pause(); }
-  b.addEventListener("click", () => { if (v.paused) { userPaused = false; v.play().catch(() => {}); } else { userPaused = true; v.pause(); } });
-  v.addEventListener("play", sync); v.addEventListener("pause", sync); sync();
-  new IntersectionObserver(([e]) => { if (!e.isIntersecting) v.pause(); else if (!userPaused) v.play().catch(() => {}); }, { threshold: 0.2 }).observe(v);
+  b.addEventListener("click", () => { b.hidden = true; v.controls = true; v.play().catch(() => {}); });
+  new IntersectionObserver(([e]) => { if (!e.isIntersecting && !v.paused) v.pause(); }, { threshold: 0.2 }).observe(v);   // scrolled away: pause
 })();
 
 // ---------------- the four steps ----------------
