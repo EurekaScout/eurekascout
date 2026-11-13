@@ -58,8 +58,9 @@ Calls come in four kinds (Gamble, Scalping, Conviction and Smart Wallets), each 
    Quick check, under a minute: `cd verify && node fetch_prices.mjs && node witty_score.mjs --call 155` (nothing to install)
    You see call #155 re-hashed against its seal and scored with its own plan: `#155 forg … trail 1.25x after fees (+25%) · exit min 869 · peak 1.51x`, the same result the Record page shows for it. Any revealed call number works.
    The whole record: `node witty_score.mjs`
-   You see each call the moment it is scored (its exit, its result after fees and its peak), then the official record. Everything, by kind and by chain, is saved in `verify/data/scores.json`. Solana calls take seconds. Each Robinhood call is rebuilt from the chain through a public RPC, so the whole run takes over an hour (86 minutes on 12 Nov).
-   The scorer holds no plan of its own: every target, stop, take-profit and time limit comes from the call's revealed JSON. `fetch_prices.mjs` first downloads the price file of every revealed Solana call from api.eurekascout.com (a call's file is published only after its reveal) into `verify/data/prices/`. A call without prices, or whose RPC requests failed, is marked "not scored", never guessed.
+   You see each call the moment it is scored (its exit, its result after fees and its peak), then the official record. Everything, by kind and by chain, is saved in `verify/data/scores.json`. A call with a price file is scored at once. A Robinhood call whose file isn't published yet is read from the chain, which takes seconds to minutes.
+   To check the Robinhood price files themselves: `node witty_score.mjs --from-chain` ignores them and reads every Robinhood call's swaps from the chain again. That takes over an hour through a public RPC (86 minutes on 12 Nov).
+   The scorer holds no plan of its own: every target, stop, take-profit and time limit comes from the call's revealed JSON. `fetch_prices.mjs` first downloads the price files from api.eurekascout.com into `verify/data/prices/` (a call's file is published only after its reveal): for Solana, the price recorder's readings, each with its slot; for Robinhood, the swaps the live scorer read from the chain, each with its block. A call without prices is marked "not scored", never guessed, and a call that failed on a network error is tried once more at the end of the run.
 5. **Read Witty's NFT record.**
    `near contract call-function as-read-only scouts.eurekascout.near get_scout json-args '{"scout_id":"witty"}' network-config mainnet now`
    You see the supply (`max_supply` 100) and how many are minted, Witty's level, the split of every rent payment (`holder_bps`, `bills_bps`, `platform_bps`), what holders are owed now (`holder_pool`), his bills budget (`bills_balance`) and his own account (`vault_id`).
@@ -87,7 +88,7 @@ Calls come in four kinds (Gamble, Scalping, Conviction and Smart Wallets), each 
 | `outlayer/pass-check/` | An OutLayer version of the pass check ("does this account hold a Witty NFT or a live pass?") |
 | `tests/` | Integration tests on a local NEAR node (near-kit Sandbox) |
 | `scripts/` | Deploys (each contract locked in one transaction, checked on chain after) and owner tools; every step previews first |
-| `verify/` | Re-score the record: the scorer and its plan engine, `fetch_prices.mjs` (downloads the published Solana price files), and a chain-only version of the Solana price recorder (PumpSwap pools and pump.fun bonding curves). The live recorder also uses market price data for coins on other DEXes, since 9 Nov. |
+| `verify/` | Re-score the record: the scorer and its plan engine, `fetch_prices.mjs` (downloads the published price files), and a chain-only version of the Solana price recorder (PumpSwap pools and pump.fun bonding curves). The live recorder also uses market price data for coins on other DEXes, since 9 Nov. |
 | `site/` | The website (static, deployed on every push) |
 | `BUILDLOG.md` | Day-by-day log |
 

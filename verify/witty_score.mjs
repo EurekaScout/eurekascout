@@ -22,14 +22,17 @@
 //
 // Where the prices come from:
 //   Robinhood: the call's pool on Robinhood Chain, every swap with its block (Uniswap v4 Swap events of the
-//              PoolManager; v3 Swap or v2 Sync events of the pool). Anyone can rebuild these from the chain.
+//              PoolManager; v3 Swap or v2 Sync events of the pool). Anyone can rebuild these from the chain. A finished
+//              call's readings are saved once in data/prices/rh/<call hash>.json and reused; fetch_prices.mjs downloads
+//              the ones Witty's server has published. --from-chain ignores every saved file and reads the chain again.
 //   Solana:    data/prices/<call hash>.jsonl from witty_prices.mjs (the PumpSwap pool's vaults, read on the chain
 //              every 10 s, each reading with its slot). A pool's past balances can't be read back from the chain
 //              later, so Solana calls need these files.
 //
 //   node witty_score.mjs              scores every call on chain (Node 20+, nothing to install). Each call prints as
-//                                     soon as it is scored: Solana calls take no time, a Robinhood call takes from
-//                                     seconds to minutes on the public RPC, because its prices are rebuilt from the chain
+//                                     soon as it is scored. A call with a price file takes no time; a Robinhood call
+//                                     without one is read from the chain: seconds to minutes on the public RPC
+//   node witty_score.mjs --from-chain the same, but every Robinhood call is read from the chain again (over an hour)
 //   node witty_score.mjs --call 12    one call in full detail
 //   node witty_score.mjs --selftest   offline checks
 // Writes data/scores.json. Settings from the environment: WITTY_DATA (default ./data), WITTY_CONTRACT, WITTY_NETWORK,
@@ -361,7 +364,10 @@ export class Robinhood {
 const OLD_GAMBLE_TYPES = new Set(["leader", "graduation"]);
 export const kindOf = (call) => call.category || (!call.call_type || OLD_GAMBLE_TYPES.has(call.call_type) ? "gamble" : "scalping");
 
-export async function scoreCall({ id, hash, callJson, warmUp, status, pricesDir, rh }) {
+/** How many Robinhood calls were scored from a saved price file, and how many were read from the chain. */
+export const rhUse = { file: 0, chain: 0 };
+
+export async function scoreCall({ id, hash, callJson, warmUp, status, pricesDir, rh, fromChain = false }) {
   const row = { id, hash, warm_up: !!warmUp, status };
   if (status === "expired") return Object.assign(row, { scored: true, exit: "expired", gross: 0, net: 0, why: "never revealed before the deadline: counts as a loss" });
   if (!callJson) return Object.assign(row, { scored: false, why: "not revealed yet" });
@@ -384,9 +390,25 @@ export async function scoreCall({ id, hash, callJson, warmUp, status, pricesDir,
     if (!src) return Object.assign(row, { scored: false, why: "no chain prices recorded (sealed before the price recorder started) or a coin the recorder could not read at the time" });
     if (Date.now() - calledMs < windowS * 1000) return Object.assign(row, { scored: false, why: "the call's time limit isn't over yet" });
   } else if (call.chain === "robinhood") {
-    if (!rh) return Object.assign(row, { scored: false, why: "no Robinhood RPC" });
-    src = await rh.readings(call, calledMs, windowS);
-    if (src.why) return Object.assign(row, { scored: false, why: src.why });
+    // A finished call's readings are saved once and reused. A saved file is used only if it is for this call's own
+    // window and call time; a call with no file (or --from-chain) is read from the chain.
+    const rhFile = path.join(pricesDir, "rh", `${hash}.json`);
+    let rhSaved = null;
+    if (!fromChain) { try { rhSaved = JSON.parse(fs.readFileSync(rhFile, "utf8")); } catch { /* not read yet */ } }
+    if (rhSaved && rhSaved.window_s === windowS && rhSaved.called_ms === calledMs && Array.isArray(rhSaved.readings) && rhSaved.readings.length) { src = rhSaved; rhUse.file++; }
+    else {
+      if (!rh) return Object.assign(row, { scored: false, why: "no Robinhood RPC" });
+      src = await rh.readings(call, calledMs, windowS);
+      if (src.why) return Object.assign(row, { scored: false, why: src.why });
+      rhUse.chain++;
+      if (!fromChain) {
+        try {
+          fs.mkdirSync(path.dirname(rhFile), { recursive: true });
+          fs.writeFileSync(`${rhFile}.tmp`, JSON.stringify({ ...src, window_s: windowS, called_ms: calledMs, chain: "robinhood", saved_at: new Date().toISOString() }));
+          fs.renameSync(`${rhFile}.tmp`, rhFile);
+        } catch { /* scoring goes on without the saved copy */ }
+      }
+    }
   } else return Object.assign(row, { scored: false, why: `chain ${call.chain} is not scored` });
   const d = ladder ? decideLadder(src.entry, dropSpikes(src.all || src.readings), ladder) : decide(src.entry, src.readings, basic, stop, trail);
   if (d.scored && !ladder) {   // a call without a staged plan: the peak is the highest price in its window too, even after the exit
@@ -671,6 +693,30 @@ async function selftest() {
 
   fs.rmSync(tmp, { recursive: true, force: true });
   console.log("--- witty scorer selftest ---");
+  // Robinhood readings saved once and reused
+  {
+    const when = Date.parse("2026-10-20T10:00:00Z");
+    const mk = (token) => JSON.stringify({ contract_address: "0x" + "1".repeat(40), chain: "robinhood", call_type: "graduation", token, called_at: new Date(when).toISOString(), pool_address: "0x" + "2".repeat(40), rules_version: "test", target: "2x", time_limit: "1h" });
+    const j = mk("SAVED"), hh = sha256Hex(j), file = path.join(tmp, "rh", `${hh}.json`);
+    let reads = 0;
+    const chain = { readings: async () => { reads++; return { entry: 1, readings: [{ at: 60, px: 1.2, block: 10 }, { at: 600, px: 2.5, block: 20 }], startBlock: 1, endBlock: 99, source: "test chain read" }; } };
+    const never = { readings: async () => { throw new Error("the chain was read"); } };
+    const a = await scoreCall({ id: "50", hash: hh, callJson: j, status: "revealed", pricesDir: tmp, rh: chain });
+    const saved = JSON.parse(fs.readFileSync(file, "utf8"));
+    const b = await scoreCall({ id: "50", hash: hh, callJson: j, status: "revealed", pricesDir: tmp, rh: never });
+    check("Robinhood: a finished call is read from the chain once, saved, and scored from the saved file after that (same result)",
+      reads === 1 && a.scored && a.exit === "2x" && a.net === 1.92 && saved.window_s === 3600 && saved.called_ms === when && saved.chain === "robinhood" &&
+      b.scored && b.exit === a.exit && b.net === a.net && b.exit_minute === a.exit_minute && b.source === a.source);
+    const c = await scoreCall({ id: "50", hash: hh, callJson: j, status: "revealed", pricesDir: tmp, rh: chain, fromChain: true });
+    check("Robinhood: --from-chain ignores the saved file, reads the chain, and leaves the file as it was",
+      reads === 2 && c.scored && c.net === a.net && JSON.parse(fs.readFileSync(file, "utf8")).saved_at === saved.saved_at);
+    fs.writeFileSync(file, JSON.stringify({ ...saved, window_s: 7200, readings: [{ at: 60, px: 9, block: 10 }] }));
+    const d = await scoreCall({ id: "50", hash: hh, callJson: j, status: "revealed", pricesDir: tmp, rh: chain });
+    check("Robinhood: a saved file for another window is not used: the chain is read", reads === 3 && d.net === a.net);
+    const j2 = mk("RUNNING"), h2 = sha256Hex(j2);
+    const e = await scoreCall({ id: "51", hash: h2, callJson: j2, status: "revealed", pricesDir: tmp, rh: { readings: async () => ({ why: "the call's window isn't over on the chain yet" }) } });
+    check("Robinhood: a call that can't be scored yet is not saved", !e.scored && !fs.existsSync(path.join(tmp, "rh", `${h2}.json`)));
+  }
   for (const [name, ok] of results) console.log(`  ${ok ? "PASS" : "FAIL"}  ${name}`);
   const fails = results.filter(([, ok]) => !ok).length;
   console.log(fails ? `${fails} FAILED` : `all ${results.length} passed`);
@@ -701,6 +747,7 @@ async function main() {
   const rh = new Robinhood(rpc);
   const ci = process.argv.indexOf("--call");
   const only = ci > -1 ? String(process.argv[ci + 1]) : null;
+  const fromChain = process.argv.includes("--from-chain");
   const rows = [];
   const pct = (x) => `${x >= 1 ? "+" : ""}${Math.round((x - 1) * 100)}%`;
   const line = (r) => {
@@ -711,13 +758,15 @@ async function main() {
   };
   // Each call prints as soon as it is scored, so a long run is never silent.
   console.log(`Witty scores (${VERSION}) · ${contract} · ${onChain.length} calls on chain`);
-  if (!only) console.log("Solana calls are scored from the downloaded price files. A Robinhood call is rebuilt from the chain: seconds to minutes each on the public RPC.");
+  if (!only) console.log(fromChain
+    ? "--from-chain: every Robinhood call is read from the chain again, seconds to minutes each on the public RPC."
+    : "Calls are scored from their price files. A Robinhood call with no file yet is read from the chain: seconds to minutes on the public RPC.");
   console.log("");
   const live = process.stderr.isTTY;   // on a terminal, say which Robinhood call is being read once it has taken 2 s (on stderr, wiped when its result prints)
   const list = only ? onChain.filter((c) => String(c.id) === only) : onChain;
   const scoreOne = async (v) => {
     try {
-      return await scoreCall({ id: v.id, hash: v.hash, callJson: v.call_json || null, warmUp: v.warm_up, status: v.status, pricesDir: path.join(dataDir, "prices"), rh });
+      return await scoreCall({ id: v.id, hash: v.hash, callJson: v.call_json || null, warmUp: v.warm_up, status: v.status, pricesDir: path.join(dataDir, "prices"), rh, fromChain });
     } catch (e) {
       let c = {}; try { c = JSON.parse(v.call_json) || {}; } catch { /* sealed, or not JSON: the row shows "?" */ }
       return { id: v.id, hash: v.hash, token: c.token, chain: c.chain, scored: false, why: `error: ${e.message}` };
@@ -741,7 +790,8 @@ async function main() {
     for (const i of again) { rows[i] = await scoreOne(list[i]); console.log(line(rows[i])); }
   }
   const s = rpc.stats;
-  console.log(`\nRobinhood RPC: ${s.requests} requests · ${s.retries} waited and retried (rate limits) · ${s.fellOver} moved to the next RPC · ${s.setAside} set aside for 10 min (still rate-limited)`);
+  console.log(`\nRobinhood calls: ${rhUse.file} scored from saved price files, ${rhUse.chain} read from the chain`);
+  console.log(`Robinhood RPC: ${s.requests} requests · ${s.retries} waited and retried (rate limits) · ${s.fellOver} moved to the next RPC · ${s.setAside} set aside for 10 min (still rate-limited)`);
   if (only) {
     console.log(JSON.stringify(rows[0] || { why: `no call #${only} on chain` }, null, 1));
     return;

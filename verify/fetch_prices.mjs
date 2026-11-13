@@ -1,5 +1,9 @@
-// Downloads the price recorder's file for every revealed Solana call from Witty's API into data/prices/, so
-// `node witty_score.mjs` can re-score those calls. Only revealed calls are published. Node 20+, nothing to install.
+// Downloads the price files of Witty's revealed calls from his API, so `node witty_score.mjs` can re-score them:
+//   Solana:    the price recorder's file for every revealed call, into data/prices/
+//   Robinhood: the readings of every finished call that the live scorer has saved, into data/prices/rh/. These are
+//              the swaps it read from the chain, each with its block. A call with no file yet is read from the chain by
+//              the scorer, and `node witty_score.mjs --from-chain` reads every Robinhood call from the chain again.
+// Only revealed calls are published. Node 20+, nothing to install.
 // A dropped connection, a slow answer or a busy server is tried again (4 tries per file). A file that still fails is
 // skipped and counted, and the scorer marks that call "not scored", never guessed.
 //
@@ -43,3 +47,26 @@ for (const c of calls) {
   } catch (e) { failed++; console.log(`call #${c.id}: ${e.message}, skipped`); }
 }
 console.log(`${calls.length} revealed Solana calls: ${got} price files saved in ${dir}${failed ? `, ${failed} failed (run it again for those)` : ""}`);
+
+// Robinhood: a saved file never changes, so the ones already here are skipped.
+const rhDir = path.join(dir, "rh");
+let rhCalls = null;
+try { rhCalls = JSON.parse(await get(`${API}/data/prices/rh/index.json`)).calls || []; }
+catch (e) { console.log(`Robinhood price files: the list didn't load (${e.message}). The scorer will read those calls from the chain.`); }
+if (rhCalls) {
+  fs.mkdirSync(rhDir, { recursive: true });
+  let rhGot = 0, rhHad = 0, rhFailed = 0;
+  for (const c of rhCalls) {
+    if (!/^[0-9a-f]{64}$/.test(c.hash)) continue;
+    const file = path.join(rhDir, `${c.hash}.json`);
+    if (fs.existsSync(file)) { rhHad++; continue; }
+    try {
+      const text = await get(`${API}/data/prices/rh/${c.hash}.json`);
+      JSON.parse(text);                                   // a file that isn't JSON is not kept
+      fs.writeFileSync(`${file}.tmp`, text);
+      fs.renameSync(`${file}.tmp`, file);
+      rhGot++;
+    } catch (e) { rhFailed++; console.log(`call #${c.id}: ${e.message}, skipped`); }
+  }
+  console.log(`${rhCalls.length} finished Robinhood calls: ${rhGot} price files downloaded, ${rhHad} already here${rhFailed ? `, ${rhFailed} failed (run it again for those)` : ""}`);
+}
