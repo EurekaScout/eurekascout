@@ -381,7 +381,7 @@ export async function scoreCall({ id, hash, callJson, warmUp, status, pricesDir,
   let src;
   if (call.chain === "solana") {
     src = solanaReadings(path.join(pricesDir, `${hash}.jsonl`), calledMs, windowS);
-    if (!src) return Object.assign(row, { scored: false, why: "no chain prices recorded (sealed before the price recorder started)" });
+    if (!src) return Object.assign(row, { scored: false, why: "no chain prices recorded (sealed before the price recorder started) or a coin the recorder could not read at the time" });
     if (Date.now() - calledMs < windowS * 1000) return Object.assign(row, { scored: false, why: "the call's time limit isn't over yet" });
   } else if (call.chain === "robinhood") {
     if (!rh) return Object.assign(row, { scored: false, why: "no Robinhood RPC" });
@@ -714,18 +714,31 @@ async function main() {
   if (!only) console.log("Solana calls are scored from the downloaded price files. A Robinhood call is rebuilt from the chain: seconds to minutes each on the public RPC.");
   console.log("");
   const live = process.stderr.isTTY;   // on a terminal, say which Robinhood call is being read once it has taken 2 s (on stderr, wiped when its result prints)
-  for (const v of only ? onChain.filter((c) => String(c.id) === only) : onChain) {
+  const list = only ? onChain.filter((c) => String(c.id) === only) : onChain;
+  const scoreOne = async (v) => {
+    try {
+      return await scoreCall({ id: v.id, hash: v.hash, callJson: v.call_json || null, warmUp: v.warm_up, status: v.status, pricesDir: path.join(dataDir, "prices"), rh });
+    } catch (e) {
+      let c = {}; try { c = JSON.parse(v.call_json) || {}; } catch { /* sealed, or not JSON: the row shows "?" */ }
+      return { id: v.id, hash: v.hash, token: c.token, chain: c.chain, scored: false, why: `error: ${e.message}` };
+    }
+  };
+  for (const v of list) {
     const wait = live && /"chain"\s*:\s*"robinhood"/.test(v.call_json || "") ? `  #${v.id} reading Robinhood Chain...` : "";
     let shown = false;
     const timer = wait ? setTimeout(() => { shown = true; process.stderr.write(wait); }, 2000) : null;
-    let r;
-    try {
-      r = await scoreCall({ id: v.id, hash: v.hash, callJson: v.call_json || null, warmUp: v.warm_up, status: v.status, pricesDir: path.join(dataDir, "prices"), rh });
-    } catch (e) { r = { id: v.id, hash: v.hash, scored: false, why: `error: ${e.message}` }; }
+    const r = await scoreOne(v);
     rows.push(r);
     clearTimeout(timer);
     if (shown) process.stderr.write(`\r${" ".repeat(wait.length)}\r`);
     console.log(line(r));
+  }
+  // A call that failed on a network error gets one more try at the end, so a dropped connection doesn't leave a hole in the record.
+  const again = rows.map((_, i) => i).filter((i) => !rows[i].scored && /^error: /.test(rows[i].why || ""));
+  if (again.length) {
+    console.log(`\nTrying again: ${again.length} call${again.length > 1 ? "s" : ""} that failed on a network error`);
+    await new Promise((r) => setTimeout(r, 5000));
+    for (const i of again) { rows[i] = await scoreOne(list[i]); console.log(line(rows[i])); }
   }
   const s = rpc.stats;
   console.log(`\nRobinhood RPC: ${s.requests} requests · ${s.retries} waited and retried (rate limits) · ${s.fellOver} moved to the next RPC · ${s.setAside} set aside for 10 min (still rate-limited)`);
