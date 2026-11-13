@@ -4,7 +4,7 @@ Witty is an AI memecoin scout that shows its receipts. Every call is **sealed on
 
 Built at NEAR HACKATHON (1–14 Nov 2026). Tracks: NFTs That Do Something (lead), Agent Economy, Autonomous Business, AI Security & Defense and Open Innovation.
 
-**Status, 9 Nov:** the sealing contract, the Witty NFT and Rental Pass contracts and Witty's own account are live on mainnet. Witty seals and reveals calls around the clock, the record is re-scored every 2 hours, and @scout_witty_bot sends calls to holders on Telegram. Pass sales open at the launch on 14 Nov.
+**Status, 13 Nov:** the sealing contract, the Witty NFT and Rental Pass contracts and Witty's own account are live on mainnet. Witty seals and reveals calls around the clock, the record is re-scored every 2 hours, and @scout_witty_bot sends calls to holders on Telegram. Minting, pass sales and free 7-day trial passes are open; the public launch is on 14 Nov.
 
 ## The problem
 
@@ -19,7 +19,7 @@ Witty finds early tokens, mostly on Solana, and seals each call on NEAR before a
 3. **Prices.** On Solana, a price recorder reads each call's coin every 10 seconds in its first hour, then every 30 seconds: straight from the chain (its PumpSwap pool or pump.fun bonding curve, each reading with its slot), or from market price data for coins on other DEXes. On Robinhood Chain, every swap is already an event on the chain.
 4. **Score.** The scorer plays each call's own sealed plan on those prices and takes 4% off for fees. A fall to 0.2x of the entry, or an emptied pool, counts as a rug. Every call also shows how high the coin went (its peak) next to what Witty's plan actually made; the plan's result is the score. Wins and losses go on the record together, and none can be dropped.
 
-Calls come in four kinds (Gamble, Scalping, Conviction and Smart Wallets), each with its own plan, and the record is shown for each kind as well as overall.
+Calls come in four kinds (Gamble, Scalping, Conviction and Smart Wallets), each with its own plan, and the record is shown for each kind as well as overall. Conviction and Smart Wallets calls are slow holds: each is counted 14 days after it's made (calls made before 11 Nov were counted at 3 days). Until then it shows as running, never as a win or a loss.
 
 ### What NEAR does
 
@@ -28,11 +28,21 @@ Calls come in four kinds (Gamble, Scalping, Conviction and Smart Wallets), each 
 - **Witty's own account** (`witty.scouts.eurekascout.near`) has no access keys and obeys only the scouts contract. Rent splits 70% to holders, 10% to Witty's bills budget and 20% platform fee. Witty pays his own NEAR storage bills from his budget: the server's key for that can only call `pay_bill`, only to listed payees, within 2 NEAR per 30 days.
 - **Payments** from any chain through NEAR Intents, and a cash-out from NEAR to SOL or USDC on Solana.
 
+## How Witty fits each track
+
+| Track | What Witty does for it | Check it |
+|---|---|---|
+| **NFTs That Do Something** (lead) | A Witty NFT gives access to his calls and an equal share of 70% of every rent payment. The money sits in Witty's own account, a sub-account with no keys, and an unclaimed share is sold with its NFT. Every NFT's picture follows Witty's level, which comes from his record. Rental Passes are NFTs that run out. | Try it, steps 5 and 6 · [`contracts/NFT.md`](contracts/NFT.md) |
+| **Agent Economy** | Witty has his own budget and spends it himself: a third of every mint and 10% of every rent payment go to his bills budget, and he pays his NEAR storage bills from it (storage only, so far; the one payee is the receipts contract). Renters can pay from other chains through NEAR Intents. | Try it, steps 5 and 7 · `get_bills` on `scouts.eurekascout.near` |
+| **Autonomous Business** | The contract splits every rent payment in the same transaction: 70% to holders, 10% to Witty's bills, 20% platform fee. Witty seals, reveals and is scored around the clock with nobody in the loop. We only set the limits: prices under a cap set by his level, the payees and the bills cap. | Try it, step 5 · the rules in [`contracts/NFT.md`](contracts/NFT.md) |
+| **AI Security & Defense** | An AI that can't fake its record or overspend. The receipts, NFT and pass contracts and Witty's account are locked (no access keys). The server holds three function-call keys, one job each. His bills are capped in the contract (2 NEAR per 30 days at most). A call can't be edited after its seal, and an unrevealed call counts as a loss. The pass check also has a version built for OutLayer, whose answer comes with proof of the code that produced it. | Try it, steps 2, 6 and 7 · `outlayer/pass-check/` |
+| **Open Innovation** | A track record that proves itself: predictions sealed before the outcome, revealed on a deadline, and scored by public code from public prices, losses included. | Try it, steps 1 to 4 |
+
 ## Try it (do X, see Y)
 
 **In a browser (no install):** open [eurekascout.com/record.html](https://eurekascout.com/record.html). You see every revealed call read live from `receipts.eurekascout.near`, re-hashed in your browser against its seal (✓ matches seal), with its result after fees and its peak. On [How it works](https://eurekascout.com/how.html), type any call number under "Re-hash a call in your browser" and press Check.
 
-**From a terminal:** needs [near-cli-rs](https://github.com/near/near-cli-rs) for steps 1–3 and Node 20+ for steps 4–5.
+**From a terminal:** needs [near-cli-rs](https://github.com/near/near-cli-rs) for steps 1–3 and 5–7, Node 20+ for step 4, and Rust for the contract tests in step 8.
 
 1. **Read the contract's settings.**
    `near contract call-function as-read-only receipts.eurekascout.near get_config json-args '{}' network-config mainnet now`
@@ -44,10 +54,24 @@ Calls come in four kinds (Gamble, Scalping, Conviction and Smart Wallets), each 
    `near contract call-function as-read-only receipts.eurekascout.near get_record json-args '{}' network-config mainnet now`
    `near contract call-function as-read-only receipts.eurekascout.near get_call json-args '{"id":"1"}' network-config mainnet now`
    You see the totals, then call #1 with its hash, seal time and, once revealed, its JSON. The SHA-256 of that JSON equals the hash.
-4. **Re-score every revealed call.**
-   `cd verify && node fetch_prices.mjs && node witty_score.mjs` (nothing to install)
-   You see each revealed call re-hashed against its seal and scored with its own plan: its exit, its result after fees, its peak, and the record overall and by kind. The scorer holds no plan of its own: every target, stop, take-profit and time limit comes from the call's revealed JSON. `fetch_prices.mjs` first downloads the price file of every revealed Solana call from api.eurekascout.com (a call's file is published only after its reveal) into `verify/data/prices/`; Robinhood calls are rebuilt straight from the chain. A call without prices is marked "not scored", never guessed.
-5. **Run the tests.**
+4. **Re-score the record.**
+   Quick check, under a minute: `cd verify && node fetch_prices.mjs && node witty_score.mjs --call 155` (nothing to install)
+   You see call #155 re-hashed against its seal and scored with its own plan: `#155 forg … trail 1.25x after fees (+25%) · exit min 869 · peak 1.51x`, the same result the Record page shows for it. Any revealed call number works.
+   The whole record: `node witty_score.mjs`
+   You see each call the moment it is scored (its exit, its result after fees and its peak), then the official record. Everything, by kind and by chain, is saved in `verify/data/scores.json`. Solana calls take seconds. Each Robinhood call is rebuilt from the chain through a public RPC, so the whole run takes over an hour (86 minutes on 12 Nov).
+   The scorer holds no plan of its own: every target, stop, take-profit and time limit comes from the call's revealed JSON. `fetch_prices.mjs` first downloads the price file of every revealed Solana call from api.eurekascout.com (a call's file is published only after its reveal) into `verify/data/prices/`. A call without prices, or whose RPC requests failed, is marked "not scored", never guessed.
+5. **Read Witty's NFT record.**
+   `near contract call-function as-read-only scouts.eurekascout.near get_scout json-args '{"scout_id":"witty"}' network-config mainnet now`
+   You see the supply (`max_supply` 100) and how many are minted, Witty's level, the split of every rent payment (`holder_bps`, `bills_bps`, `platform_bps`), what holders are owed now (`holder_pool`), his bills budget (`bills_balance`) and his own account (`vault_id`).
+6. **Check that nobody holds a key to Witty's account.**
+   `near account list-keys witty.scouts.eurekascout.near network-config mainnet now`
+   You see no access keys. The account obeys only the contract that created it:
+   `near contract call-function as-read-only witty.scouts.eurekascout.near get_parent json-args '{}' network-config mainnet now`
+   You see `scouts.eurekascout.near`.
+7. **List the server's keys.**
+   `near account list-keys eurekascout.near network-config mainnet now`
+   You see the owner's full-access key and three function-call keys, each with one job: `seal_call, reveal_call` on `receipts.eurekascout.near`; `pay_bill` on `scouts.eurekascout.near`; and `trial_mint, record_level` on `eurekascout.near`. A function-call key can't attach NEAR, add a key or change a contract. `pay_bill` pays only listed payees, from Witty's bills budget, within its cap, and `trial_mint` mints free trial passes only, up to a set number.
+8. **Run the tests.**
    `cd verify && npm run selftest` (plan engine, scorer and price recorder, all offline).
    `cd contracts/witty && cargo test` (12), and the same in `contracts/scouts` (83), `contracts/pass` (40), `contracts/vault` (6) and `contracts/trial-minter` (14). For the integration tests on a local NEAR node: build the contracts with `cargo near build non-reproducible-wasm`, then from the repo root `npm install && npm run test:sandbox && npm run test:nft` (it downloads the local node on first run).
 
@@ -71,7 +95,7 @@ The code that finds and picks Witty's calls runs on our server and is not in thi
 
 ## What's next
 
-- **Launch, 14 Nov:** minting and pass sales open, free 7-day trial passes, and the site goes public.
+- **Launch, 14 Nov:** the public announcement, with the demo video. Minting, pass sales and free 7-day trial passes are already open.
 - **Real trading for holders, opt-in:** Witty trades his calls in a wallet made for each holder, with a cap per wallet, once his own wallet is in profit over 100+ calls. Until then, Practice mode trades his calls with play money.
 - **After the hackathon:** an open registry where any caller seals and reveals calls under their own name, with Witty as scout #1.
 
@@ -85,7 +109,7 @@ Baola ranks callers by their peak. MemeToro escrows AI launches. Witty seals eve
 - **One input that existed before:** some of Witty's call inputs come from private tools of ours that were running before 19 Oct. They are separate projects, not part of this submission or this repository.
 - **Libraries:** near-sdk, cargo-near, near-kit and their dependencies; Node's standard library.
 - **Built with Claude Code:** most of the code and docs were written with Claude Code, Anthropic's AI coding agent, working from our specs. We set the idea, the rules and every decision, tested each change, and did every deploy, key and signing step ourselves.
-- **Our own passes:** we bought 3 passes ourselves to test payments on mainnet. Founding renters' first passes are free; they're marked as free passes on chain and pay no rent.
+- **Our own activity on chain:** we minted Witty NFT #1 ourselves (13 NEAR) to test minting on mainnet. No pass has been sold yet (13 Nov): the passes on chain are free ones (founders', testers' and free-trial passes), marked as free on chain, and they pay no rent.
 - **Prices:** prices come from each coin's pool on the chain, or from market price data for coins on other DEXes. Witty's own trades get their quotes and swaps from a swap API; they never feed the score.
 
 ## Team
