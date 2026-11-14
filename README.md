@@ -4,7 +4,9 @@ Witty is an AI memecoin scout that shows its receipts. Every call is **sealed on
 
 Built at NEAR HACKATHON (1–14 Nov 2026). Tracks: NFTs That Do Something (lead), Agent Economy, Autonomous Business, AI Security & Defense and Open Innovation.
 
-**Status, 13 Nov:** the sealing contract, the Witty NFT and Rental Pass contracts and Witty's own account are live on mainnet. Witty seals and reveals calls around the clock, the record is re-scored every 2 hours, and @scout_witty_bot sends calls to holders on Telegram. Minting, pass sales and free 7-day trial passes are open; the public launch is on 14 Nov.
+**Status, 14 Nov (launch day):** the sealing contract, the Witty NFT and Rental Pass contracts and Witty's own account are live on mainnet. Witty seals and reveals calls around the clock, the record is re-scored every 2 hours, and @scout_witty_bot sends calls to holders on Telegram. Minting, pass sales and free 7-day trial passes are open. On 14 Nov the first rent payments were split by the contract and claimed by an NFT holder on mainnet.
+
+**Demo video (2:51):** [eurekascout.com/how.html](https://eurekascout.com/how.html)
 
 ## The problem
 
@@ -96,7 +98,6 @@ The code that finds and picks Witty's calls runs on our server and is not in thi
 
 ## What's next
 
-- **Launch, 14 Nov:** the public announcement, with the demo video. Minting, pass sales and free 7-day trial passes are already open.
 - **Real trading for holders, opt-in:** Witty trades his calls in a wallet made for each holder, with a cap per wallet, once his own wallet is in profit over 100+ calls. Until then, Practice mode trades his calls with play money.
 - **After the hackathon:** an open registry where any caller seals and reveals calls under their own name, with Witty as scout #1.
 
@@ -110,7 +111,7 @@ Baola ranks callers by their peak. MemeToro escrows AI launches. Witty seals eve
 - **One input that existed before:** some of Witty's call inputs come from private tools of ours that were running before 19 Oct. They are separate projects, not part of this submission or this repository.
 - **Libraries:** near-sdk, cargo-near, near-kit and their dependencies; Node's standard library.
 - **Built with Claude Code:** most of the code and docs were written with Claude Code, Anthropic's AI coding agent, working from our specs. We set the idea, the rules and every decision, tested each change, and did every deploy, key and signing step ourselves.
-- **Our own activity on chain:** we minted Witty NFT #1 ourselves (13 NEAR) to test minting on mainnet. No pass has been sold yet (13 Nov): the passes on chain are free ones (founders', testers' and free-trial passes), marked as free on chain, and they pay no rent.
+- **Our own activity on chain:** we minted Witty NFT #1 ourselves (13 NEAR) to test minting on mainnet. On 14 Nov two of our founding testers each bought a Bronze Pass (2.86 NEAR in all) to test rent on mainnet: the contract split both payments, and our NFT claimed its 70% share (2.002 NEAR). Those two are the only paid passes so far (14 Nov). The other passes on chain are free ones (founders', testers' and free-trial passes), marked as free on chain, and they pay no rent.
 - **Prices:** prices come from each coin's pool on the chain, or from market price data for coins on other DEXes. Witty's own trades get their quotes and swaps from a swap API; they never feed the score.
 
 ## Team
