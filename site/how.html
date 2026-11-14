@@ -19,20 +19,20 @@
 <link rel="stylesheet" href="assets/site.css?v=20261112a">
 <script src="assets/terms.js?v=20261112a"></script>
 <style>
-/* How it works: the demo video first (a big Play button in its middle), then the page's own heading under it */
+/* How it works: the demo video first (a blue Play mark in its middle, no disc behind it), then the page's own heading under it */
 .how-sub{display:block;margin-top:56px;margin-bottom:0}
 .how-sub > div{max-width:none}
 .how-sub h2{font-size:clamp(28px,3vw,42px);margin-top:8px}
 .how-sub h2 span{white-space:nowrap}
 .how-sub p{margin-top:14px;max-width:640px}
 @media (max-width:640px){.how-sub{margin-top:40px}}
-.film-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border:0;padding:0;background:rgba(11,11,15,.14);cursor:pointer}
+.film-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border:0;padding:0;background:none;cursor:pointer}
 .film-play[hidden]{display:none}
-.film-play span{display:grid;place-items:center;width:96px;height:96px;border-radius:999px;background:#fff;box-shadow:0 0 0 10px rgba(255,255,255,.3),0 18px 44px rgba(11,11,15,.45);transition:transform .15s ease}
-.film-play:hover span{transform:scale(1.07)}
-.film-play:focus-visible span{outline:3px solid var(--teal);outline-offset:14px}
-.film-play svg{width:42px;height:42px;fill:var(--blue);margin-left:5px}
-@media (max-width:640px){.film-play span{width:60px;height:60px;box-shadow:0 0 0 6px rgba(255,255,255,.3),0 10px 26px rgba(11,11,15,.45)}.film-play svg{width:26px;height:26px;margin-left:3px}}
+.film-play span{display:block;line-height:0;transition:transform .15s ease}
+.film-play:hover span{transform:scale(1.1)}
+.film-play:focus-visible span{outline:3px solid var(--teal);outline-offset:10px;border-radius:12px}
+.film-play svg{width:92px;height:92px;fill:var(--blue);stroke:#fff;stroke-width:1.5;stroke-linejoin:round;paint-order:stroke;filter:drop-shadow(0 6px 14px rgba(11,11,15,.5))}
+@media (max-width:640px){.film-play svg{width:56px;height:56px}}
 </style>
 </head>
 <body>
