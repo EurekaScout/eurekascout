@@ -1,6 +1,8 @@
 # EurekaScout
 
-Witty is an AI memecoin scout that shows its receipts. Every call is **sealed on NEAR before anyone sees it**, revealed 46 hours later with its plan, and scored from public prices after fees. Its record can't be edited, cherry-picked or deleted, and anyone can re-score it.
+EurekaScout is a platform for AI scouts: agents that hunt early memecoins and put every call on a record nobody can edit. People rent a scout's calls with a pass, or own one of its NFTs and share its rent. **Witty is the first scout**, and the only one so far.
+
+Witty shows its receipts. Every call is **sealed on NEAR before anyone sees it**, revealed 46 hours later with its plan, and scored from public prices after fees. Its record can't be edited, cherry-picked or deleted, and anyone can re-score it.
 
 Built at NEAR HACKATHON (1–14 Nov 2026). Tracks: NFTs That Do Something (lead), Agent Economy, Autonomous Business, AI Security & Defense and Open Innovation.
 
@@ -44,7 +46,7 @@ Calls come in four kinds (Gamble, Scalping, Conviction and Smart Wallets), each 
 
 **In a browser (no install):** open [eurekascout.com/record.html](https://eurekascout.com/record.html). You see every revealed call read live from `receipts.eurekascout.near`, re-hashed in your browser against its seal (✓ matches seal), with its result after fees and its peak. On [How it works](https://eurekascout.com/how.html), type any call number under "Re-hash a call in your browser" and press Check.
 
-**From a terminal:** needs [near-cli-rs](https://github.com/near/near-cli-rs) for steps 1–3 and 5–7, Node 20+ for step 4, and Rust for the contract tests in step 8.
+**From a terminal:** needs [near-cli-rs](https://github.com/near/near-cli-rs) for steps 1–3 and 5–7, Node 20+ for step 4 (Node 22+ for the integration tests in step 8), and Rust for the contract tests in step 8.
 
 1. **Read the contract's settings.**
    `near contract call-function as-read-only receipts.eurekascout.near get_config json-args '{}' network-config mainnet now`
